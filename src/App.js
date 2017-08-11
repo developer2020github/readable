@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { serverApiTestMain } from './ServerApiTest'; 
 
 class App extends Component {
   render() {
+    serverApiTestMain(); 
     return (
       <div className="App">
         <div className="App-header">
