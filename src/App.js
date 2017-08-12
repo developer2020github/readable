@@ -4,12 +4,14 @@ import './App.css';
 import { serverApiTestMain } from './ServerApiTest'; 
 import MainView from './MainView'; 
 import PostDetails from './PostDetails';
+import UpdatePost from './UpdatePost';
+
 
 class App extends Component {
   render() {
     //serverApiTestMain(); 
     return (
-      <PostDetails/>
+      <UpdatePost/>
     );
   }
 }
