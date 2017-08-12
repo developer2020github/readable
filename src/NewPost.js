@@ -2,22 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'; 
 import './libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
-
+import  ApplicationHeader  from './ApplicationHeader';
 
 class NewPost extends Component {
   render() {
     return (   
 
     <div className="container">
-        <div className="row">
-            <div className="col-md-8 col-md-offset-2 text-center">
-                <div className="panel panel-header">
-                    <h3>Readable: content and comments</h3>
-                </div>
-            </div>
-        </div>
-
-       
+        <ApplicationHeader/>
 
         <div className="row">
             <div className="col-md-2 text-left col-md-offset-3"><Link to="/">Main page</Link></div>

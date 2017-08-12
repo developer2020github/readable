@@ -1,3 +1,16 @@
+
+
+body, .app-background {
+  background-color: #aaaaaa;
+}
+
+.control-style{
+  font-weight: bold; 
+}
+.content-background{
+  background-color: white; 
+}
+
 .btn-panel {
   display: inline-block;
   padding: 6px 12px;
@@ -16,4 +29,11 @@
 
 .margin1 {
   margin-right: 5px;
+}
+
+.post-panel {
+  padding-top: 5px; 
+  padding-bottom: 5px; 
+  padding-left: 5px; 
+  padding-right: 5px; 
 }
