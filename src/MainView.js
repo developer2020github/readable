@@ -7,7 +7,6 @@ import { serverApiTestMain } from './ServerApiTest';
 
 class MainView extends Component {
   render() {
-    //serverApiTestMain(); 
     return (
      <div className ="container">
 	 <div className ="row">
