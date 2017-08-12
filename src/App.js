@@ -5,13 +5,13 @@ import { serverApiTestMain } from './ServerApiTest';
 import MainView from './MainView'; 
 import PostDetails from './PostDetails';
 import UpdatePost from './UpdatePost';
-
+import NewPost from './NewPost';
 
 class App extends Component {
   render() {
     //serverApiTestMain(); 
     return (
-      <UpdatePost/>
+      <NewPost/>
     );
   }
 }
