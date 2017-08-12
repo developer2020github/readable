@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
+import { Link } from 'react-router-dom'; 
 
 class NewPost extends Component {
   render() {
