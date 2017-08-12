@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import './libs/bootstrap/dist/css/bootstrap.min.css'
-import './Readable.css';
 import { Link } from 'react-router-dom'; 
+import './libs/bootstrap/dist/css/bootstrap.min.css';
+import './Readable.css';
+
 
 class NewPost extends Component {
   render() {
@@ -15,8 +16,12 @@ class NewPost extends Component {
                 </div>
             </div>
         </div>
+
+       
+
         <div className="row">
-            <div className="col-md-2 text-left col-md-offset-3"><a href="index.html">Main page</a></div>
+            <div className="col-md-2 text-left col-md-offset-3"><Link to="/">Main page</Link></div>
+
             <div className="col-md-2 text-center"></div>
             <div className="col-md-2 text-right"><a href="post_delete.html">Delete</a></div>
         </div>

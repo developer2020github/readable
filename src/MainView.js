@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import logo from './logo.svg';
 import './libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
@@ -41,7 +42,7 @@ class MainView extends Component {
 		      </div>
 	   </div>
 	   <div className="col-md-4 text-right">
-	        <a className= "btn btn-default" href = "https://www.google.com">Add new post</a> 
+	        <Link className= "btn btn-default" to= "/NewPost">Add new post</Link> 
 	   </div>
 	</div>
 	<div className="row">
