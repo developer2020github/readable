@@ -35,6 +35,17 @@ const newExampleObject = {
 
 
 function testAddNewPost() {
+	//https://davidwalsh.name/fetch
+	/*
+	var request = new Request('https://davidwalsh.name/users.json', {
+	method: 'POST', 
+	mode: 'cors', 
+	redirect: 'follow',
+	headers: new Headers({
+		'Content-Type': 'text/plain'
+	})
+});
+	*/
     //tested and works fine 
     /*
 	`POST /posts`  

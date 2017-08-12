@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { serverApiTestMain } from './ServerApiTest'; 
-import MainView from './MainView'; 
 
-class App extends Component {
+class MainView extends Component {
   render() {
     //serverApiTestMain(); 
     return (
-      <MainView/>
+      <div>
+       <h1>hello from main view!</h1>
+      </div>
     );
   }
 }
 
-export default App;
+export default MainView;
