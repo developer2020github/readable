@@ -4,14 +4,16 @@ import logo from './logo.svg';
 import './libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 import { serverApiTestMain } from './ServerApiTest';
-import  ApplicationHeader  from './ApplicationHeader';
-import PostViewSmall from './PostViewSmall'; 
+import ApplicationHeader from './ApplicationHeader';
+import PostViewSmall from './PostViewSmall';
+import {getArrayOfExampleObjects} from './ServerApiTest'
 
 class MainView extends Component {
 	render() {
+		let posts = getArrayOfExampleObjects(); 
 		return (
 			<div className="container">
-				<ApplicationHeader/>
+				<ApplicationHeader />
 				<div className="row">
 
 					<div className="col-md-2 col-md-offset-2">
@@ -45,13 +47,10 @@ class MainView extends Component {
 				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
-						<PostViewSmall/>
-						<div className="panel panel-default">
-							Second post
-		     </div>
-						<div className="panel panel-default">
-							third post
-		     </div>
+						{posts.map((p)=> {
+							return <PostViewSmall post={p}/>;
+						})}
+			
 					</div>
 				</div>
 

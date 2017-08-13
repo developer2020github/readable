@@ -115,4 +115,14 @@ function serverApiTestMain() {
     //testAddNewPost(); 
 }
 
+function getArrayOfExampleObjects(nObjects = 5){
+    let listOfObjects = []; 
+    for (let i=0; i<nObjects; i++){
+        listOfObjects.push(exampleObject); 
+    }
+
+    return listOfObjects; 
+}
+
 export { serverApiTestMain }
+export {getArrayOfExampleObjects}
