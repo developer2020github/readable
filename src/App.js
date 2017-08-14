@@ -9,6 +9,7 @@ import UpdatePost from './UpdatePost';
 import NewPost from './NewPost';
 import DefaultPage from './DefaultPage';
 
+
 class App extends Component {
   render() {
     //serverApiTestMain(); 
@@ -17,6 +18,7 @@ class App extends Component {
 
             <Route path="/NewPost"><NewPost/></Route>
             <Route exact path="/"><MainView/></Route>
+            <Route path ="/posts/:postID"component={PostDetails}/>
 
             <Route component={DefaultPage}/>
 

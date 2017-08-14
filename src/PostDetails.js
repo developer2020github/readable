@@ -3,10 +3,22 @@ import logo from './logo.svg';
 import './libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 import { serverApiTestMain } from './ServerApiTest'; 
+import DefaultPage from './DefaultPage';
+function doesPostExist(postId){
+   if (parseInt(postId)==12345){
+   		return true;
+   }
+   return false; 
+}
 
 
 class PostDetails extends Component {
   render() {
+	  //ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
+	if (!doesPostExist(this.props.match.params.postID)){
+        return (<DefaultPage/>)
+	}
+
     return (
 <div className ="container">
 	<div className="row">
