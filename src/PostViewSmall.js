@@ -26,6 +26,7 @@ class PostViewSmall extends Component {
                         <button href="#" className="btn btn-default"><span className="glyphicon glyphicon-arrow-down"></span></button>
                     </div>
                     <div className="col-xs-6 text-right">
+                        <Link className="btn btn-default control-style" to={"/posts/"+this.props.post.id}>details</Link>
                         <span><a href="post_details.html">Comments:</a>25</span>
                         <span><a href="post_edit.html">Edit</a></span>
                         <span><a href="post_delete.html">Delete</a></span>

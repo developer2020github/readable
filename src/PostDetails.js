@@ -5,7 +5,8 @@ import './Readable.css';
 import { serverApiTestMain } from './ServerApiTest'; 
 import DefaultPage from './DefaultPage';
 function doesPostExist(postId){
-   if (parseInt(postId)==12345){
+
+   if (postId=="6ni6ok3ym7mf1p33lnez"){
    		return true;
    }
    return false; 
