@@ -73,7 +73,7 @@ class PostDetails extends Component {
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 				         
-						<PostViewSmall post={post}/>
+						<PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick}/>
 						{NewCommentForm}
 						<div className="panel panel-default">
 							First comment

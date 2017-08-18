@@ -43,7 +43,7 @@ body, .app-background {
   margin-bottom: 15px;
 }
 
-.post-header, .post-footer, .vote-button{
+.post-header, .post-footer, .vote-button, .post-footer-button{
   background-color: #626262; 
 }
 .post-header, .post-footer {
@@ -52,6 +52,8 @@ body, .app-background {
   margin-top: -5px;
   margin-bottom: -5px;
   color: white; 
+  border: none;
+  outline: 0;
 }
 
 .post-title{
@@ -81,8 +83,11 @@ body, .app-background {
   color: black; 
 }
 
-.post-footer-link{
+.post-footer-button, .post-footer-link{
   color: #A0DDF8;
+}
+
+.post-footer-link{
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -90,4 +95,11 @@ body, .app-background {
 .number-of-comments {
   margin-left: 10px; 
   margin-right: 10px;
+}
+
+.post-footer-button{
+  padding: 0;
+  border: none;
+  outline: 0;
+  margin-left: 5px; 
 }

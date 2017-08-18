@@ -27,12 +27,20 @@ class PostViewSmall extends Component {
     render() {
         let linkToPostDetailedView = null; 
         let addComment = null; 
-        
+        let editPostButton = null; 
+        let deletePostButton = null; 
+
         if (this.props.mainView){
             linkToPostDetailedView = <Link className="post-footer-link" to={"/posts/"+this.props.post.id}>details</Link>; 
             addComment = <Link className="post-footer-link" to={{pathname:"/posts/"+this.props.post.id, 
                                                                  query: "addComment"
                                                                 }}>New comment</Link>;
+        }
+
+        if (this.props.detailedView){
+            addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>
+            editPostButton = <span><button className="post-footer-button">Edit</button></span>
+            deletePostButton = <span><button className="post-footer-button">Delete</button></span>
         }
 
 
@@ -59,6 +67,8 @@ class PostViewSmall extends Component {
                         <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-up"></span></button>
                         <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-down"></span></button>
                         {linkToPostDetailedView}
+                        {editPostButton}
+                        {deletePostButton}
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">
                         <span className="number-of-comments">Comments: 25</span>
