@@ -42,3 +42,30 @@ body, .app-background {
   margin-top: 5px; 
   margin-bottom: 15px;
 }
+
+.post-header{
+  background-color: #3B3A3A; 
+  margin-left: -5px; 
+  margin-right: -5px;
+  margin-top: -5px;
+  color: white; 
+}
+
+.post-title{
+  font-weight: bold;
+  font-size: 14px; 
+}
+
+.post-author{
+  font-style: italic;
+  margin-left: 10px; 
+}
+
+.post-sub-header{
+  padding-left: 2px;
+  padding-right: 2px; 
+}
+
+.post-category{
+  margin-right: 15px;
+}

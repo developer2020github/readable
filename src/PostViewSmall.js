@@ -4,19 +4,26 @@ import './libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import {timeStampToDateAndTime} from './lib'
 
+
 class PostViewSmall extends Component {
     render() {
         
         return (
             <div className="panel panel-default post-panel">
-                <div className="row">
-                    <div className="col-xs-4 text-left">Category: {this.props.post.category}</div>
-                    <div className="col-xs-4 text-center">posted by: {this.props.post.author}</div>
-                    <div className="col-xs-4 text-right">{timeStampToDateAndTime(this.props.post.timestamp)}</div>
+                <div className="row post-header">
+                    
+                    <div className="col-xs-6 text-left post-sub-header">
+                            <span className="text-center post-title">{this.props.post.title}</span>
+                            <span className="post-author"> By: {this.props.post.author}</span>
+                        </div>
+                    <div className="col-xs-6 text-right  post-sub-header">
+                         <span className="post-category">Category: {this.props.post.category}</span>
+                         <span>[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
+                        </div>
                 </div>
 
                 <div>
-                    <h4 className="text-center">{this.props.post.title}</h4>
+                    
                     <p>{this.props.post.body}</p>
                 </div>
                 <div className="row">

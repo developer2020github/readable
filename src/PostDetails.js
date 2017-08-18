@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import { Link } from 'react-router-dom'
 import './libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 import { serverApiTestMain } from './ServerApiTest'; 
@@ -49,7 +50,7 @@ class PostDetails extends Component {
 
 	<div className="row">
 		  
-		    <div className="col-md-2 text-left col-md-offset-3"><a href="index.html">Main page</a></div>
+		    <div className="col-md-2 text-left col-md-offset-3"><Link className="btn btn-default control-style" to="/">Main page</Link></div>
 		    <div className="col-md-2 text-center"><a href="post_edit.html">Edit</a></div>
 		    <div className="col-md-2 text-right"><a href="post_delete.html">Delete</a></div>
 		  
