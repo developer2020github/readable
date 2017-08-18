@@ -6,6 +6,8 @@ import './Readable.css';
 import { serverApiTestMain } from './ServerApiTest';
 import DefaultPage from './DefaultPage';
 import NewComment from './NewComment.js';
+import ApplicationHeader from './ApplicationHeader';
+
 function doesPostExist(postId) {
 
 	if (postId == "6ni6ok3ym7mf1p33lnez") {
@@ -48,16 +50,7 @@ class PostDetails extends Component {
 
 		return (
 			<div className="container">
-				<div className="row">
-					<div className="col-md-8 col-md-offset-2 text-center">
-
-						<div className="panel panel-header">
-							<h3>Readable: content and comments</h3>
-						</div>
-
-
-					</div>
-				</div>
+				<ApplicationHeader/>
 
 				<div className="row">
 
