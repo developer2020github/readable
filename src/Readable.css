@@ -43,11 +43,14 @@ body, .app-background {
   margin-bottom: 15px;
 }
 
-.post-header{
-  background-color: #3B3A3A; 
+.post-header, .post-footer, .vote-button{
+  background-color: #626262; 
+}
+.post-header, .post-footer {
   margin-left: -5px; 
   margin-right: -5px;
   margin-top: -5px;
+  margin-bottom: -5px;
   color: white; 
 }
 
@@ -68,4 +71,23 @@ body, .app-background {
 
 .post-category{
   margin-right: 15px;
+}
+
+.vote-score{
+  margin-right: 5px;
+}
+
+.vote-button:hover{
+  color: black; 
+}
+
+.post-footer-link{
+  color: #A0DDF8;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.number-of-comments {
+  margin-left: 10px; 
+  margin-right: 10px;
 }

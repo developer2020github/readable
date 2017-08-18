@@ -19,7 +19,7 @@ class MainView extends Component {
 					<div className="col-md-2 col-md-offset-2">
 						<div className="btn-panel control-style">
 							<span className="control-style">Category: </span>
-							<select class="selectpicker">
+							<select className="selectpicker">
 								<option>All</option>
 								<option>Category1</option>
 								<option>Category2</option>
@@ -48,7 +48,7 @@ class MainView extends Component {
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 						{posts.map((p)=> {
-							return <PostViewSmall post={p}/>;
+							return <PostViewSmall mainView={true} post={p}/>;
 						})}
 			
 					</div>

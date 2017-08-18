@@ -11,12 +11,12 @@ class NewComment extends Component {
                 <form>
                    
                     <div className="form-group">
-                        <label for="AuthorName">Your name:</label>
+                        <label htmlFor="AuthorName">Your name:</label>
                         <input type="text" className="form-control" id="AuthorName" placeholder="User name"></input>
                     </div>
                
                     <div className="form-group">
-                        <label for="commentText">Post:</label>
+                        <label htmlFor="commentText">Post:</label>
                         <textarea className="form-control" id="commentText" rows="5"></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary">Add comment</button>
