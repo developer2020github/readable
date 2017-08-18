@@ -4,6 +4,7 @@ import './libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 import { serverApiTestMain } from './ServerApiTest'; 
 import DefaultPage from './DefaultPage';
+import NewComment from './NewComment.js'; 
 function doesPostExist(postId){
 
    if (postId=="6ni6ok3ym7mf1p33lnez"){
@@ -14,10 +15,23 @@ function doesPostExist(postId){
 
 
 class PostDetails extends Component {
+	state = {
+		showNewCommentForm: false
+	}
+
+	handleAddCommentClick=()=>{
+		this.setState({showNewCommentForm: !this.state.showNewCommentForm});		
+	}
+	
   render() {
 	  //ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 	if (!doesPostExist(this.props.match.params.postID)){
         return (<DefaultPage/>)
+	}
+
+	let NewCommentForm = null; 
+	if (this.state.showNewCommentForm){
+		NewCommentForm = <NewComment/>; 
 	}
 
     return (
@@ -40,11 +54,12 @@ class PostDetails extends Component {
 		    <div className="col-md-2 text-right"><a href="post_delete.html">Delete</a></div>
 		  
 	</div>
-
+    
 	<div className ="row">
 		  <div className = "col-md-8 col-md-offset-2">  
 		   <hr></hr>
 		  </div>
+	
 	</div>
 	<div className="row">
 		  <div className="col-md-10 col-md-offset-1">  
@@ -73,10 +88,11 @@ class PostDetails extends Component {
 			        </div>
 			        <div className="col-xs-6 text-right">
 				        <span>Comments: 25</span>
-				        <span className="margin1"><button className="btn btn-default">Add comment</button></span>
+				        <span className="margin1"><button className="btn btn-default" onClick={this.handleAddCommentClick}>Add comment</button></span>
 			        </div>
 		        </div>
 		     </div>
+			{NewCommentForm}
 		     <div className="panel panel-default">
 		        First comment 
 		     </div>

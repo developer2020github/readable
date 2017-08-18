@@ -12,8 +12,8 @@ class NewPost extends Component {
         <ApplicationHeader/>
 
         <div className="row">
-            <div className="col-md-2 text-left col-md-offset-3"><Link to="/">Main page</Link></div>
-
+            <div className="col-md-2 text-left col-md-offset-3"><Link className="btn btn-default control-style" to="/">Main page</Link></div>
+            
             <div className="col-md-2 text-center"></div>
             <div className="col-md-2 text-right"><a href="post_delete.html">Delete</a></div>
         </div>

@@ -37,3 +37,8 @@ body, .app-background {
   padding-left: 5px; 
   padding-right: 5px; 
 }
+
+.new-comment {
+  margin-top: 5px; 
+  margin-bottom: 15px;
+}
