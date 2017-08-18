@@ -7,6 +7,8 @@ import { serverApiTestMain } from './ServerApiTest';
 import DefaultPage from './DefaultPage';
 import NewComment from './NewComment.js';
 import ApplicationHeader from './ApplicationHeader';
+import PostViewSmall from './PostViewSmall';
+import { exampleObject } from './ServerApiTest';
 
 function doesPostExist(postId) {
 
@@ -37,11 +39,13 @@ class PostDetails extends Component {
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 		console.log(this.props);
-		if (!doesPostExist(this.props.match.params.postID)) {
+		let post = null;
+		if (doesPostExist(this.props.match.params.postID)) {
+			post = exampleObject;
+		}
+		else {
 			return (<DefaultPage />)
 		}
-
-
 
 		let NewCommentForm = null;
 		if (this.state.showNewCommentForm) {
@@ -50,7 +54,7 @@ class PostDetails extends Component {
 
 		return (
 			<div className="container">
-				<ApplicationHeader/>
+				<ApplicationHeader />
 
 				<div className="row">
 
@@ -68,35 +72,8 @@ class PostDetails extends Component {
 				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
-						<div className="panel panel-default">
-							<div className="row">
-								<div className="col-xs-4 text-left">Category: category1</div>
-								<div className="col-xs-4 text-center">posted by: Someone</div>
-								<div className="col-xs-4 text-right">11 August 2017 21:45:12</div>
-							</div>
-
-							<div>
-								<h4 className="text-center"> Heading of the post</h4>
-								<p>
-									text of the post asdfkjk asdkl fjksa;j flasj f
-		        	ksadjf kasd;lj fasl;kdj dflasfj ;lkjsdf k;lasjd fkl;
-		        	aksdlf jasd;lj fkasdl;fj kla;sjdf ;lasfj ;adsjfl
-		        	alksdf ;asfjk lasfj;alsjdf l;asdfj
-		        	</p>
-
-							</div>
-							<div className="row">
-								<div className="col-xs-6 text-left">
-									<span>Likes: 23</span>
-									<button className="btn btn-default"><span className="glyphicon glyphicon-arrow-up"></span></button>
-									<button href="#" className="btn btn-default"><span className="glyphicon glyphicon-arrow-down"></span></button>
-								</div>
-								<div className="col-xs-6 text-right">
-									<span>Comments: 25</span>
-									<span className="margin1"><button className="btn btn-default" onClick={this.handleAddCommentClick}>Add comment</button></span>
-								</div>
-							</div>
-						</div>
+				         
+						<PostViewSmall post={post}/>
 						{NewCommentForm}
 						<div className="panel panel-default">
 							First comment

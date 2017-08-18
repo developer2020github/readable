@@ -126,3 +126,4 @@ function getArrayOfExampleObjects(nObjects = 5){
 
 export { serverApiTestMain }
 export {getArrayOfExampleObjects}
+export { exampleObject }
