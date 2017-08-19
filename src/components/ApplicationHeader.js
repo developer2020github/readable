@@ -1,5 +1,5 @@
 import React from 'react';
-import './libs/bootstrap/dist/css/bootstrap.min.css'
+import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 
 const ApplicationHeader = (props) => {

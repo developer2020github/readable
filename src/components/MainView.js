@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import logo from './logo.svg';
-import './libs/bootstrap/dist/css/bootstrap.min.css'
+import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
-import { serverApiTestMain } from './ServerApiTest';
+import { serverApiTestMain } from '../utils/ServerApiTest';
 import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
-import {getArrayOfExampleObjects} from './ServerApiTest'
+import {getArrayOfExampleObjects} from '../utils/ServerApiTest'
 
 class MainView extends Component {
 	render() {

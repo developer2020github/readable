@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-import './libs/bootstrap/dist/css/bootstrap.min.css'
+import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 
 class UpdatePost extends Component {

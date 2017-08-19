@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import { Link } from 'react-router-dom'
-import './libs/bootstrap/dist/css/bootstrap.min.css'
+import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
-import { serverApiTestMain } from './ServerApiTest';
+import { serverApiTestMain } from '../utils/ServerApiTest';
 import DefaultPage from './DefaultPage';
 import NewComment from './NewComment.js';
 import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
-import { exampleObject } from './ServerApiTest';
+import { exampleObject } from '../utils/ServerApiTest';
 
 function doesPostExist(postId) {
 
