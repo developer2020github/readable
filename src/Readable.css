@@ -1,7 +1,7 @@
 
 
 body, .app-background {
-  background-color: #aaaaaa;
+  background-color: rgb(227, 223, 223);
 }
 
 .control-style{
@@ -32,10 +32,8 @@ body, .app-background {
 }
 
 .post-panel {
-  padding-top: 5px; 
-  padding-bottom: 5px; 
-  padding-left: 5px; 
-  padding-right: 5px; 
+  padding: 0px; 
+  border-width: 0px; 
 }
 
 .new-comment {
@@ -47,11 +45,8 @@ body, .app-background {
   background-color: #626262; 
 }
 .post-header, .post-footer {
-  margin-left: -5px; 
-  margin-right: -5px;
-  margin-top: -5px;
-  margin-bottom: -5px;
-  color: white; 
+  margin: 0px; 
+  color: white;  
 }
 
 .post-title{
@@ -100,4 +95,7 @@ body, .app-background {
   border: none;
   outline: 0;
   margin-left: 5px; 
+}
+#postHeader{
+  border-color: red;
 }
