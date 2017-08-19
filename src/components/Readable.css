@@ -72,12 +72,21 @@ body, .app-background {
   margin-right: 5px;
 }
 
-.vote-button:hover{
-  color: black; 
+.readables-arrow-button {
+
+  box-shadow: none;
 }
 
-.post-footer-button, .post-footer-link{
-  color: #A0DDF8;
+.post-footer-button, .post-footer-link, .readables-arrow-button {
+  color: #C6E8F6;
+}
+
+.post-footer-button:hover, .post-footer-link:hover, .readables-arrow-button:hover{
+  color: #F6D55B
+}
+
+.vote-button.active.focus, .vote-button.active:focus, .vote-button.focus, .vote-button:active.focus, .vote-button:active:focus, .vote-button:focus {
+  outline: 0;
 }
 
 .post-footer-link{
@@ -90,9 +99,12 @@ body, .app-background {
   margin-right: 10px;
 }
 
-.post-footer-button{
+.post-footer-button {
   padding: 0;
   border: none;
   outline: 0;
   margin-left: 5px; 
 }
+
+
+

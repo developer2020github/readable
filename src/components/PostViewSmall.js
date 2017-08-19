@@ -64,8 +64,8 @@ class PostViewSmall extends Component {
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
                         <span className="vote-score">Likes: {this.props.post.voteScore}</span>
-                        <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-up"></span></button>
-                        <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-down"></span></button>
+                        <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-up readables-arrow-button"></span></button>
+                        <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-down readables-arrow-button"></span></button>
                         {linkToPostDetailedView}
                         {editPostButton}
                         {deletePostButton}
