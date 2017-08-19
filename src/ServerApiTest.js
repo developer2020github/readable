@@ -33,7 +33,17 @@ const newExampleObject = {
     voteScore: 900
 }
 
-
+const exampleComment = {
+          id: '894tuq4ut84ut8v4t8wun89g',
+          parentId: "8xf0y6ziyjabvozdd253nd",
+          timestamp: 1468166872634,
+          body: 'Hi there! I am a COMMENT.',
+          author: 'thingtwo',
+          voteScore: 6,
+          deleted: false,
+          parentDeleted: false 
+        }
+    
 function testAddNewPost() {
 	//https://davidwalsh.name/fetch
 	/*
@@ -124,6 +134,53 @@ function getArrayOfExampleObjects(nObjects = 5){
     return listOfObjects; 
 }
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomDate(start, end) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+
+function getComment(parentId, id, parentPostTimeStamp){
+   let text = "I am comment for post " + parentId + " and my id is " + id
+   let voteScore = getRandomInt(0, 250); 
+   let timestamp = getRandomInt(parentPostTimeStamp, Date.now());
+
+   return Object.assign({}, exampleComment, {id, parentId, body: text, voteScore, timestamp }); 
+}
+
+function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumberOfComments=10){
+   let startDate = new Date(2010, 1, 10, 1, 2, 0, 45);
+   console.log(startDate); 
+   
+   
+   let posts = []; 
+   let comments = []; 
+   let categories =  ["react", "redux", "udacity"]; 
+
+   for (let i = 0; i<numberOfPosts; i++){
+       let body = " This is post # " + (i+1)  + " and some more text so it is not completely empty post; I do not know what else to write"; 
+       let category = categories[getRandomInt(0, categories.length-1)]
+       let timestamp = getRandomInt(startDate.getTime(), Date.now()); 
+       let voteScore = getRandomInt(0, 250); 
+       let post = Object.assign({}, exampleObject, {id : i.toString(),  category, body, timestamp, voteScore})
+       posts.push(post); 
+
+       let numberOfComments = getRandomInt(minNumberOfComments, maxNumberOfComments); 
+
+       for (let j = 0; j<numberOfComments-1; j++){
+           let comment = getComment(i.toString(), i.toString()+"c" + j.toString(), timestamp)
+           comments.push(comment); 
+       }
+
+
+   }
+   return {comments, posts}; 
+}
+
 export { serverApiTestMain }
 export {getArrayOfExampleObjects}
 export { exampleObject }
+export { getCommentstAndPosts }
