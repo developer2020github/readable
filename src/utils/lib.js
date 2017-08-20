@@ -40,9 +40,5 @@ function timeStampToDateAndTime(timestamp){
     });
 }
 
-for (let i = 0; i<25; i++){
-    console.log(generateUUID()); 
-}
-
 export { generateUUID }
 export { timeStampToDateAndTime }

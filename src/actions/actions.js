@@ -1,3 +1,5 @@
+import * as lib from '../utils/lib'; 
+
 /*Actions to support
  - Posts 
    - add new post 
@@ -13,6 +15,9 @@
    - downvote 
    - set parent post to deleted - not sure if a separate function is required 
 
+ - Categories
+   - add categories 
+
 Since these actions are very common between posts and comments, 
 for most of them implementation will be broken down into three portions: 
     - a private generic function implementing the common part of an action 
@@ -23,18 +28,22 @@ for most of them implementation will be broken down into three portions:
 
 export const ADD_NEW_POST = Symbol("ADD_NEW_POST");  //implemented 
 export const DELETE_POST = Symbol("DELETE_POST");    //implemented 
-export const EDIT_POST = Symbol("EDIT_POST")         //implemneted 
-export const UPVOTE_POST = Symbol("UPVOTE_POST")     //implemented 
-export const DOWNVOTE_POST = Symbol("DOWNVOTE_POST") //implemented
+export const EDIT_POST = Symbol("EDIT_POST");         //implemneted 
+export const UPVOTE_POST = Symbol("UPVOTE_POST");     //implemented 
+export const DOWNVOTE_POST = Symbol("DOWNVOTE_POST"); //implemented
 
 export const ADD_NEW_COMMENT = Symbol("ADD_NEW_COMMENT");   //implemented 
 export const DELETE_COMMENT = Symbol("DELETE_COMMENT")      //implemented 
 export const EDIT_COMMENT = Symbol("EDIT_COMMENT")          //implemented
 export const UPVOTE_COMMENT = Symbol("UPVOTE_COMMENT");     //implemented
 export const DOWNVOTE_COMMENT = Symbol("DOWNVOTE_COMMENT"); //implemented
-export const DELETE_PARENT_OF_A_COMMENT = Symbol("DELETE_PARENT_OF_A_COMMENT")
+export const DELETE_PARENT_OF_A_COMMENT = Symbol("DELETE_PARENT_OF_A_COMMENT");
 
-const DEFAULT_VOTE_SCORE = 1
+export const ADD_CATEGORIES = Symbol("ADD_CATEGORIES"); 
+
+const DEFAULT_VOTE_SCORE = 1; 
+
+
 //======================================================================
 function vote(type, id){
     return {
@@ -71,7 +80,7 @@ function edit (type, id, body, timestamp, title=null){
         updatedItem["title"] = title; 
     }
 
-    return updated_item; 
+    return updatedItem; 
 }
 
 
@@ -85,28 +94,36 @@ export function editComment(id, body, timestamp){
 }
 
 //==========================================================================
-function add (type, author, body, voteScore=DEFAULT_VOTE_SCORE){
+function add (author, body, voteScore=DEFAULT_VOTE_SCORE){
 
-    //real id to be added by reducer
+    //
     let timestamp  = Date.now(); 
+    let id = lib.generateUUID(); 
+
     return {
-        type, 
         author, 
         body, 
         timestamp, 
         voteScore, 
         deleted: false, 
-        id: null
+        id
     }
 }
+
 function addPost(author, body, category, title){
-    let post = add(ADD_NEW_POST, author, body)
-    return Object.Assign(post, {title, category}); 
+    let post = add(author, body)
+    return {type: ADD_NEW_POST, 
+            payload: Object.Assign({},  post, {title, category})
+    } 
 }
 
 function addComment(parentId, body, author){
-    let comment = add(ADD_NEW_COMMENT, author, body)
-    return Object.Assign(comment, {parentId, parentDeleted: false})
+    let comment = add(author, body)
+
+    return {type: ADD_NEW_COMMENT, 
+        payload: Object.Assign({},  comment, {parentId, parentDeleted: false})
+
+} 
     
 }
 
@@ -124,4 +141,12 @@ function deletePost(id){
 
 function deleteComment(id){
     return deleteItem(DELETE_COMMENT, id); 
+}
+
+//===============================================================================
+function addCategories(categories){
+    return {
+        type: ADD_CATEGORIES, 
+        categories
+    }
 }
