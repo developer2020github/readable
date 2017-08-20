@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
-import { timeStampToDateAndTime } from './lib'
+import { timeStampToDateAndTime } from '../utils/lib'
 //This component displays post in all views. 
 //Post header and body are common for all views. 
 //Post footer can display different links and information depending 
