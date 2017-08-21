@@ -47,12 +47,24 @@ function testEditPost(){
     console.log(current_state); 
 }
 
+function testUpvotePost(){
+    let current_state = getSampleStore(5, 1, 4); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_posts = reducers.posts(current_state.posts, actions.upvotePost("2"))
+    console.log('posts after upvote'); 
+    console.log(new_posts); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
+
 function testPosts(){
 
     
     //testAddPost();    //test passed
     //testDeletePost(); //test passed 
     //testEditPost();   //test passed
+    testUpvotePost(); 
    
     
   

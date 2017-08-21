@@ -48,7 +48,7 @@ const DEFAULT_VOTE_SCORE = 1;
 function vote(type, id){
     return {
         type, 
-        id
+        payload: {id}
     }
 }
 
@@ -86,8 +86,8 @@ function edit (type, id, body, title=null){
 }
 
 
-export function editPost(id, body, timestamp, title){
-    return edit(EDIT_POST, id, body, timestamp, title)
+export function editPost(id, body, title){
+    return edit(EDIT_POST, id, body, title)
 }
 
 

@@ -20,6 +20,8 @@ export function categories(state, action){
 
 export function posts(state, action){
     let currentPost = null; 
+    let updatedPost = null; 
+
     switch (action.type){
        
        case actions.ADD_NEW_POST:
@@ -32,7 +34,7 @@ export function posts(state, action){
 
        case actions.EDIT_POST:
             currentPost = state[action.payload.id]; 
-            let updatedPost = {...currentPost, 
+            updatedPost = {...currentPost, 
                                   body: action.payload.body, 
                                   title: action.payload.title, 
                                   timestamp: action.payload.timestamp}; 
@@ -40,6 +42,11 @@ export function posts(state, action){
             return {...state, [action.payload.id]: updatedPost}; 
         
        case actions.UPVOTE_POST:
+            currentPost = state[action.payload.id];
+            let updatedPost = {...currentPost, 
+                voteScore: currentPost.voteScore + 1}
+            return {...state, [action.payload.id]: updatedPost}; 
+
        case actions.DOWNVOTE_POST:
 
        default: 
