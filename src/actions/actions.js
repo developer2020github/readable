@@ -110,18 +110,18 @@ function add (author, body, voteScore=DEFAULT_VOTE_SCORE){
     }
 }
 
-function addPost(author, body, category, title){
+export function addPost(author, body, category, title){
     let post = add(author, body)
     return {type: ADD_NEW_POST, 
-            payload: Object.Assign({},  post, {title, category})
+            payload: Object.assign({},  post, {title, category})
     } 
 }
 
-function addComment(parentId, body, author){
+export function addComment(parentId, body, author){
     let comment = add(author, body)
 
     return {type: ADD_NEW_COMMENT, 
-        payload: Object.Assign({},  comment, {parentId, parentDeleted: false})
+        payload: Object.assign({},  comment, {parentId, parentDeleted: false})
 
 } 
     

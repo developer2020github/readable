@@ -6,7 +6,7 @@ import App from './components/App';
 
 import registerServiceWorker from './registerServiceWorker';
 
-import * as reducers from './reducers/reducers'; 
+import * as testReducers from './tests/testReducers'; 
 
 ReactDOM.render(
 <BrowserRouter><App /></BrowserRouter>

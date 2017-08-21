@@ -8,7 +8,7 @@ the store is going to have following structure:
 */
 
 import * as actions from '../actions/actions'; 
-function categories(state, action){
+export function categories(state, action){
     switch (action.type){
         case actions.ADD_CATEGORIES :
          return Object.assign({}, state, {categories: action.categoires})
@@ -18,7 +18,7 @@ function categories(state, action){
 }
 
 
-function posts(state, action){
+export function posts(state, action){
     switch (action.type){
        case actions.ADD_NEW_POST:
          return Object.assign({}, state, {[action.payload.id]: action.payload})
@@ -28,4 +28,4 @@ function posts(state, action){
     }
 }
 
-console.log("hello world!"); 
+

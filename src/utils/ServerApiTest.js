@@ -149,7 +149,7 @@ function getComment(parentId, id, parentPostTimeStamp){
 
 function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumberOfComments=10){
    let startDate = new Date(2010, 1, 10, 1, 2, 0, 45);
-   console.log(startDate); 
+  //console.log(startDate); 
    
    
    let posts = []; 
