@@ -22,7 +22,12 @@ export function posts(state, action){
     switch (action.type){
        case actions.ADD_NEW_POST:
          return {...state, [action.payload.id]: action.payload}
+
        case actions.DELETE_POST:
+         let currentPost = state[action.payload.id]; 
+         let deletedPost = {...currentPost, deleted: true}; 
+         return {...state, [action.payload.id]: deletedPost}
+
        case actions.EDIT_POST:
        case actions.UPVOTE_POST:
        case actions.DOWNVOTE_POST:

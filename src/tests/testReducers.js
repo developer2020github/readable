@@ -25,10 +25,22 @@ function testAddPost(){
     console.log(current_state); 
 }
 
+function testDeletePost(){
+    let current_state = getSampleStore(5, 1, 4); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_posts = reducers.posts(current_state.posts, actions.deletePost("2"))
+    console.log('posts after deletetion'); 
+    console.log(new_posts); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
+
 function testPosts(){
 
     
-    testAddPost(); //test passed
+    //testAddPost(); //test passed
+    testDeletePost(); 
   
 }
 

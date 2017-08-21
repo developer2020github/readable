@@ -131,15 +131,15 @@ export function addComment(parentId, body, author){
 function deleteItem(type, id){
    return {
        type, 
-       id
+       payload: {id}
    }
 }
 
-function deletePost(id){
+export function deletePost(id){
     return deleteItem(DELETE_POST, id); 
 }
 
-function deleteComment(id){
+export function deleteComment(id){
     return deleteItem(DELETE_COMMENT, id); 
 }
 
