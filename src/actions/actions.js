@@ -61,11 +61,11 @@ export function upvoteComment(id){
 }
 
 export function downvotePost(id){
-    return vote(UPVOTE_POST, id); 
+    return vote(DOWNVOTE_POST, id); 
 }
 
 export function donwvoteComment(id){
-    return vote(UPVOTE_COMMENT, id)
+    return vote(DOWNVOTE_COMMENT, id)
 }
 
 //=========================================================================
