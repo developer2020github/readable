@@ -69,15 +69,17 @@ export function donwvoteComment(id){
 }
 
 //=========================================================================
-function edit (type, id, body, timestamp, title=null){
+function edit (type, id, body, title=null){
+    let timestamp  = Date.now(); 
     let updatedItem = {
         type, 
-        id, 
-        body
+        payload: {id, 
+        body, 
+        timestamp}
     }
 
     if (title){
-        updatedItem["title"] = title; 
+        updatedItem.payload["title"] = title; 
     }
 
     return updatedItem; 

@@ -19,16 +19,26 @@ export function categories(state, action){
 
 
 export function posts(state, action){
+    let currentPost = null; 
     switch (action.type){
+       
        case actions.ADD_NEW_POST:
-         return {...state, [action.payload.id]: action.payload}
+             return {...state, [action.payload.id]: action.payload}
 
        case actions.DELETE_POST:
-         let currentPost = state[action.payload.id]; 
-         let deletedPost = {...currentPost, deleted: true}; 
-         return {...state, [action.payload.id]: deletedPost}
+            currentPost = state[action.payload.id]; 
+            let deletedPost = {...currentPost, deleted: true}; 
+            return {...state, [action.payload.id]: deletedPost}
 
        case actions.EDIT_POST:
+            currentPost = state[action.payload.id]; 
+            let updatedPost = {...currentPost, 
+                                  body: action.payload.body, 
+                                  title: action.payload.title, 
+                                  timestamp: action.payload.timestamp}; 
+
+            return {...state, [action.payload.id]: updatedPost}; 
+        
        case actions.UPVOTE_POST:
        case actions.DOWNVOTE_POST:
 
