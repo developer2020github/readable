@@ -27,22 +27,22 @@ class NewPost extends Component {
             <div className="col-md-10 col-md-offset-1">
                 <form>
                     <div className="form-group">
-                        <label for="selectCategory">Select category:</label>
+                        <label htmlFor="selectCategory">Select category:</label>
                         <select className="form-control" id="selectCategory">
                             <option>Category1</option>
                             <option>Category2</option>
                         </select>
                     </div>
                     <div className="form-group">
-                        <label for="AuthorName">Your name:</label>
+                        <label htmlFor="AuthorName">Your name:</label>
                         <input type="text" className="form-control" id="AuthorName" placeholder="User name"></input>
                     </div>
                     <div className="form-group">
-                        <label for="PostTitle">Title:</label>
+                        <label htmlFor="PostTitle">Title:</label>
                         <input type="text" className="form-control" id="PostTitle" placeholder="Title of the post"></input>
                     </div>
                     <div className="form-group">
-                        <label for="postText">Post:</label>
+                        <label htmlFor="postText">Post:</label>
                         <textarea className="form-control" id="postText" rows="10"></textarea>
                     </div>
                     <button type="submit" className="btn btn-primary">Create post</button>

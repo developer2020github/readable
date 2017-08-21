@@ -48,7 +48,7 @@ class MainView extends Component {
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 						{posts.map((p)=> {
-							return <PostViewSmall mainView={true} post={p}/>;
+							return <PostViewSmall mainView={true} key={p.id} post={p}/>;
 						})}
 			
 					</div>
