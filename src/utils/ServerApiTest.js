@@ -147,10 +147,10 @@ function getComment(parentId, id, parentPostTimeStamp){
    return Object.assign({}, exampleComment, {id, parentId, body: text, voteScore, timestamp }); 
 }
 
-function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumberOfComments=10){
+function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumberOfComments=10, randomizeNumberOfcomments = true){
+    //if randomizeNumberOfcomments is set to false, each post will get macNumberOfComments; 
    let startDate = new Date(2010, 1, 10, 1, 2, 0, 45);
-  //console.log(startDate); 
-   
+    //console.log(startDate); 
    
    let posts = []; 
    let comments = []; 
@@ -164,7 +164,11 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
        let post = Object.assign({}, exampleObject, {id : i.toString(),  category, body, timestamp, voteScore})
        posts.push(post); 
 
-       let numberOfComments = getRandomInt(minNumberOfComments, maxNumberOfComments); 
+
+       let numberOfComments = maxNumberOfComments; 
+       if (randomizeNumberOfcomments){
+            numberOfComments = getRandomInt(minNumberOfComments, maxNumberOfComments); 
+       }
 
        for (let j = 0; j<numberOfComments-1; j++){
            let comment = getComment(i.toString(), i.toString()+"c" + j.toString(), timestamp)
