@@ -74,6 +74,13 @@ export function comments(state, action){
             return {...state, [action.payload.id]: deletedComment}; 
 
         case actions.EDIT_COMMENT:
+            currentComment = state[action.payload.id]; 
+            updatedComment = {...currentComment, 
+                              body: action.payload.body, 
+                              timestamp: action.payload.timestamp}; 
+
+            return {...state, [action.payload.id]: updatedComment}; 
+
         case actions.UPVOTE_COMMENT:
         case actions.DOWNVOTE_COMMENT:
         case actions.DELETE_ALL_COMMENTS_FOR_POST:

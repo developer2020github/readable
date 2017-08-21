@@ -69,6 +69,17 @@ function testEditPost(){
     console.log(current_state); 
 }
 
+function testEditComment(){
+    let current_state = getSampleStore(5, 2, 2, false); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_comments = reducers.comments(current_state.comments, actions.editComment("2c0", "updated text of comment"))
+    console.log('comments after edit'); 
+    console.log(new_comments); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
+
 function testUpvotePost(){
     let current_state = getSampleStore(5, 1, 4); 
     console.log("store before update"); 
@@ -106,7 +117,9 @@ function testPosts(){
 
 function testComments(){
      //testAddComment(); //test passed
-     testDeleteComment(); 
+     //testDeleteComment(); //test passed
+     //testEditComment(); //test passed
+
 }
 
 
