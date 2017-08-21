@@ -172,7 +172,7 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
 
        for (let j = 0; j<numberOfComments-1; j++){
            let comment = getComment(i.toString(), i.toString()+"c" + j.toString(), timestamp)
-           comments.push(comment); 
+           comments[comment.id]=comment; 
        }
 
 

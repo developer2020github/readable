@@ -47,6 +47,17 @@ function testDeletePost(){
     console.log(current_state); 
 }
 
+function testDeleteComment(){
+    let current_state = getSampleStore(5, 2, 2, false); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_comments = reducers.comments(current_state.comments, actions.deleteComment("2c0"))
+    console.log('comments after deletion'); 
+    console.log(new_comments); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
+
 function testEditPost(){
     let current_state = getSampleStore(5, 1, 4); 
     console.log("store before update"); 
@@ -74,7 +85,7 @@ function testDownvotePost(){
     let current_state = getSampleStore(5, 1, 4); 
     console.log("store before update"); 
     console.log(current_state); 
-    let new_posts = reducers.posts(current_state.posts, actions.downvotePost("1"))
+    let new_posts = reducers.posts(current_state.posts, actions.downvotePost("2"))
     console.log('posts after downvote'); 
     console.log(new_posts); 
     console.log("original store before update"); 
@@ -95,6 +106,7 @@ function testPosts(){
 
 function testComments(){
      //testAddComment(); //test passed
+     testDeleteComment(); 
 }
 
 
