@@ -27,8 +27,8 @@ function testAddPost(){
 
 function testPosts(){
 
-    //testing add new post 
-     testAddPost(); 
+    
+    testAddPost(); //test passed
   
 }
 

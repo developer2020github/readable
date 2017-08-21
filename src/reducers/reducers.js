@@ -21,7 +21,12 @@ export function categories(state, action){
 export function posts(state, action){
     switch (action.type){
        case actions.ADD_NEW_POST:
-         return Object.assign({}, state, {[action.payload.id]: action.payload})
+         return {...state, [action.payload.id]: action.payload}
+       case actions.DELETE_POST:
+       case actions.EDIT_POST:
+       case actions.UPVOTE_POST:
+       case actions.DOWNVOTE_POST:
+
        default: 
          return state; 
 
