@@ -31,7 +31,7 @@ export function posts(state, action){
             currentPost = state[action.payload.id]; 
             let deletedPost = {...currentPost, deleted: true}; 
             return {...state, [action.payload.id]: deletedPost}
-            //to do: delete comments 
+
 
        case actions.EDIT_POST:
             currentPost = state[action.payload.id]; 
@@ -61,3 +61,20 @@ export function posts(state, action){
 }
 
 
+export function comments(state, action){
+    let newComment = null; 
+    let updatedComment = null; 
+    switch (action.type){
+        case actions.ADD_NEW_COMMENT: 
+            return {...state, [action.payload.id]: action.payload}
+
+        case actions.DELETE_COMMENT:
+        case actions.EDIT_COMMENT:
+        case actions.UPVOTE_COMMENT:
+        case actions.DOWNVOTE_COMMENT:
+        case actions.DELETE_ALL_COMMENTS_FOR_POST:
+        default: 
+            return state; 
+
+    }
+}

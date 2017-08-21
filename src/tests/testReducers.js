@@ -25,6 +25,17 @@ function testAddPost(){
     console.log(current_state); 
 }
 
+function testAddComment(){ 
+    let current_state = getSampleStore(5, 1, 2, false); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_comments = reducers.comments(current_state.comments, actions.addComment("1", "this is new comment for post 1", "Chuck Norris"))
+    console.log('comments after addition'); 
+    console.log(new_comments); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
+
 function testDeletePost(){
     let current_state = getSampleStore(5, 1, 4); 
     console.log("store before update"); 
@@ -80,8 +91,13 @@ function testPosts(){
     //testUpvotePost(); //test passed 
     //testDownvotePost(); 
     
-  
 }
 
+function testComments(){
+     //testAddComment(); //test passed
+}
+
+
 console.log("hello world from test reducers!");
-testPosts(); 
+//testPosts(); 
+testComments();
