@@ -128,7 +128,7 @@ function serverApiTestMain() {
 function getArrayOfExampleObjects(nObjects = 5){
     let listOfObjects = []; 
     for (let i=0; i<nObjects; i++){
-        listOfObjects.push(exampleObject); 
+        listOfObjects.push({...exampleObject, id: i.toString()}); 
     }
 
     return listOfObjects; 
@@ -136,10 +136,6 @@ function getArrayOfExampleObjects(nObjects = 5){
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function randomDate(start, end) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
 
 

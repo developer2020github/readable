@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import { Link } from 'react-router-dom'
 import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
-import { serverApiTestMain } from '../utils/ServerApiTest';
+//import { serverApiTestMain } from '../utils/ServerApiTest';
 import DefaultPage from './DefaultPage';
 import NewComment from './NewComment.js';
 import ApplicationHeader from './ApplicationHeader';
@@ -12,7 +11,7 @@ import { exampleObject } from '../utils/ServerApiTest';
 
 function doesPostExist(postId) {
 
-	if (postId == "6ni6ok3ym7mf1p33lnez") {
+	if (postId==="0") {
 		return true;
 	}
 	return false;
