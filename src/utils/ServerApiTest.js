@@ -153,7 +153,7 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
     //console.log(startDate); 
    
    let posts = []; 
-   let comments = []; 
+   let comments ={}; 
    let categories =  ["react", "redux", "udacity"]; 
 
    for (let i = 0; i<numberOfPosts; i++){
