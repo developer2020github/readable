@@ -64,6 +64,7 @@ export function posts(state, action){
 export function comments(state, action){
     let currentComment = null; 
     let updatedComment = null; 
+    let newState = {};  
 
     switch (action.type){
         case actions.ADD_NEW_COMMENT: 
@@ -96,9 +97,7 @@ export function comments(state, action){
 
             
         case actions.DELETE_ALL_COMMENTS_FOR_POST:
-
-            let newState = { };  
-
+          
             for (let commentId in state){
                 newState[commentId] = {...state[commentId]}; 
 
@@ -108,6 +107,18 @@ export function comments(state, action){
 
             }
             return newState; 
+
+        case actions.DELETE_PARENT_OF_COMMENTS:
+         
+            for (let commentId in state){
+                newState[commentId] = {...state[commentId]}; 
+
+                if (newState[commentId].parentId===action.payload.parentId){
+                    newState[commentId].parentDeleted=true; 
+                }
+
+            }
+            return newState;
 
         default: 
             return state; 

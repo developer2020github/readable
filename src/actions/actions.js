@@ -37,8 +37,8 @@ export const DELETE_COMMENT = Symbol("DELETE_COMMENT")      //implemented
 export const EDIT_COMMENT = Symbol("EDIT_COMMENT")          //implemented
 export const UPVOTE_COMMENT = Symbol("UPVOTE_COMMENT");     //implemented
 export const DOWNVOTE_COMMENT = Symbol("DOWNVOTE_COMMENT"); //implemented
-export const DELETE_ALL_COMMENTS_FOR_POST = Symbol("DELETE_ALL_COMMENTS_FOR_POST")
-export const DELETE_PARENT_OF_A_COMMENT = Symbol("DELETE_PARENT_OF_A_COMMENT");
+export const DELETE_ALL_COMMENTS_FOR_POST = Symbol("DELETE_ALL_COMMENTS_FOR_POST");  //implemented
+export const DELETE_PARENT_OF_COMMENTS = Symbol("DELETE_PARENT_OF_COMMENTS");        //implemented
 
 export const ADD_CATEGORIES = Symbol("ADD_CATEGORIES"); 
 
@@ -152,6 +152,15 @@ export function deleteAllCommentsForPost(parentId){
         payload : {parentId}
     }
 }
+
+export function deleteParentOfComments(parentId){
+    return{
+        type: DELETE_PARENT_OF_COMMENTS, 
+        payload : {parentId}
+    }
+}
+
+//DELETE_PARENT_OF_COMMENTS
 //===============================================================================
 function addCategories(categories){
     return {

@@ -136,6 +136,17 @@ function testDeleteAllCommentsForPost(){
     console.log(current_state); 
 }
 
+function testDeletParentOfComments(){
+    let current_state = getSampleStore(5, 4, 4, false); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_comments = reducers.comments(current_state.comments, actions.deleteParentOfComments("2"))
+    console.log('comments after deletion of parent'); 
+    console.log(new_comments); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
+
 function testPosts(){
 
     
@@ -153,7 +164,8 @@ function testComments(){
      //testEditComment(); //test passed
      //testUpvoteComment(); //test passed
      //testDonwVoteComment(); //test passed
-     testDeleteAllCommentsForPost(); 
+     //testDeleteAllCommentsForPost(); // test passed
+     testDeletParentOfComments()
 
 }
 
