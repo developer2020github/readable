@@ -91,6 +91,17 @@ function testUpvotePost(){
     console.log(current_state); 
 }
 
+function testUpvoteComment(){
+    let current_state = getSampleStore(5, 2, 2, false); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_comments = reducers.comments(current_state.comments, actions.upvoteComment("2c0"))
+    console.log('comments after upvote'); 
+    console.log(new_comments); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
+
 
 function testDownvotePost(){
     let current_state = getSampleStore(5, 1, 4); 
@@ -103,6 +114,16 @@ function testDownvotePost(){
     console.log(current_state); 
 }
 
+function testDonwVoteComment(){
+    let current_state = getSampleStore(5, 2, 2, false); 
+    console.log("store before update"); 
+    console.log(current_state); 
+    let new_comments = reducers.comments(current_state.comments, actions.downvoteComment("2c0"))
+    console.log('comments after downvote'); 
+    console.log(new_comments); 
+    console.log("original store before update"); 
+    console.log(current_state); 
+}
 
 function testPosts(){
 
@@ -111,7 +132,7 @@ function testPosts(){
     //testDeletePost(); //test passed 
     //testEditPost();   //test passed
     //testUpvotePost(); //test passed 
-    //testDownvotePost(); 
+    //testDownvotePost(); //test passed
     
 }
 
@@ -119,6 +140,8 @@ function testComments(){
      //testAddComment(); //test passed
      //testDeleteComment(); //test passed
      //testEditComment(); //test passed
+     //testUpvoteComment(); //test passed
+     //testDonwVoteComment(); //test passed
 
 }
 

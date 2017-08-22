@@ -65,7 +65,7 @@ export function downvotePost(id){
     return vote(DOWNVOTE_POST, id); 
 }
 
-export function donwvoteComment(id){
+export function downvoteComment(id){
     return vote(DOWNVOTE_COMMENT, id)
 }
 

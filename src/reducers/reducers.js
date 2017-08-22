@@ -64,6 +64,7 @@ export function posts(state, action){
 export function comments(state, action){
     let currentComment = null; 
     let updatedComment = null; 
+
     switch (action.type){
         case actions.ADD_NEW_COMMENT: 
             return {...state, [action.payload.id]: action.payload}
@@ -82,7 +83,18 @@ export function comments(state, action){
             return {...state, [action.payload.id]: updatedComment}; 
 
         case actions.UPVOTE_COMMENT:
+            currentComment = state[action.payload.id];
+            updatedComment = {...currentComment, 
+                voteScore: currentComment.voteScore + 1}
+            return {...state, [action.payload.id]: updatedComment}; 
+
         case actions.DOWNVOTE_COMMENT:
+            currentComment = state[action.payload.id];
+            updatedComment = {...currentComment, 
+                voteScore: currentComment.voteScore -1 }
+            return {...state, [action.payload.id]: updatedComment}; 
+
+            
         case actions.DELETE_ALL_COMMENTS_FOR_POST:
         default: 
             return state; 
