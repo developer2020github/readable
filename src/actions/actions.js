@@ -162,7 +162,7 @@ export function deleteParentOfComments(parentId){
 
 //DELETE_PARENT_OF_COMMENTS
 //===============================================================================
-function addCategories(categories){
+export function addCategories(categories){
     return {
         type: ADD_CATEGORIES, 
         categories
