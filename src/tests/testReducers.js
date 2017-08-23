@@ -165,7 +165,7 @@ function testComments(){
      //testUpvoteComment(); //test passed
      //testDonwVoteComment(); //test passed
      //testDeleteAllCommentsForPost(); // test passed
-     testDeletParentOfComments()
+     //testDeletParentOfComments(); //test passed 
 
 }
 

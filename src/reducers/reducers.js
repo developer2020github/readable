@@ -6,9 +6,11 @@ the store is going to have following structure:
     comments - a dictionaty of comments by ID 
 }
 */
+import { combineReducers } from 'redux'; 
 
 import * as actions from '../actions/actions'; 
-export function categories(state, action){
+
+export function categories(state=null, action){
     switch (action.type){
         case actions.ADD_CATEGORIES :
          return Object.assign({}, state, {categories: action.categoires})
@@ -18,7 +20,7 @@ export function categories(state, action){
 }
 
 
-export function posts(state, action){
+export function posts(state=null, action){
     let currentPost = null; 
     let updatedPost = null; 
 
@@ -61,7 +63,7 @@ export function posts(state, action){
 }
 
 
-export function comments(state, action){
+export function comments(state=null, action){
     let currentComment = null; 
     let updatedComment = null; 
     let newState = {};  
@@ -125,3 +127,10 @@ export function comments(state, action){
 
     }
 }
+
+
+export const reducer = combineReducers({
+    categories, 
+    posts, 
+    comments,
+ })
