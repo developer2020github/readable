@@ -6,14 +6,18 @@ function addCategories(store){
 }
 
 function addPostsAndComments(store){
-   let postsAndComments = getCommentstAndPosts(25, 3, 6); 
+   let postsAndComments = getCommentstAndPosts(25, 1, 9); 
+   
 
    for (let postId in postsAndComments.posts){
-        store.dispatch(actions.addPost(postsAndComments.posts[postId])); 
+        let post = postsAndComments.posts[postId];     
+        store.dispatch(actions.addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore)); 
    }
 
    for (let commentId in postsAndComments.comments){
-       store.dispatch(actions.addComment(postsAndComments.comments[commentId]))
+       let comment = postsAndComments.comments[commentId]; 
+ 
+       store.dispatch(actions.addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore)); 
    }
 }
 

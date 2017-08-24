@@ -14,9 +14,16 @@ import { Provider } from 'react-redux'
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 populateStore(store); 
+
 ReactDOM.render(
-<BrowserRouter><App /></BrowserRouter>
-,
- document.getElementById('root'))
+    <Provider store={store}>
+    <BrowserRouter>
+        
+            <App />
+      
+    </BrowserRouter>
+    </Provider>
+    ,
+    document.getElementById('root'))
 
 registerServiceWorker();

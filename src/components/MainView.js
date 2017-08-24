@@ -7,10 +7,24 @@ import { serverApiTestMain } from '../utils/ServerApiTest';
 import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import {getArrayOfExampleObjects} from '../utils/ServerApiTest'
+import { connect } from 'react-redux';
+
+function listOfObjectsToArray(listOfObjects){
+	//this function converts a list of objects into an array 
+	  return Object.keys(listOfObjects).map((key)=>{
+		return listOfObjects[key]; 
+	  })
+	}
+
+//function addNumberOfComments(posts, comments )
 
 class MainView extends Component {
 	render() {
-		let posts = getArrayOfExampleObjects(); 
+	
+		//let posts = listOfObjectsToArray(this.props.posts); 
+		let posts = this.props.posts; 
+        let comments = this.props.comments; 
+
 		return (
 			<div className="container">
 				<ApplicationHeader />
@@ -59,4 +73,15 @@ class MainView extends Component {
 	}
 }
 
-export default MainView;
+
+const mapStateToProps = (state, props) => { 
+	
+	return {
+	categories: state.categories,
+	posts: listOfObjectsToArray(state.posts), 
+	comments: listOfObjectsToArray(state.comments)
+  }};
+//ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
+
+export default connect(mapStateToProps)(MainView);
+//export {MainView}

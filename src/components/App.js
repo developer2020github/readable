@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch} from 'react-router-dom'
-
+import { connect } from 'react-redux';
 
 import { serverApiTestMain } from '../utils/ServerApiTest'; 
 import MainView from './MainView'; 
@@ -12,6 +12,7 @@ import DefaultPage from './DefaultPage';
 
 class App extends Component {
   render() {
+    //console.log(this.props);
     //serverApiTestMain(); 
     return (
         <Switch>
@@ -28,3 +29,4 @@ class App extends Component {
 }
 
 export default App;
+//export default connect()(App)
