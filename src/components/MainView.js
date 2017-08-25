@@ -178,10 +178,14 @@ const mapStateToProps = (state, props) => {
 		(post)=>{return !post.deleted}
 	)
 
+	let listOfComments = lib.listOfObjectsToArray(state.comments).filter(
+		(comment)=>{return !comment.deleted}
+	)
+
 	return {
 	categories: state.categories,
 	posts: listOfPosts, 
-	comments: lib.listOfObjectsToArray(state.comments)
+	comments: listOfComments
   }};
 //ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
 

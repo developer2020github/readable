@@ -4,7 +4,7 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deletePost } from "../actions/actions"
+import { deletePost, deleteComment } from "../actions/actions"
 //This component displays post and comments in all views. 
 //Post header and body are common for all views. 
 //Post footer can display different links and information depending 
@@ -39,13 +39,17 @@ class PostViewSmall extends Component {
     handlePostDeleteClick=()=>{
         console.log("post to be deleted!"); 
         console.log(this.props.post.id); 
-        this.props.dispatch(deletePost(this.props.post.id)); 
+        if (this.props.commentView) {
+            this.props.dispatch(deleteComment(this.props.post.id));
+        } else {
+            this.props.dispatch(deletePost(this.props.post.id)); 
+        }
     }
     render() {
         let linkToPostDetailedView = null; 
         let addComment = null; 
         let editPostButton = null; 
-        let deletePostButton = null; 
+        let deletePostButton = <span><button onClick={this.handlePostDeleteClick} className="post-footer-button">Delete</button></span>; 
         let title = this.props.post.title; 
         let category = <span className="post-category">Category: {this.props.post.category}</span>
         let comments =  <span className="number-of-comments">Comments: {this.props.post.numberOfComments}</span>
@@ -70,12 +74,13 @@ class PostViewSmall extends Component {
             addComment = <Link className="post-footer-link" to={{pathname:"/posts/"+this.props.post.id, 
                                                                  query: "addComment"
                                                                 }}>New comment</Link>;
+            deletePostButton = null; 
         }
 
         if (this.props.detailedView){
             addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>
             editPostButton = <span><button className="post-footer-button">Edit</button></span>
-            deletePostButton = <span><button onClick={this.handlePostDeleteClick} className="post-footer-button">Delete</button></span>
+            
         }
       
         let commentAuthor = null; 
@@ -89,7 +94,6 @@ class PostViewSmall extends Component {
             commentAuthor = <span className="post-author"> Commented by: {this.props.post.author}</span>
             commentTimeAndDate = <span className="comment-date-time">[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
             editPostButton = <span><button className="post-footer-button">Edit</button></span>
-            deletePostButton = <span><button className="post-footer-button">Delete</button></span>
         }
 
 
