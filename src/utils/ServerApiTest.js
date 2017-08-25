@@ -170,8 +170,8 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
        if (randomizeNumberOfcomments){
             numberOfComments = getRandomInt(minNumberOfComments, maxNumberOfComments); 
        }
-       console.log("number of comments"); 
-       console.log(numberOfComments); 
+       //console.log("number of comments"); 
+       //console.log(numberOfComments); 
 
        for (let j = 0; j<numberOfComments-1; j++){
            let comment = getComment(postId,  lib.generateUUID(), timestamp)

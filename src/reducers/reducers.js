@@ -13,7 +13,7 @@ import * as actions from '../actions/actions';
 export function categories(state=null, action){
     switch (action.type){
         case actions.ADD_CATEGORIES :
-         return Object.assign({}, state, {categories: action.categories})
+          return  action.categories.slice(0)
         default: 
          return state; 
     }

@@ -21,9 +21,7 @@ function addNumberOfComments(posts, comments){
 		posts[i]["numberOfComments"] = comments.reduce(
 
 			(numberOfCommments, comment)=>{ 
-				
- 
-			//	console.log(comment.parentId)
+
 				if (comment.parentId===posts[i].id){
 					return numberOfCommments+1; 
 				}
@@ -36,13 +34,29 @@ function addNumberOfComments(posts, comments){
 
 
 class MainView extends Component {
-	render() {
-	
-		//let posts = listOfObjectsToArray(this.props.posts); 
 
+	state={
+         selectedCategory: "all"
+	}
+
+	
+	handleCategorySelect=(e)=>{
+		console.log("category is now selected"); 
+		console.log(e.target.value); 
+		this.setState({selectedCategory: e.target.value}); 
+	}
+
+
+	render() {
 		
 		let comments = this.props.comments; 
 		let posts = addNumberOfComments(this.props.posts, comments);
+		let categories = ["all", ...this.props.categories]; 
+		let filteredPosts = posts.filter(
+			(p)=>{
+					return (p.category===this.state.selectedCategory||this.state.selectedCategory==="all")
+				 }
+		)
 
 		return (
 			<div className="container">
@@ -52,10 +66,10 @@ class MainView extends Component {
 					<div className="col-md-2 col-md-offset-2">
 						<div className="btn-panel control-style">
 							<span className="control-style">Category: </span>
-							<select className="selectpicker">
-								<option>All</option>
-								<option>Category1</option>
-								<option>Category2</option>
+							<select className="selectpicker" onChange={this.handleCategorySelect}>
+								{categories.map((category)=>{
+								  return <option value={category}>{category}</option>
+								})}
 							</select>
 						</div>
 					</div>
@@ -80,7 +94,8 @@ class MainView extends Component {
 				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
-						{posts.map((p)=> {
+					
+						{filteredPosts.map((p)=> {
 							return <PostViewSmall mainView={true} key={p.id} post={p}/>;
 						})}
 			

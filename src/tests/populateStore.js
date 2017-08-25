@@ -7,8 +7,8 @@ function addCategories(store){
 
 function addPostsAndComments(store){
    let postsAndComments = getCommentstAndPosts(25, 0, 15); 
-   console.log("posts and comments"); 
-   console.log(postsAndComments); 
+   //console.log("posts and comments"); 
+   //console.log(postsAndComments); 
 
    for (let postId in postsAndComments.posts){
         let post = postsAndComments.posts[postId];     
@@ -17,7 +17,7 @@ function addPostsAndComments(store){
 
    for (let commentId in postsAndComments.comments){
        let comment = postsAndComments.comments[commentId];
-       console.log("adding comment") ; 
+     //  console.log("adding comment") ; 
  
        store.dispatch(actions.addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore)); 
    }
