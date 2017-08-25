@@ -8,14 +8,7 @@ import NewComment from './NewComment.js';
 import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { exampleObject } from '../utils/ServerApiTest';
-
-function doesPostExist(postId) {
-
-	if (postId==="0") {
-		return true;
-	}
-	return false;
-}
+import { connect } from 'react-redux';
 
 
 class PostDetails extends Component {
@@ -37,13 +30,10 @@ class PostDetails extends Component {
 
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
-		console.log(this.props);
-		let post = null;
-		if (doesPostExist(this.props.match.params.postID)) {
-			post = exampleObject;
-		}
-		else {
-			return (<DefaultPage />)
+
+		let post = this.props.post; 
+		if (!post){
+			return (<DefaultPage />); 
 		}
 
 		let NewCommentForm = null;
@@ -88,4 +78,14 @@ class PostDetails extends Component {
 	}
 }
 
-export default PostDetails; 
+//export default PostDetails; 
+const mapStateToProps = (state, props) => { 
+
+	return {
+	categories: state.categories,
+	post: state.posts[props.match.params.postID], 
+	comments: state.comments
+  }};
+//ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
+
+export default connect(mapStateToProps)(PostDetails);
