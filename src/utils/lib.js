@@ -1,3 +1,10 @@
+export function listOfObjectsToArray(listOfObjects){
+	//this function converts a list of objects into an array 
+	  return Object.keys(listOfObjects).map((key)=>{
+		return listOfObjects[key]; 
+	  })
+	}
+
 
 
 

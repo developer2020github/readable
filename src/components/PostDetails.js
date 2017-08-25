@@ -9,6 +9,7 @@ import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { exampleObject } from '../utils/ServerApiTest';
 import { connect } from 'react-redux';
+import * as lib from '../utils/lib'
 
 
 class PostDetails extends Component {
@@ -41,6 +42,8 @@ class PostDetails extends Component {
 			NewCommentForm = <NewComment />;
 		}
 
+		let comments = this.props.comments; 
+
 		return (
 			<div className="container">
 				<ApplicationHeader />
@@ -64,13 +67,17 @@ class PostDetails extends Component {
 				         
 						<PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick}/>
 						{NewCommentForm}
-						<div className="panel panel-default">
-							First comment
-		     </div>
-						<div className="panel panel-default">
-							Second comment
-		     </div>
 					</div>
+				</div>
+
+				<div className="row">
+					<div className="col-md-10 col-md-offset-1">
+					
+						{comments.map((c)=> {
+							return <PostViewSmall mainView={true} key={c.id} post={c}/>;
+						})}
+			
+				</div>
 				</div>
 
 			</div>
@@ -80,11 +87,15 @@ class PostDetails extends Component {
 
 //export default PostDetails; 
 const mapStateToProps = (state, props) => { 
-
+    let commentsForPost = lib.listOfObjectsToArray(state.comments).filter(
+		(comment)=>{
+				return comment.parentId === props.match.params.postID
+			}
+	)
 	return {
 	categories: state.categories,
 	post: state.posts[props.match.params.postID], 
-	comments: state.comments
+	comments: commentsForPost
   }};
 //ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
 
