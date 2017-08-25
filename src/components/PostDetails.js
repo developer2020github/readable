@@ -74,7 +74,7 @@ class PostDetails extends Component {
 					<div className="col-md-10 col-md-offset-1">
 					
 						{comments.map((c)=> {
-							return <PostViewSmall mainView={true} key={c.id} post={c}/>;
+							return <PostViewSmall commentView={true} key={c.id} post={c}/>;
 						})}
 			
 				</div>

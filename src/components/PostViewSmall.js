@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
-//This component displays post in all views. 
+//This component displays post and comments in all views. 
 //Post header and body are common for all views. 
 //Post footer can display different links and information depending 
 //on a particular view. 
@@ -23,12 +23,40 @@ import { timeStampToDateAndTime } from '../utils/lib'
 // footer. Instead, different elements will be just conditionally rendered depending on what 
 // parent component is asking for. 
 
+//In comment view comment there should be no header
+
+//In comment view comment footer shouls show
+// - voting score
+// - button to edit comment 
+// - button to delete comment 
+//- author 
+//- date and time 
+
+
 class PostViewSmall extends Component {
     render() {
         let linkToPostDetailedView = null; 
         let addComment = null; 
         let editPostButton = null; 
         let deletePostButton = null; 
+        let title = this.props.post.title; 
+        let category = <span className="post-category">Category: {this.props.post.category}</span>
+        let comments =  <span className="number-of-comments">Comments: {this.props.post.numberOfComments}</span>
+        let author = <span className="post-author"> By: {this.props.post.author}</span>
+
+        let header  =                 <div className="row post-header">
+        
+        <div className="col-xs-6 text-left post-sub-header">
+                <span className="text-center post-title">{title}</span>
+                {author}
+            </div>
+        <div className="col-xs-6 text-right  post-sub-header">
+             {category}
+             <span>[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
+            </div>
+    </div>
+     
+      
 
         if (this.props.mainView){
             linkToPostDetailedView = <Link className="post-footer-link" to={"/posts/"+this.props.post.id}>details</Link>; 
@@ -42,22 +70,25 @@ class PostViewSmall extends Component {
             editPostButton = <span><button className="post-footer-button">Edit</button></span>
             deletePostButton = <span><button className="post-footer-button">Delete</button></span>
         }
+      
+        let commentAuthor = null; 
+        let commentTimeAndDate = null; 
+
+        if (this.props.commentView){
+            title = null; 
+            category = null; 
+            comments = null; 
+            header = null; 
+            commentAuthor = <span className="post-author"> Commented by: {this.props.post.author}</span>
+            commentTimeAndDate = <span className="comment-date-time">[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
+        }
+
 
 
         return (
             <div className="panel panel-default post-panel">
-                <div className="row post-header">
-                    
-                    <div className="col-xs-6 text-left post-sub-header">
-                            <span className="text-center post-title">{this.props.post.title}</span>
-                            <span className="post-author"> By: {this.props.post.author}</span>
-                        </div>
-                    <div className="col-xs-6 text-right  post-sub-header">
-                         <span className="post-category">Category: {this.props.post.category}</span>
-                         <span>[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
-                        </div>
-                </div>
 
+                {header}
                 <div>
                     <p>{this.props.post.body}</p>
                 </div>
@@ -71,8 +102,10 @@ class PostViewSmall extends Component {
                         {deletePostButton}
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">
-                        <span className="number-of-comments">Comments: {this.props.post.numberOfComments}</span>
+                        {comments}
                         {addComment}
+                        {commentAuthor}
+                        {commentTimeAndDate}
                     </div>
                 </div>
             </div>
