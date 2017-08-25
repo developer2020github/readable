@@ -6,16 +6,18 @@ function addCategories(store){
 }
 
 function addPostsAndComments(store){
-   let postsAndComments = getCommentstAndPosts(25, 1, 9); 
-   
+   let postsAndComments = getCommentstAndPosts(25, 0, 15); 
+   console.log("posts and comments"); 
+   console.log(postsAndComments); 
 
    for (let postId in postsAndComments.posts){
         let post = postsAndComments.posts[postId];     
-        store.dispatch(actions.addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore)); 
+        store.dispatch(actions.addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id)); 
    }
 
    for (let commentId in postsAndComments.comments){
-       let comment = postsAndComments.comments[commentId]; 
+       let comment = postsAndComments.comments[commentId];
+       console.log("adding comment") ; 
  
        store.dispatch(actions.addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore)); 
    }

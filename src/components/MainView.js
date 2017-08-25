@@ -16,14 +16,33 @@ function listOfObjectsToArray(listOfObjects){
 	  })
 	}
 
-//function addNumberOfComments(posts, comments )
+function addNumberOfComments(posts, comments){
+	for (let i = 0; i< posts.length; i++){
+		posts[i]["numberOfComments"] = comments.reduce(
+
+			(numberOfCommments, comment)=>{ 
+				
+ 
+			//	console.log(comment.parentId)
+				if (comment.parentId===posts[i].id){
+					return numberOfCommments+1; 
+				}
+				return numberOfCommments; 
+				}, 
+			0)
+	}
+	return posts; 
+}
+
 
 class MainView extends Component {
 	render() {
 	
 		//let posts = listOfObjectsToArray(this.props.posts); 
-		let posts = this.props.posts; 
-        let comments = this.props.comments; 
+
+		
+		let comments = this.props.comments; 
+		let posts = addNumberOfComments(this.props.posts, comments);
 
 		return (
 			<div className="container">

@@ -71,7 +71,7 @@ class PostViewSmall extends Component {
                         {deletePostButton}
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">
-                        <span className="number-of-comments">Comments: 25</span>
+                        <span className="number-of-comments">Comments: {this.props.post.numberOfComments}</span>
                         {addComment}
                     </div>
                 </div>

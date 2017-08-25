@@ -113,7 +113,7 @@ function add (author, body, voteScore=DEFAULT_VOTE_SCORE){
     }
 }
 
-export function addPost(author, body, category, title, timestamp=null, voteScore=null){
+export function addPost(author, body, category, title, timestamp=null, voteScore=null, id=null){
 
     let post = add(author, body); 
     let payload =  Object.assign({},  post, {title, category})
@@ -126,6 +126,10 @@ export function addPost(author, body, category, title, timestamp=null, voteScore
     if (voteScore){
         //need this mainly for debugging purposes: if voteScore is passed - use it instead of assigning default
        payload.voteScore=voteScore; 
+    }
+
+    if (id){
+        payload.id = id
     }
 
     return {type: ADD_NEW_POST, 

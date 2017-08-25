@@ -8,7 +8,7 @@
 //========================================================================================
 //This module was created for exploration of server API.
 //========================================================================================
-
+import * as lib from '../utils/lib'; 
 //an example of object returned 
 const exampleObject = {
 
@@ -152,7 +152,7 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
    let startDate = new Date(2010, 1, 10, 1, 2, 0, 45);
     //console.log(startDate); 
    
-   let posts = []; 
+   let posts = {}; 
    let comments ={}; 
    let categories =  ["react", "redux", "udacity"]; 
 
@@ -160,18 +160,21 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
        let body = " This is post # " + (i+1)  + " and some more text so it is not completely empty post; I do not know what else to write"; 
        let category = categories[getRandomInt(0, categories.length-1)]
        let timestamp = getRandomInt(startDate.getTime(), Date.now()); 
-       let voteScore = getRandomInt(0, 250); 
-       let post = Object.assign({}, exampleObject, {id : i.toString(),  category, body, timestamp, voteScore})
-       posts.push(post); 
+       let voteScore = getRandomInt(0, 250);
+       let postId = lib.generateUUID() 
+       let post = Object.assign({}, exampleObject, {id: postId, category, body, timestamp, voteScore})
+       posts[post.id]= post; 
 
 
        let numberOfComments = maxNumberOfComments; 
        if (randomizeNumberOfcomments){
             numberOfComments = getRandomInt(minNumberOfComments, maxNumberOfComments); 
        }
+       console.log("number of comments"); 
+       console.log(numberOfComments); 
 
        for (let j = 0; j<numberOfComments-1; j++){
-           let comment = getComment(i.toString(), i.toString()+"c" + j.toString(), timestamp)
+           let comment = getComment(postId,  lib.generateUUID(), timestamp)
            comments[comment.id]=comment; 
        }
 
