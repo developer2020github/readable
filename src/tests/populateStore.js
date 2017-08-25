@@ -6,7 +6,7 @@ function addCategories(store){
 }
 
 function addPostsAndComments(store){
-   let postsAndComments = getCommentstAndPosts(25, 0, 15); 
+   let postsAndComments = getCommentstAndPosts(9, 0, 15); 
    //console.log("posts and comments"); 
    //console.log(postsAndComments); 
 

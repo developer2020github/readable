@@ -36,18 +36,82 @@ function addNumberOfComments(posts, comments){
 class MainView extends Component {
 
 	state={
-         selectedCategory: "all"
+		 selectedCategory: "all", 
+		 sortBy: "date_desc"
 	}
 
 	
-	handleCategorySelect=(e)=>{
-		console.log("category is now selected"); 
-		console.log(e.target.value); 
+	handleCategorySelect=(e)=>{ 
 		this.setState({selectedCategory: e.target.value}); 
 	}
+	 
+	handleSortSelect = (e)=>{
+		
+		this.setState({sortBy: e.target.value})
+	}
 
+	sortByDateAscComparator=(p1, p2)=>{
+		if (p1.timestamp>p2.timestamp){
+			return 1; 
+		}else if (p1.timestamp<p2.timestamp){
+			return -1; 
+		}
+		return 0; 
+	}
+	
+	sortByDateDescComparator=(p1, p2)=>{
+		return -this.sortByDateAscComparator(p1, p2); 
+	}
 
-	render() {
+	sortByScoreAscComparator=(p1, p2)=>{
+		if(p1.voteScore>p2.voteScore){
+			return 1; 
+		}else if (p1.voteScore<p2.voteScore){
+			return -1; 
+		}
+		return 0; 
+	}
+
+	sortByScoreDescComparator=(p1, p2)=>{
+		return -this.sortByScoreAsc(p1, p2); 
+	}
+
+	sortByNumberOfCommentsAscComparator=(p1, p2)=>{
+
+		if(p1.numberOfComments>p2.numberOfComments){
+			return 1; 
+		}else if (p1.numberOfComments<p2.numberOfComments){
+			return -1; 
+		}
+		return 0; 
+	}
+
+	sortByNumberOfCommentsDescComparator=(p1,p2)=>{
+		return -this.sortByNumberOfCommentsAscComparator(p1, p2); 
+	}
+
+    
+	getSortComparator=()=>{
+
+		switch (this.state.sortBy){
+			case "date_desc": 
+				return this.sortByDateDescComparator; 
+			case "date_asc":
+				return this.sortByDateAscComparator; 
+			case "score_desc": 
+				return this.sortByScoreDescComparator; 
+			case "score_asc":
+				return this.sortByScoreAscComparator; 
+			case "comments_desc": 
+				return this.sortByNumberOfCommentsDescComparator; 
+			case "comments_asc":
+				return this.sortByNumberOfCommentsAscComparator; 
+			default: 
+				return this.sortByDateDescComparator; 
+		}
+	}
+
+	render(){
 		
 		let comments = this.props.comments; 
 		let posts = addNumberOfComments(this.props.posts, comments);
@@ -57,6 +121,9 @@ class MainView extends Component {
 					return (p.category===this.state.selectedCategory||this.state.selectedCategory==="all")
 				 }
 		)
+
+		let sortComparator = this.getSortComparator(); 
+		let sortedPosts = filteredPosts.sort(sortComparator);
 
 		return (
 			<div className="container">
@@ -76,10 +143,14 @@ class MainView extends Component {
 					<div className="col-md-2">
 						<div className="btn-panel">
 							<span className="control-style">Sort by: </span>
-							<select className="selectpicker">
-								<option>Date</option>
-								<option>Score</option>
-								<option>Category</option>
+							<select className="selectpicker" onChange={this.handleSortSelect}>
+
+								<option value="date_desc">Latest first</option>
+								<option value="date_asc">Oldest first</option>
+								<option value="score_desc">Score high to low</option>
+								<option value="score_asc">Score low to high</option>
+								<option value="comments_desc">Number of comments high to low</option>
+								<option value="comments_asc">Number of comments low to high</option>
 							</select>
 						</div>
 					</div>
@@ -95,7 +166,7 @@ class MainView extends Component {
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 					
-						{filteredPosts.map((p)=> {
+						{sortedPosts.map((p)=> {
 							return <PostViewSmall mainView={true} key={p.id} post={p}/>;
 						})}
 			
