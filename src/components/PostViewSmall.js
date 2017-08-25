@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
+import { connect } from 'react-redux';
+import { deletePost } from "../actions/actions"
 //This component displays post and comments in all views. 
 //Post header and body are common for all views. 
 //Post footer can display different links and information depending 
@@ -34,6 +36,11 @@ import { timeStampToDateAndTime } from '../utils/lib'
 
 
 class PostViewSmall extends Component {
+    handlePostDeleteClick=()=>{
+        console.log("post to be deleted!"); 
+        console.log(this.props.post.id); 
+        this.props.dispatch(deletePost(this.props.post.id)); 
+    }
     render() {
         let linkToPostDetailedView = null; 
         let addComment = null; 
@@ -68,7 +75,7 @@ class PostViewSmall extends Component {
         if (this.props.detailedView){
             addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>
             editPostButton = <span><button className="post-footer-button">Edit</button></span>
-            deletePostButton = <span><button className="post-footer-button">Delete</button></span>
+            deletePostButton = <span><button onClick={this.handlePostDeleteClick} className="post-footer-button">Delete</button></span>
         }
       
         let commentAuthor = null; 
@@ -115,4 +122,5 @@ class PostViewSmall extends Component {
     }
 }
 
-export default PostViewSmall;
+//export default PostViewSmall;
+export default connect()(PostViewSmall);
