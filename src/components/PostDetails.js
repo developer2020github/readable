@@ -17,6 +17,13 @@ class PostDetails extends Component {
 		showNewCommentForm: false
 	}
 
+	handleSortSelect = (e)=>{
+		
+		//this.setState({sortBy: e.target.value})
+		console.log(e.target.value); 
+	}
+
+
 	handleAddCommentClick = () => {
 		this.setState({ showNewCommentForm: !this.state.showNewCommentForm });
 	}
@@ -28,7 +35,7 @@ class PostDetails extends Component {
 			}
 		}
 	}
-
+    
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 
@@ -49,12 +56,38 @@ class PostDetails extends Component {
 				<ApplicationHeader />
 
 				<div className="row">
+					
+					<div className="col-md-4 col-md-offset-2">
+			
+					
+						<div className="btn-panel">
+							<span className="control-style">Sort comments by: </span>
+							<select className="selectpicker" onChange={this.handleSortSelect}>
 
-					<div className="col-md-2 text-left col-md-offset-3"><Link className="btn btn-default control-style" to="/">Main page</Link></div>
-					<div className="col-md-2 text-center"><a href="post_edit.html">Edit</a></div>
-					<div className="col-md-2 text-right"><a href="post_delete.html">Delete</a></div>
-
+								<option value="date_desc">Latest first</option>
+								<option value="date_asc">Oldest first</option>
+								<option value="score_desc">Score high to low</option>
+								<option value="score_asc">Score low to high</option>
+				
+							</select>
+						</div>
+					</div>
+				
+					<div className="col-md-4 text-right">
+						<Link className="btn btn-default control-style" to="/">Main page</Link>
+					</div>
+					
 				</div>
+
+				<div className="row">
+					<div className="col-md-8 col-md-offset-2">
+						<hr></hr>
+					</div>
+				</div>
+
+
+
+
 
 				<div className="row">
 					<div className="col-md-8 col-md-offset-2">
