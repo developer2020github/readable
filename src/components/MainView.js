@@ -67,7 +67,7 @@ class MainView extends Component {
 	}
 
 	sortByScoreDescComparator=(p1, p2)=>{
-		return -this.sortByScoreAsc(p1, p2); 
+		return -this.sortByScoreAscComparator(p1, p2); 
 	}
 
 	sortByNumberOfCommentsAscComparator=(p1, p2)=>{

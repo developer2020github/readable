@@ -137,13 +137,24 @@ export function addPost(author, body, category, title, timestamp=null, voteScore
     } 
 }
 
-export function addComment(parentId, body, author){
-    let comment = add(author, body)
+export function addComment(parentId, body, author,  timestamp=null, voteScore=null){
+    let comment = add(author, body); 
+    let payload = Object.assign({},  comment, {parentId, parentDeleted: false})
+
+    if (timestamp){
+        //need this mainly for debugging purposes: if timestamp is passed - use it instead of assigning current time 
+       payload.timestamp=timestamp; 
+    }
+
+    if (voteScore){
+        //need this mainly for debugging purposes: if voteScore is passed - use it instead of assigning default
+       payload.voteScore=voteScore; 
+    }
+
 
     return {type: ADD_NEW_COMMENT, 
-        payload: Object.assign({},  comment, {parentId, parentDeleted: false})
-
-} 
+        payload
+     } 
     
 }
 

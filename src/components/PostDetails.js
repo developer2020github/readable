@@ -14,19 +14,62 @@ import * as lib from '../utils/lib'
 
 class PostDetails extends Component {
 	state = {
-		showNewCommentForm: false
+		showNewCommentForm: false, 
+		sortBy: "date_desc"
 	}
 
 	handleSortSelect = (e)=>{
 		
-		//this.setState({sortBy: e.target.value})
-		console.log(e.target.value); 
+		this.setState({sortBy: e.target.value})
 	}
-
 
 	handleAddCommentClick = () => {
 		this.setState({ showNewCommentForm: !this.state.showNewCommentForm });
 	}
+	
+	sortByDateAscComparator=(p1, p2)=>{
+		if (p1.timestamp>p2.timestamp){
+			return 1; 
+		}else if (p1.timestamp<p2.timestamp){
+			return -1; 
+		}
+		return 0; 
+	}
+	
+	sortByDateDescComparator=(p1, p2)=>{
+		return -this.sortByDateAscComparator(p1, p2); 
+	}
+
+	sortByScoreAscComparator=(p1, p2)=>{
+	
+		if(p1.voteScore>p2.voteScore){
+			return 1; 
+		}else if (p1.voteScore<p2.voteScore){
+			return -1; 
+		}
+		return 0; 
+	}
+
+	sortByScoreDescComparator=(p1, p2)=>{
+		return -this.sortByScoreAscComparator(p1, p2); 
+	}
+
+	getSortComparator=()=>{
+		
+				switch (this.state.sortBy){
+					case "date_desc": 
+						return this.sortByDateDescComparator; 
+					case "date_asc":
+						return this.sortByDateAscComparator; 
+					case "score_desc": 
+						return this.sortByScoreDescComparator; 
+					case "score_asc":
+						return this.sortByScoreAscComparator; 
+					default: 
+						return this.sortByDateDescComparator; 
+				}
+			}
+	
 
 	componentWillMount() {
 		if (this.props.location.hasOwnProperty("query")) {
@@ -50,6 +93,9 @@ class PostDetails extends Component {
 		}
 
 		let comments = this.props.comments; 
+
+		let sortComparator = this.getSortComparator(); 
+		let sortedComments = comments.sort(sortComparator);
 
 		return (
 			<div className="container">
@@ -76,7 +122,7 @@ class PostDetails extends Component {
 					<div className="col-md-4 text-right">
 						<Link className="btn btn-default control-style" to="/">Main page</Link>
 					</div>
-					
+
 				</div>
 
 				<div className="row">
@@ -106,7 +152,7 @@ class PostDetails extends Component {
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 					
-						{comments.map((c)=> {
+						{sortedComments.map((c)=> {
 							return <PostViewSmall commentView={true} key={c.id} post={c}/>;
 						})}
 			
