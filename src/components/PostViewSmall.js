@@ -81,6 +81,8 @@ class PostViewSmall extends Component {
             header = null; 
             commentAuthor = <span className="post-author"> Commented by: {this.props.post.author}</span>
             commentTimeAndDate = <span className="comment-date-time">[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
+            editPostButton = <span><button className="post-footer-button">Edit</button></span>
+            deletePostButton = <span><button className="post-footer-button">Delete</button></span>
         }
 
 
