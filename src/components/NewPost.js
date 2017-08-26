@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, Redirect } from 'react-router-dom'; 
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import  ApplicationHeader  from './ApplicationHeader';
@@ -19,7 +19,9 @@ class NewPost extends Component {
         authorClass: "", 
         authorWarningMessage: "", 
         bodyClass: "", 
-        bodyWarningMessage: ""
+        bodyWarningMessage: "", 
+        newPostAdded : false
+
     }
     
     userEntryIsOk(value, nameOfClass, nameOfMessageField){
@@ -44,12 +46,12 @@ class NewPost extends Component {
     handleSubmit = (e)=>{
         e.preventDefault();     
         const values = serializeForm(e.target, {hash : true}); 
-        console.log("values from the form"); 
-        console.log(values); 
-
+       
         if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage"))&
             (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
              this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
+             this.setState({newPostAdded : true}); 
+
            } else{
             //if either of the checks failed - save already entered data for next iteration
               this.setState({
@@ -78,7 +80,8 @@ class NewPost extends Component {
             nameClass: "",
             nameWarningMessage: "",
             bodyClass: "",
-            bodyWarningMessage: ""
+            bodyWarningMessage: "", 
+            newPostAdded : false
         }
       )
     }
@@ -106,6 +109,12 @@ class NewPost extends Component {
 	}
 
     render() {
+
+        if (this.state.newPostAdded){
+            
+                return <Redirect to='/'/>;
+              
+        }
 
 
         return (   
