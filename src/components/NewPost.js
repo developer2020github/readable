@@ -23,8 +23,7 @@ class NewPost extends Component {
     }
     
     userEntryIsOk(value, nameOfClass, nameOfMessageField){
-        console.log("valueChecked")
-        console.log(value); 
+
 
         if (value&&value.trim()!=""){
             this.setState({
@@ -51,8 +50,19 @@ class NewPost extends Component {
         if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage"))&
             (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
              this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
+           } else{
+            //if either of the checks failed - save already entered data for next iteration
+              this.setState({
+                  saved: {
+                    author : values.author, 
+                    body : values.body, 
+                    category : values.category, 
+                    title: values.title
+                  }
+
+              })
            }
-        console.log(this.state); 
+
 
 	}
 
@@ -77,6 +87,24 @@ class NewPost extends Component {
        this.resetState(); 
     }
 
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            saved: {
+                category: nextProps.categories[0]
+            }
+
+        })
+    }
+
+    handleCategorySelect=(e)=>{ 
+        this.setState({
+            saved: {
+                category: e.target.value
+            }
+
+        })
+	}
+
     render() {
 
 
@@ -100,7 +128,7 @@ class NewPost extends Component {
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="selectCategory">Select category:</label>
-                        <select className="form-control" id="selectCategory" name="category">
+                        <select className="form-control" id="selectCategory" name="category" value={this.state.saved.category}  onChange={this.handleCategorySelect}>
                             {this.props.categories.map((category)=>{
 								  return <option key={category} value={category}>{category}</option>
 							})}
@@ -108,14 +136,14 @@ class NewPost extends Component {
                     </div>
                     <div className="form-group">
                         <label htmlFor="AuthorName" className={this.state.authorClass}>Your name: {this.state.authorWarningMessage}</label>
-                        <input type="text" className="form-control" id="AuthorName" placeholder="User name" name="author" defaultValue=""></input>
+                        <input type="text" className="form-control" id="AuthorName" placeholder="User name" name="author" defaultValue={this.state.saved.author}></input>
                     </div>
                     <div className="form-group">
                         <label htmlFor="PostTitle">Title:</label>
-                        <input type="text" className="form-control" id="PostTitle" placeholder="Title of the post" name="title"></input>
+                        <input type="text" className="form-control" id="PostTitle" placeholder="Title of the post" name="title" defaultValue={this.state.saved.title}></input>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="postText" className={this.state.bodyClass}>Post: {this.state.bodyWarningMessage}</label>
+                        <label htmlFor="postText" className={this.state.bodyClass} defaultValue={this.state.saved.title}>Post: {this.state.bodyWarningMessage}</label>
                         <textarea className="form-control" id="postText" rows="10" name="body"></textarea>
                     </div>
                     <button type="submit" className="btn btn-default control-style">Create post</button>
