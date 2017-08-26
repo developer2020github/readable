@@ -119,7 +119,13 @@ class PostViewSmall extends Component {
                                  <span><button onClick={this.handlePostConfirmDeleteClick} className="btn btn-default control-style">Confirm delete</button></span>
                                  <span><button onClick={this.handlePostDeleteRequesCancelClick} className="btn btn-default control-style">Cancel</button></span>
                             </div>
-        if (!this.state.deletePostConfirmRequested){
+        if (this.state.deletePostConfirmRequested){
+            confirmDelete = null; 
+            editPostButton = null; 
+            addComment = null; 
+            deletePostButton = null;
+
+        }else{
             confirmDelete = null; 
         }
 
