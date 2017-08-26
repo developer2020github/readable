@@ -15,7 +15,8 @@ import * as lib from '../utils/lib'
 class PostDetails extends Component {
 	state = {
 		showNewCommentForm: false, 
-		sortBy: "date_desc"
+		sortBy: "date_desc", 
+		postWasDeleted: false
 		
 	}
 
@@ -88,6 +89,26 @@ class PostDetails extends Component {
 			return (<DefaultPage />); 
 		}
 
+		if (post.deleted){
+			
+						//this.setState({postWasJustDeleted: false})
+						
+						return (<div className="container">
+							    	<ApplicationHeader />
+
+									<div className="row">
+										<div className="col-md-8 col-md-offset-2">
+											<div className="post-deleted">
+												Post {post.id} was deleted.<Link to="/">Back to main page</Link>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								)
+		}
+
+
 		let NewCommentForm = null;
 		if (this.state.showNewCommentForm) {
 			NewCommentForm = <NewComment />;
@@ -132,10 +153,6 @@ class PostDetails extends Component {
 					</div>
 				</div>
 
-
-
-
-
 				<div className="row">
 					<div className="col-md-8 col-md-offset-2">
 						<hr></hr>
@@ -172,6 +189,7 @@ const mapStateToProps = (state, props) => {
 				return comment.parentId === props.match.params.postID && !comment.deleted
 			}
 	)
+
 	return {
 	categories: state.categories,
 	post: state.posts[props.match.params.postID], 

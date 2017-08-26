@@ -47,6 +47,9 @@ class PostViewSmall extends Component {
             this.props.dispatch(deleteAllCommentsForPost(this.props.post.id)); 
         }
     }
+
+
+
     render() {
         let linkToPostDetailedView = null; 
         let addComment = null; 
@@ -102,6 +105,7 @@ class PostViewSmall extends Component {
 
         return (
 
+                
                 <div className="panel panel-default post-panel">
 
                 {header}
