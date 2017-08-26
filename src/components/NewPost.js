@@ -18,12 +18,9 @@ class NewPost extends Component {
     }
 
     handleSubmit = (e)=>{
-       
         e.preventDefault();     
         const values = serializeForm(e.target, {hash : true}); 
-        //export function addPost(author, body, category, title,
         this.props.dispatch(addPost(values.author, values.body, values.category, values.title))
-
 	}
 
 

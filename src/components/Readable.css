@@ -7,8 +7,13 @@ body, .app-background, .confirm-delete{
 .control-style{
   font-weight: bold; 
 }
-.content-background{
+.content-background, #post-body{
   background-color: white; 
+}
+
+#post-body{
+  border: none; 
+  font-size: 14px; 
 }
 
 .btn-panel {

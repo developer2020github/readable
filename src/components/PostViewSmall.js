@@ -135,7 +135,7 @@ class PostViewSmall extends Component {
 
                 {header}
                 <div>
-                    <p>{this.props.post.body}</p>
+                    <pre id="post-body">{this.props.post.body}</pre>
                 </div>
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
