@@ -95,7 +95,7 @@ class PostViewSmall extends Component {
 
         if (this.props.detailedView){
             addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>
-            editPostButton = <span><button className="post-footer-button">Edit</button></span>
+            editPostButton = <span><button className="post-footer-button" onClick={this.props.handlePostEditOn}>Edit</button></span>
             
         }
       

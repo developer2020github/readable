@@ -70,25 +70,30 @@ export function downvoteComment(id){
 }
 
 //=========================================================================
-function edit (type, id, body, title=null){
+function edit (type, id, author, body, category=null, title=null){
     let timestamp  = Date.now(); 
     let updatedItem = {
         type, 
         payload: {id, 
-        body, 
+        body,
+        author,  
         timestamp}
     }
 
     if (title){
         updatedItem.payload["title"] = title; 
     }
-
+    
+    if (category){
+        updatedItem.payload['category'] = category;
+    }
     return updatedItem; 
 }
 
 
-export function editPost(id, body, title){
-    return edit(EDIT_POST, id, body, title)
+//values.author, values.body, values.category, values.title
+export function editPost(id, author, body, category, title){
+    return edit(EDIT_POST, id, author, body, category, title)
 }
 
 

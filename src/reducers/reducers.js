@@ -37,10 +37,7 @@ export function posts(state=null, action){
 
        case actions.EDIT_POST:
             currentPost = state[action.payload.id]; 
-            updatedPost = {...currentPost, 
-                                  body: action.payload.body, 
-                                  title: action.payload.title, 
-                                  timestamp: action.payload.timestamp}; 
+            updatedPost = {...currentPost, ...action.payload}; 
 
             return {...state, [action.payload.id]: updatedPost}; 
         

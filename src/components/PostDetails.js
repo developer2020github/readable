@@ -9,15 +9,25 @@ import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { exampleObject } from '../utils/ServerApiTest';
 import { connect } from 'react-redux';
+import UpdatePost from "./UpdatePost"; 
 import * as lib from '../utils/lib'
 
 
 class PostDetails extends Component {
 	state = {
 		showNewCommentForm: false, 
+		showPostUpdateForm: false, 
 		sortBy: "date_desc", 
 		postWasDeleted: false
 		
+	}
+
+    handlePostEditOn = ()=>{
+		this.setState({showPostUpdateForm: true})
+	}
+
+	handlePostEditCancel = ()=>{
+		this.setState({showPostUpdateForm: false})
 	}
 
 	handleSortSelect = (e)=>{
@@ -110,14 +120,26 @@ class PostDetails extends Component {
 
 
 		let NewCommentForm = null;
+		
 		if (this.state.showNewCommentForm) {
-			NewCommentForm = <NewComment />;
+			NewCommentForm = <NewComment parentPost={post.id}> </NewComment>;
+		}
+
+		let PostUpdateForm = null; 
+		let Post = <PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick} handlePostEditOn={this.handlePostEditOn}/>
+
+		if (this.state.showPostUpdateForm){
+			PostUpdateForm = <UpdatePost postId ={post.id} handlePostEditCancel ={this.handlePostEditCancel}></UpdatePost>
+			Post=null; 
 		}
 
 		let comments = this.props.comments; 
 
 		let sortComparator = this.getSortComparator(); 
 		let sortedComments = comments.sort(sortComparator);
+
+
+
 
 		return (
 			<div className="container">
@@ -161,12 +183,11 @@ class PostDetails extends Component {
 				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
-				         
-						<PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick}/>
+						{Post}
+						{PostUpdateForm}
 						{NewCommentForm}
 					</div>
 				</div>
-
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 					
