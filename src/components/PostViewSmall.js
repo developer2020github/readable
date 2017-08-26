@@ -52,6 +52,7 @@ class PostViewSmall extends Component {
     }
 
     handlePostDeleteRequestClick=()=>{
+        console.log("handlePostDeleteRequestClick"); 
         this.setState({deletePostConfirmRequested: true})
     }
 
@@ -60,7 +61,6 @@ class PostViewSmall extends Component {
     }
 
     componentWillUnmount(){
-        //no matter what happened, if user is leaving the page - delete request should be cleared
         this.setState({deletePostConfirmRequested: false})
     } 
 
@@ -120,7 +120,6 @@ class PostViewSmall extends Component {
                                  <span><button onClick={this.handlePostDeleteRequesCancelClick} className="btn btn-default control-style">Cancel</button></span>
                             </div>
         if (this.state.deletePostConfirmRequested){
-            confirmDelete = null; 
             editPostButton = null; 
             addComment = null; 
             deletePostButton = null;
