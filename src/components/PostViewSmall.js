@@ -36,8 +36,11 @@ import { deletePost, deleteComment, deleteAllCommentsForPost} from "../actions/a
 
 
 class PostViewSmall extends Component {
-    
-    handlePostDeleteClick=()=>{
+    state={
+        deletePostConfirmRequested : false
+    }
+
+    handlePostConfirmDeleteClick=()=>{
         //console.log("post to be deleted!"); 
         //console.log(this.props.post.id); 
         if (this.props.commentView) {
@@ -48,13 +51,24 @@ class PostViewSmall extends Component {
         }
     }
 
+    handlePostDeleteRequestClick=()=>{
+        this.setState({deletePostConfirmRequested: true})
+    }
 
+    handlePostDeleteRequesCancelClick=()=>{
+        this.setState({deletePostConfirmRequested: false})
+    }
+
+    componentWillUnmount(){
+        //no matter what happened, if user is leaving the page - delete request should be cleared
+        this.setState({deletePostConfirmRequested: false})
+    } 
 
     render() {
         let linkToPostDetailedView = null; 
         let addComment = null; 
         let editPostButton = null; 
-        let deletePostButton = <span><button onClick={this.handlePostDeleteClick} className="post-footer-button">Delete</button></span>; 
+        let deletePostButton = <span><button onClick={this.handlePostDeleteRequestClick} className="post-footer-button">Delete</button></span>; 
         let title = this.props.post.title; 
         let category = <span className="post-category">Category: {this.props.post.category}</span>
         let comments =  <span className="number-of-comments">Comments: {this.props.post.numberOfComments}</span>
@@ -101,7 +115,13 @@ class PostViewSmall extends Component {
             editPostButton = <span><button className="post-footer-button">Edit</button></span>
         }
 
-
+        let confirmDelete = <div className="confirm-delete">
+                                 <span><button onClick={this.handlePostConfirmDeleteClick} className="btn btn-default control-style">Confirm delete</button></span>
+                                 <span><button onClick={this.handlePostDeleteRequesCancelClick} className="btn btn-default control-style">Cancel</button></span>
+                            </div>
+        if (!this.state.deletePostConfirmRequested){
+            confirmDelete = null; 
+        }
 
         return (
 
@@ -127,7 +147,9 @@ class PostViewSmall extends Component {
                         {commentAuthor}
                         {commentTimeAndDate}
                     </div>
+                        
                 </div>
+                {confirmDelete}
             </div>
         );
     }
