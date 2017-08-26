@@ -82,7 +82,7 @@ class UpdatePost extends Component {
             nameWarningMessage: "",
             bodyClass: "",
             bodyWarningMessage: "", 
-            newPostAdded : false
+            postUpdated : false
         }
       )
     }
@@ -117,8 +117,10 @@ class UpdatePost extends Component {
 
     render() {
             
-        console.log("redering edit post"); 
-        console.log(this.props); 
+        if (this.state.postUpdated){
+               this.props.handlePostEditCancel(); //this causes a warning
+               return <Redirect to={"/posts/"+this.props.post.id}/>;  
+        }
         
         return (   
   
