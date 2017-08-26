@@ -16,6 +16,7 @@ class PostDetails extends Component {
 	state = {
 		showNewCommentForm: false, 
 		sortBy: "date_desc"
+		
 	}
 
 	handleSortSelect = (e)=>{
@@ -168,7 +169,7 @@ class PostDetails extends Component {
 const mapStateToProps = (state, props) => { 
     let commentsForPost = lib.listOfObjectsToArray(state.comments).filter(
 		(comment)=>{
-				return comment.parentId === props.match.params.postID
+				return comment.parentId === props.match.params.postID && !comment.deleted
 			}
 	)
 	return {
