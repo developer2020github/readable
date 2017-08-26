@@ -14,18 +14,74 @@ class NewPost extends Component {
             body : "", 
             category : "", 
             title: ""
+        }, 
+
+        authorClass: "", 
+        authorWarningMessage: "", 
+        bodyClass: "", 
+        bodyWarningMessage: ""
+    }
+    
+    userEntryIsOk(value, nameOfClass, nameOfMessageField){
+        console.log("valueChecked")
+        console.log(value); 
+
+        if (value&&value.trim()!=""){
+            this.setState({
+                [nameOfClass]: "", 
+                [nameOfMessageField]: ""
+            })
+            return true; 
+    
+        }else{
+            this.setState({
+                [nameOfClass]: "form-item-warning", 
+                [nameOfMessageField]: " *  this field is requred"
+            })
+            return false; 
         }
     }
 
     handleSubmit = (e)=>{
         e.preventDefault();     
         const values = serializeForm(e.target, {hash : true}); 
-        this.props.dispatch(addPost(values.author, values.body, values.category, values.title))
+        console.log("values from the form"); 
+        console.log(values); 
+
+        if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage"))&
+            (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
+             this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
+           }
+        console.log(this.state); 
+
 	}
 
+    resetState() {
+        this.setState({
+            saved: {
+                author: "",
+                body: "",
+                category: "",
+                title: ""
+            },
+
+            nameClass: "",
+            nameWarningMessage: "",
+            bodyClass: "",
+            bodyWarningMessage: ""
+        }
+      )
+    }
+    componentWillUnmount(){
+    //if user  is leaving the page - just clear everything
+       this.resetState(); 
+    }
 
     render() {
+
+
         return (   
+    
 
     <div className="container">
         <ApplicationHeader/>
@@ -51,7 +107,7 @@ class NewPost extends Component {
                         </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="AuthorName">Your name:</label>
+                        <label htmlFor="AuthorName" className={this.state.authorClass}>Your name: {this.state.authorWarningMessage}</label>
                         <input type="text" className="form-control" id="AuthorName" placeholder="User name" name="author" defaultValue=""></input>
                     </div>
                     <div className="form-group">
@@ -59,7 +115,7 @@ class NewPost extends Component {
                         <input type="text" className="form-control" id="PostTitle" placeholder="Title of the post" name="title"></input>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="postText">Post:</label>
+                        <label htmlFor="postText" className={this.state.bodyClass}>Post: {this.state.bodyWarningMessage}</label>
                         <textarea className="form-control" id="postText" rows="10" name="body"></textarea>
                     </div>
                     <button type="submit" className="btn btn-default control-style">Create post</button>

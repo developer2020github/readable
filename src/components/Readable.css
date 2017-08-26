@@ -121,3 +121,7 @@ body, .app-background, .confirm-delete{
   text-align: center; 
   font-size: 20px;
 }
+
+.form-item-warning{
+  color: #FF5400; 
+}

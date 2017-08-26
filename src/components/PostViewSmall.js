@@ -41,8 +41,6 @@ class PostViewSmall extends Component {
     }
 
     handlePostConfirmDeleteClick=()=>{
-        //console.log("post to be deleted!"); 
-        //console.log(this.props.post.id); 
         if (this.props.commentView) {
             this.props.dispatch(deleteComment(this.props.post.id));
         } else {
@@ -52,7 +50,6 @@ class PostViewSmall extends Component {
     }
 
     handlePostDeleteRequestClick=()=>{
-        console.log("handlePostDeleteRequestClick"); 
         this.setState({deletePostConfirmRequested: true})
     }
 
@@ -130,7 +127,6 @@ class PostViewSmall extends Component {
 
         return (
 
-                
                 <div className="panel panel-default post-panel">
 
                 {header}
