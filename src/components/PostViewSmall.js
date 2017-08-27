@@ -4,7 +4,7 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deletePost, deleteComment, deleteAllCommentsForPost} from "../actions/actions"
+import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment} from "../actions/actions"
 import UpdateComment from "./UpdateComment"
 
 //This component displays post and comments in all views. 
@@ -70,6 +70,22 @@ class PostViewSmall extends Component {
 
     handleCommentEditClick=()=>{
         this.setState({showEditComment: true})
+    }
+
+    handleUpvote=()=>{
+        if (this.props.commentView){
+             this.props.dispatch(upvoteComment(this.props.post.id))
+        }else{
+            this.props.dispatch(upvotePost(this.props.post.id))
+        }
+    }
+
+    handleDownvote=()=>{
+        if (this.props.commentView){
+            this.props.dispatch(downvoteComment(this.props.post.id))
+       }else{
+           this.props.dispatch(downvotePost(this.props.post.id))
+       }
     }
 
     render() {
@@ -151,8 +167,8 @@ class PostViewSmall extends Component {
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
                         <span className="vote-score">Likes: {this.props.post.voteScore}</span>
-                        <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-up readables-arrow-button"></span></button>
-                        <button className="btn btn-xs vote-button"><span className="glyphicon glyphicon-arrow-down readables-arrow-button"></span></button>
+                        <button className="btn btn-xs vote-button" onClick={this.handleUpvote}><span className="glyphicon glyphicon-arrow-up readables-arrow-button"></span></button>
+                        <button className="btn btn-xs vote-button" onClick={this.handleDownvote}><span className="glyphicon glyphicon-arrow-down readables-arrow-button"></span></button>
                         {linkToPostDetailedView}
                         {editPostButton}
                         {deletePostButton}

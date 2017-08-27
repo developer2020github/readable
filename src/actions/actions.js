@@ -97,8 +97,8 @@ export function editPost(id, author, body, category, title){
 }
 
 
-export function editComment(id, body){
-    return edit(EDIT_COMMENT, id, body)
+export function editComment(id, author, body){
+    return edit(EDIT_COMMENT, id, author, body)
 }
 
 //==========================================================================

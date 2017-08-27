@@ -5,7 +5,7 @@ import './Readable.css';
 import  ApplicationHeader  from './ApplicationHeader';
 import serializeForm from "form-serialize"
 import { connect } from 'react-redux'
-import { addComment } from "../actions/actions"
+import { editComment } from "../actions/actions"
 
 
 class UpdateComment extends Component {
@@ -49,8 +49,8 @@ class UpdateComment extends Component {
             if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage"))&
                 (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
                  //export function addComment(parentId, body, author,  timestamp=null, voteScore=null)
-                 this.props.dispatch(addComment(this.props.parentPostId, values.body, values.author)); 
-                 this.props.handleCancelNewComment(); 
+                 this.props.dispatch(editComment(this.props.commentId, values.author, values.body)); //this  is not tested yet
+                 this.props.handleCancelCommentEdit(); 
 
                } else{
                 //if either of the checks failed - save already entered data for next iteration
