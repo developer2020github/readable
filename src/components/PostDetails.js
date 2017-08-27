@@ -36,7 +36,11 @@ class PostDetails extends Component {
 	}
 
 	handleAddCommentClick = () => {
-		this.setState({ showNewCommentForm: !this.state.showNewCommentForm });
+		this.setState({ showNewCommentForm: true});
+	}
+
+	handleCancelNewComment = () =>{
+		this.setState({ showNewCommentForm: false}); 
 	}
 	
 	sortByDateAscComparator=(p1, p2)=>{
@@ -123,7 +127,7 @@ class PostDetails extends Component {
 		let NewCommentForm = null;
 		
 		if (this.state.showNewCommentForm) {
-			NewCommentForm = <NewComment parentPost={post.id}> </NewComment>;
+			NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={post.id}> </NewComment>;
 		}
 
 		let PostUpdateForm = null; 
