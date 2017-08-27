@@ -20,7 +20,7 @@ class UpdatePost extends Component {
         authorWarningMessage: "", 
         bodyClass: "", 
         bodyWarningMessage: "", 
-        postUpdated : false
+       
 
     }
     
@@ -51,8 +51,8 @@ class UpdatePost extends Component {
             (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
 
              this.props.dispatch(editPost(this.props.postId, values.author, values.body, values.category, values.title)); 
-             this.setState({postUpdated : true}); 
-
+             //this.setState({postUpdated : true}); 
+             this.props.handlePostEditCancel(); 
            } else{
             //if either of the checks failed - save already entered data for next iteration
               this.setState({
@@ -82,13 +82,18 @@ class UpdatePost extends Component {
             nameWarningMessage: "",
             bodyClass: "",
             bodyWarningMessage: "", 
-            postUpdated : false
         }
       )
     }
+
+
+
     componentWillUnmount(){
     //if user  is leaving the page - just clear everything
+       console.log("component is unmounting")
+
        this.resetState(); 
+       this.props.handlePostEditCancel();
     }
 
     componentWillMount(){
@@ -113,14 +118,16 @@ class UpdatePost extends Component {
             }
 
         })
-	}
+    }
+    
+   
 
     render() {
             
-        if (this.state.postUpdated){
-               this.props.handlePostEditCancel(); //this causes a warning
-               return <Redirect to={"/posts/"+this.props.post.id}/>;  
-        }
+        //if (this.state.postUpdated){
+        //       console.log
+        //       return <Redirect to={"/posts/"+this.props.post.id}/>;  
+        //}
         
         return (   
   

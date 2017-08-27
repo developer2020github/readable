@@ -90,6 +90,7 @@ class PostDetails extends Component {
 			}
 		}
 	}
+
     
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
