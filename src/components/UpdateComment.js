@@ -49,6 +49,9 @@ class UpdateComment extends Component {
             if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage"))&
                 (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
                  //export function addComment(parentId, body, author,  timestamp=null, voteScore=null)
+                 console.log("edit comment dispatch"); 
+                 console.log(values); 
+                 console.log(values.author); 
                  this.props.dispatch(editComment(this.props.commentId, values.author, values.body)); //this  is not tested yet
                  this.props.handleCancelCommentEdit(); 
 

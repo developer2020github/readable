@@ -76,10 +76,7 @@ export function comments(state=null, action){
 
         case actions.EDIT_COMMENT:
             currentComment = state[action.payload.id]; 
-            updatedComment = {...currentComment, 
-                              body: action.payload.body, 
-                              timestamp: action.payload.timestamp}; 
-
+            updatedComment = {...currentComment, ...action.payload}; 
             return {...state, [action.payload.id]: updatedComment}; 
 
         case actions.UPVOTE_COMMENT:
