@@ -80,23 +80,30 @@ class UpdateComment extends Component {
             }
           )
         }
+        
+        componentWillMount(){
+            const nextProps = this.props; 
+    
+            this.setState({
+                saved: {
+                    author: nextProps.comment.author, 
+                    body: nextProps.comment.body, 
+                }
+    
+            })
+            
+        }
     
     
         componentWillUnmount(){
 
            this.resetState(); 
-           //this.props.handleCancelCommentEdit();
         }
     
        
     
         render() {
                 
-            //if (this.state.postUpdated){
-            //       console.log
-            //       return <Redirect to={"/posts/"+this.props.post.id}/>;  
-            //}
-            
             return (   
       
             <div>
@@ -128,5 +135,9 @@ class UpdateComment extends Component {
         
         )}}
 
+const mapStateToProps = (state, props) => { 
+            return {
+            comment: state.comments[props.commentId]
+          }};
         
-export default connect()(UpdateComment);
+export default connect(mapStateToProps)(UpdateComment);
