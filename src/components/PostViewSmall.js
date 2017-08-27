@@ -5,6 +5,8 @@ import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
 import { deletePost, deleteComment, deleteAllCommentsForPost} from "../actions/actions"
+import UpdateComment from "./UpdateComment"
+
 //This component displays post and comments in all views. 
 //Post header and body are common for all views. 
 //Post footer can display different links and information depending 
@@ -37,7 +39,8 @@ import { deletePost, deleteComment, deleteAllCommentsForPost} from "../actions/a
 
 class PostViewSmall extends Component {
     state={
-        deletePostConfirmRequested : false
+        deletePostConfirmRequested : false, 
+        showEditComment : false
     }
 
     handlePostConfirmDeleteClick=()=>{
@@ -60,6 +63,14 @@ class PostViewSmall extends Component {
     componentWillUnmount(){
         this.setState({deletePostConfirmRequested: false})
     } 
+
+    handleCommentEditCancel=()=>{ 
+        this.setState({showEditComment: false})
+    }
+
+    handleCommentEditClick=()=>{
+        this.setState({showEditComment: true})
+    }
 
     render() {
         let linkToPostDetailedView = null; 
@@ -109,7 +120,7 @@ class PostViewSmall extends Component {
             header = null; 
             commentAuthor = <span className="post-author"> Commented by: {this.props.post.author}</span>
             commentTimeAndDate = <span className="comment-date-time">[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
-            editPostButton = <span><button className="post-footer-button">Edit</button></span>
+            editPostButton = <span onClick={this.handleCommentEditClick}><button className="post-footer-button">Edit</button></span>
         }
 
         let confirmDelete = <div className="confirm-delete">
@@ -123,6 +134,10 @@ class PostViewSmall extends Component {
 
         }else{
             confirmDelete = null; 
+        }
+
+        if (this.state.showEditComment){
+			return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.post.id}> </UpdateComment>;
         }
 
         return (

@@ -9,7 +9,9 @@ import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { exampleObject } from '../utils/ServerApiTest';
 import { connect } from 'react-redux';
-import UpdatePost from "./UpdatePost"; 
+import UpdatePost from "./UpdatePost";
+import UpdateComment from "./UpdateComment"; 
+
 import * as lib from '../utils/lib'
 
 
@@ -17,6 +19,7 @@ class PostDetails extends Component {
 	state = {
 		showNewCommentForm: false, 
 		showPostUpdateForm: false, 
+		showCommentUpdateForm: false, 
 		sortBy: "date_desc", 
 		postWasDeleted: false
 		
@@ -125,10 +128,10 @@ class PostDetails extends Component {
 
 
 		let NewCommentForm = null;
-		
 		if (this.state.showNewCommentForm) {
 			NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={post.id}> </NewComment>;
 		}
+
 
 		let PostUpdateForm = null; 
 		let Post = <PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick} handlePostEditOn={this.handlePostEditOn}/>
