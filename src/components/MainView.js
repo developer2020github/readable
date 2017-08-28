@@ -33,7 +33,7 @@ class MainView extends Component {
 	constructor(){
 		super(); 
 		
-		this.sortComparator = SortSelectItems.getSortComparator(null); //get default
+		this.sortComparator = SortSelectItems.getSortComparator(SortSelectItems.SORT_BY_DATE_DESC); //get default
 		this.sortOptions = [SortSelectItems.SORT_BY_DATE_DESC, 
 							SortSelectItems.SORT_BY_DATE_ASC, 
 							SortSelectItems.SORT_BY_SCORE_DESC, 
@@ -53,7 +53,6 @@ class MainView extends Component {
 	}
 	 
 	setSortComparator = (sortComparator, activeSortOption)=>{
-		console.log("sort comparator is set"); 
 		this.sortComparator=sortComparator; 
 		this.setState({sortBy: activeSortOption}); //need this to force rendering after sort comparator was updated
 		                                           //this is a better option than keeping the entire list of posts in state - there is no need for this. 

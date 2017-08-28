@@ -11,17 +11,28 @@ import { exampleObject } from '../utils/ServerApiTest';
 import { connect } from 'react-redux';
 import UpdatePost from "./UpdatePost";
 import UpdateComment from "./UpdateComment"; 
-
 import * as lib from '../utils/lib'
-
+import * as SortSelectItems from './SortSelect'
+import SortSelect from './SortSelect'
 
 class PostDetails extends Component {
+	constructor(){
+		super(); 
+		
+		this.sortComparator = SortSelectItems.getSortComparator(SortSelectItems.SORT_BY_DATE_DESC); //get default
+		this.sortOptions = [SortSelectItems.SORT_BY_DATE_DESC, 
+							SortSelectItems.SORT_BY_DATE_ASC, 
+							SortSelectItems.SORT_BY_SCORE_DESC, 
+							SortSelectItems.SORT_BY_SCORE_ASC]
+	  }
+
 	state = {
 		showNewCommentForm: false, 
 		showPostUpdateForm: false, 
 		showCommentUpdateForm: false, 
 		sortBy: "date_desc", 
-		postWasDeleted: false
+		postWasDeleted: false, 
+		sortBy: SortSelectItems.SORT_BY_DATE_DESC
 		
 	}
 
@@ -46,48 +57,11 @@ class PostDetails extends Component {
 		this.setState({ showNewCommentForm: false}); 
 	}
 	
-	sortByDateAscComparator=(p1, p2)=>{
-		if (p1.timestamp>p2.timestamp){
-			return 1; 
-		}else if (p1.timestamp<p2.timestamp){
-			return -1; 
-		}
-		return 0; 
+	setSortComparator = (sortComparator, activeSortOption)=>{
+		this.sortComparator=sortComparator; 
+		this.setState({sortBy: activeSortOption}); //need this to force rendering after sort comparator was updated
+		                                           //this is a better option than keeping the entire list of posts in state - there is no need for this. 
 	}
-	
-	sortByDateDescComparator=(p1, p2)=>{
-		return -this.sortByDateAscComparator(p1, p2); 
-	}
-
-	sortByScoreAscComparator=(p1, p2)=>{
-	
-		if(p1.voteScore>p2.voteScore){
-			return 1; 
-		}else if (p1.voteScore<p2.voteScore){
-			return -1; 
-		}
-		return 0; 
-	}
-
-	sortByScoreDescComparator=(p1, p2)=>{
-		return -this.sortByScoreAscComparator(p1, p2); 
-	}
-
-	getSortComparator=()=>{
-		
-				switch (this.state.sortBy){
-					case "date_desc": 
-						return this.sortByDateDescComparator; 
-					case "date_asc":
-						return this.sortByDateAscComparator; 
-					case "score_desc": 
-						return this.sortByScoreDescComparator; 
-					case "score_asc":
-						return this.sortByScoreAscComparator; 
-					default: 
-						return this.sortByDateDescComparator; 
-				}
-			}
 	
 
 	componentWillMount() {
@@ -143,9 +117,7 @@ class PostDetails extends Component {
 
 		let comments = this.props.comments; 
 
-		let sortComparator = this.getSortComparator(); 
-		let sortedComments = comments.sort(sortComparator);
-
+        let sortedComments = comments.sort(this.sortComparator);
 
 
 
@@ -157,18 +129,8 @@ class PostDetails extends Component {
 					
 					<div className="col-md-4 col-md-offset-2">
 			
-					
-						<div className="btn-panel">
-							<span className="control-style">Sort comments by: </span>
-							<select className="selectpicker" onChange={this.handleSortSelect}>
-
-								<option value="date_desc">Latest first</option>
-								<option value="date_asc">Oldest first</option>
-								<option value="score_desc">Score high to low</option>
-								<option value="score_asc">Score low to high</option>
-				
-							</select>
-						</div>
+					     <SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions}/>
+						
 					</div>
 				
 					<div className="col-md-4 text-right">
