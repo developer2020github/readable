@@ -6,6 +6,7 @@ import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
 import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment } from "../actions/actions"
 import UpdateComment from "./UpdateComment"
+import Vote from "./Vote"
 
 //This component displays post and comments in all views. 
 //Post header and body are common for all views. 
@@ -85,22 +86,6 @@ class PostViewSmall extends Component {
         this.setState({ showEditComment: true })
     }
 
-    handleUpvote = () => {
-        if (this.props.commentView) {
-            this.props.dispatch(upvoteComment(this.props.post.id))
-        } else {
-            this.props.dispatch(upvotePost(this.props.post.id))
-        }
-    }
-
-    handleDownvote = () => {
-        if (this.props.commentView) {
-            this.props.dispatch(downvoteComment(this.props.post.id))
-        } else {
-            this.props.dispatch(downvotePost(this.props.post.id))
-        }
-    }
-
     render() {
        
 
@@ -112,12 +97,6 @@ class PostViewSmall extends Component {
             <span><button onClick={this.handlePostConfirmDeleteClick} className="btn btn-default control-style">Confirm delete</button></span>
             <span><button onClick={this.handleDeleteRequesCancelClick} className="btn btn-default control-style">Cancel</button></span>
         </div>
-
-        let voteScore = <span>
-            <span className="vote-score">Likes: {this.props.post.voteScore}</span>
-            <button className="btn btn-xs vote-button" onClick={this.handleUpvote}><span className="glyphicon glyphicon-arrow-up readables-arrow-button"></span></button>
-            <button className="btn btn-xs vote-button" onClick={this.handleDownvote}><span className="glyphicon glyphicon-arrow-down readables-arrow-button"></span></button>
-        </span>
 
         if (this.state.showEditComment) {
             return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.post.id}> </UpdateComment>;
@@ -146,7 +125,7 @@ class PostViewSmall extends Component {
                     </div>
                     <div className="row post-footer">
                         <div className="col-xs-6 text-left post-sub-header">
-                            {voteScore}
+                            <Vote   upvoteAction={upvoteComment} downvoteAction={downvoteComment} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
                             {editCommentButton}
                             {deleteButton}
                         </div>
@@ -195,7 +174,7 @@ class PostViewSmall extends Component {
                 </div>
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
-                        {voteScore}
+                        <Vote   upvoteAction={upvotePost} downvoteAction={downvotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
                         {linkToPostDetailedView}
                        
                     </div>
@@ -231,7 +210,7 @@ class PostViewSmall extends Component {
                 </div>
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
-                        {voteScore}
+                        <Vote   upvoteAction={upvotePost} downvoteAction={downvotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
                         {editPostButton}
                         {deleteButton}
                     </div>

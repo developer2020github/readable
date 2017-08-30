@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
+import { connect } from 'react-redux';
 
 class Vote extends Component {
    
@@ -25,4 +26,4 @@ class Vote extends Component {
 }
 
 //export default PostViewSmall;
-export default connect()(PostViewSmall);
+export default connect()(Vote);
