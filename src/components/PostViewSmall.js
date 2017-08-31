@@ -93,10 +93,10 @@ class PostViewSmall extends Component {
         
         let deleteButton = <span><button onClick={this.handleDeleteRequestClick} className="post-footer-button">Delete</button></span>;
 
-        let confirmDelete = <div className="confirm-delete">
-            <span><button onClick={this.handlePostConfirmDeleteClick} className="btn btn-default control-style">Confirm delete</button></span>
-            <span><button onClick={this.handleDeleteRequesCancelClick} className="btn btn-default control-style">Cancel</button></span>
-        </div>
+        let confirmDelete = <span className="confirm-delete">
+            <span><button onClick={this.handlePostConfirmDeleteClick} id="confirm-delete-btn">Confirm delete</button></span>
+            <span><button onClick={this.handleDeleteRequesCancelClick} id="cancel-delete-btn">Cancel delete</button></span>
+        </span>
 
         if (this.state.showEditComment) {
             return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.post.id}> </UpdateComment>;
@@ -128,6 +128,7 @@ class PostViewSmall extends Component {
                             <Vote   upvoteAction={upvoteComment} downvoteAction={downvoteComment} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
                             {editCommentButton}
                             {deleteButton}
+                            {confirmDelete}
                         </div>
                         <div className="col-xs-6 text-right post-sub-header">
                             {commentAuthor}
@@ -135,7 +136,7 @@ class PostViewSmall extends Component {
                         </div>
 
                     </div>
-                    {confirmDelete}
+                   
                 </div>
             );
 
@@ -213,6 +214,7 @@ class PostViewSmall extends Component {
                         <Vote   upvoteAction={upvotePost} downvoteAction={downvotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
                         {editPostButton}
                         {deleteButton}
+                        {confirmDelete}
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">
                         {comments}
@@ -220,7 +222,7 @@ class PostViewSmall extends Component {
                     </div>
 
                 </div>
-                {confirmDelete}
+                
             </div>
             );
         }

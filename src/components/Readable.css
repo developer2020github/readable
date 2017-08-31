@@ -1,7 +1,7 @@
 
 
-body, .app-background, .confirm-delete{
-  background-color: rgb(227, 223, 223);
+body, .app-background {
+  background-color: rgba(227, 223, 223, 0.86);
 }
 
 .control-style{
@@ -46,12 +46,13 @@ body, .app-background, .confirm-delete{
   margin-bottom: 15px;
 }
 
-.post-header, .post-footer, .vote-button, .post-footer-button{
+.post-header, .post-footer, .vote-button, .post-footer-button, #confirm-delete-btn, #cancel-delete-btn{
   background-color: #626262; 
 }
 .post-header, .post-footer {
   margin: 0px; 
   color: white;  
+  font-size: 16px; 
 }
 
 .post-title{
@@ -124,4 +125,26 @@ body, .app-background, .confirm-delete{
 
 .form-item-warning{
   color: #FF5400; 
+}
+
+
+.confirm-delete{
+  margin-left: 10px; 
+  padding: 0; 
+}
+#confirm-delete-btn, #cancel-delete-btn{
+  font-weight: bold; 
+  font-size: 16px; 
+  border: none;
+}
+
+#confirm-delete-btn{
+  
+  color: #FB8972; 
+ 
+}
+
+#cancel-delete-btn{
+  color: #CEFF06; 
+  margin-left: 5px; 
 }
