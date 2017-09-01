@@ -4,11 +4,11 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment } from "../actions/actions"
+import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment , editPost} from "../actions/actions"
 import UpdateComment from "./UpdateComment"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
-import UpdatePost from "./UpdatePost"
+import UpdateItem from "./UpdateItem"
 
 //This component displays post  all views. 
 //Post header and body are common for all views. 
@@ -34,7 +34,13 @@ class PostViewSmall extends Component {
 
     handlePostEditOn = ()=>{
 		this.setState({showPostUpdateForm: true})
-	}
+    }
+    
+    updatePost=(values)=>{
+
+        this.props.dispatch(editPost(this.props.post.id, values.author, values.body, values.category, values.title)); 
+        this.handlePostEditCancel(); 
+    }
 
 	handlePostEditCancel = ()=>{
 		this.setState({showPostUpdateForm: false})
@@ -97,7 +103,15 @@ class PostViewSmall extends Component {
         //2. post in detailed view 
         if (this.props.detailedView) {
             if (this.state.showPostUpdateForm){
-                 return <UpdatePost postId ={this.props.post.id} handlePostEditCancel ={this.handlePostEditCancel}></UpdatePost>
+                 //return <UpdatePost postId ={this.props.post.id} handlePostEditCancel ={this.handlePostEditCancel}></UpdatePost>
+
+                 return <UpdateItem update={this.updatePost} 
+                                    cancel={this.handlePostEditCancel} 
+                                    itemId={this.props.post.id} 
+                                    showTitle={true} showCategories={true}
+                                    bodyHeader="Post :" 
+									submitButtonName="Update post"
+                        />
             }
 
             let addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>

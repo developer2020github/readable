@@ -88,7 +88,14 @@ class MainView extends Component {
 		let sortedPosts = filteredPosts.sort(this.sortComparator);
 		let newPostForm = null; 
 		if (this.state.showNewPostForm) {
-			newPostForm = <UpdateItem update={this.createNewPost} cancel={this.setHideShowNewPostForm} itemId={null} showTitle={true} showCategories={true}/>
+			newPostForm = <UpdateItem update={this.createNewPost} 
+			 						  cancel={this.setHideShowNewPostForm} 
+									  itemId={null} 
+									  showTitle={true} 
+									  showCategories={true}
+									  bodyHeader="Post :" 
+									  submitButtonName="Create post"
+									  />
 		}
 		
 		return (

@@ -166,10 +166,10 @@ class UpdateItem extends Component {
                     </div>
                     {title}
                     <div className="form-group">
-                        <label htmlFor="postText" className={this.state.bodyClass} defaultValue={this.state.saved.title}>Post: {this.state.bodyWarningMessage}</label>
-                        <textarea className="form-control" id="postText" rows="10" name="body"></textarea>
+                        <label htmlFor="postText" className={this.state.bodyClass}>{this.props.bodyHeader} {this.state.bodyWarningMessage}</label>
+                        <textarea className="form-control" id="postText" rows="10" name="body" defaultValue={this.state.saved.body}></textarea>
                     </div>
-                    <button type="submit" className="btn btn-default control-style">Create post</button>
+                    <button type="submit" className="btn btn-default control-style">{this.props.submitButtonName}</button>
                     <button  className="btn btn-default control-style" onClick={this.props.cancel}>Cancel</button>
                 </form>
                 <div><hr></hr></div>
@@ -188,7 +188,6 @@ const mapStateToProps = (state, props) => {
                 currentItem = state.comments[props.itemId]
             }
         }
-
     
         return {
                categories: state.categories, 
