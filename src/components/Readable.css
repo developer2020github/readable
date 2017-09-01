@@ -148,3 +148,14 @@ body, .app-background {
   color: #CEFF06; 
   margin-left: 5px; 
 }
+
+.btn-add{
+  background-color: #80BAED; 
+}
+.btn-add:hover{
+  background-color: white; 
+}
+
+.header-row{
+  margin-bottom: 5px;
+}

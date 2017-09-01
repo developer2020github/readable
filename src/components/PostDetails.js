@@ -105,18 +105,29 @@ class PostDetails extends Component {
 
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
-						<PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick}/>
+						<PostViewSmall post={post} detailedView={true}/>
 					</div>
 				</div>
-				<div className="row">
-					<div className="col-md-10 col-md-offset-1">
-					    {NewCommentForm}
-						<SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions} name="Sort comments by: "/>
-						{sortedComments.map((c)=> {
-							return <CommentView key={c.id} comment={c}/>;
-						})}
-			
-				</div>
+				<div>
+				    <div className="row header-row">
+						<div className="col-md-4 col-md-offset-1">
+							<SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions} name="Sort comments by: "/>
+						</div>
+						<div className="col-md-6 text-right">
+							<btn className="btn btn-default control-style btn-add" onClick={this.handleAddCommentClick}>Add new comment</btn>
+						</div>
+				    </div>
+					<div className="row">
+						<div className="col-md-10 col-md-offset-1">
+						
+							
+							{NewCommentForm}
+							{sortedComments.map((c)=> {
+								return <CommentView key={c.id} comment={c}/>;
+							})}
+				
+					</div>
+					</div>
 				</div>
 
 			</div>

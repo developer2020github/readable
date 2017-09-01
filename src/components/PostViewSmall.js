@@ -115,7 +115,6 @@ class PostViewSmall extends Component {
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">
                         {comments}
-                        {addComment}
                     </div>
 
                 </div>
