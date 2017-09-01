@@ -91,7 +91,7 @@ class MainView extends Component {
 					       <SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions}/>
 					</div>
 					<div className="col-md-2 text-right">
-						<Link className="btn btn-default control-style" to="/NewPost">Add new post</Link>
+						<Link className="btn btn-default control-style btn-add" to="/NewPost">Add new post</Link>
 					</div>
 				</div>
 				<div className="row">

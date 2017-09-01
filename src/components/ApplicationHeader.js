@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const ApplicationHeader = (props) => {
     let header = <h3>Readable: content and comments</h3>
-    if (props.inludeLink){
+    if (props.includeLink){
        header = <Link to="/">{header}</Link>
     }
 

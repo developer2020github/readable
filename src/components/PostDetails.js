@@ -18,40 +18,9 @@ import CommentView from "./CommentView"
 import ListOfComments from "./ListOfComments"
 
 class PostDetails extends Component {
-	constructor(){
-		super(); 
-		
-		this.sortComparator = SortSelectItems.getSortComparator(SortSelectItems.SORT_BY_DATE_DESC); //get default
-		this.sortOptions = [SortSelectItems.SORT_BY_DATE_DESC, 
-							SortSelectItems.SORT_BY_DATE_ASC, 
-							SortSelectItems.SORT_BY_SCORE_DESC, 
-							SortSelectItems.SORT_BY_SCORE_ASC]
-	  }
 
 	state = {
-		showNewCommentForm: false, 
-		postWasDeleted: false, 
-		sortBy: SortSelectItems.SORT_BY_DATE_DESC
-		
-	}
-
-	handleSortSelect = (e)=>{
-		
-		this.setState({sortBy: e.target.value})
-	}
-
-	handleAddCommentClick = () => {
-		this.setState({ showNewCommentForm: true});
-	}
-
-	handleCancelNewComment = () =>{
-		this.setState({ showNewCommentForm: false}); 
-	}
-	
-	setSortComparator = (sortComparator, activeSortOption)=>{
-		this.sortComparator=sortComparator; 
-		this.setState({sortBy: activeSortOption}); //need this to force rendering after sort comparator was updated
-		                                           //this is a better option than keeping the entire list of posts in state - there is no need for this. 
+		postWasDeleted: false
 	}
 	
     getShowNewCommentFormOnLoad=()=>{
@@ -60,16 +29,7 @@ class PostDetails extends Component {
 				return true
 			}
 		}
-
 		return false; 
-	}
-
-	componentWillMount() {
-		if (this.props.location.hasOwnProperty("query")) {
-			if (this.props.location.query === "addComment") {
-				this.setState({ showNewCommentForm: true });
-			}
-		}
 	}
 
     
@@ -82,11 +42,9 @@ class PostDetails extends Component {
 		}
 
 		if (post.deleted){
-			
-						//this.setState({postWasJustDeleted: false})
-						
+
 						return (<div className="container">
-							    	<ApplicationHeader />
+							    	<ApplicationHeader includeLink={true}/>
 
 									<div className="row">
 										<div className="col-md-8 col-md-offset-2">
@@ -100,27 +58,16 @@ class PostDetails extends Component {
 								)
 		}
 
-
-		let NewCommentForm = null;
-		if (this.state.showNewCommentForm) {
-			NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={post.id}> </NewComment>;
-		}
-
-		let comments = this.props.comments; 
-        let sortedComments = comments.sort(this.sortComparator);
 		let requestNewCommentForm = this.getShowNewCommentFormOnLoad(); 
-		
 		return (
 			<div className="container">
-				<ApplicationHeader inludeLink={true}/>
-
+				<ApplicationHeader includeLink={true}/>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 						<PostViewSmall post={post} detailedView={true}/>
 					</div>
 				</div>
 		        <ListOfComments showNewCommentForm={requestNewCommentForm} parentPostID={post.id}/>
-
 			</div>
 		)
 	}
@@ -128,16 +75,9 @@ class PostDetails extends Component {
 
 //export default PostDetails; 
 const mapStateToProps = (state, props) => { 
-    let commentsForPost = lib.listOfObjectsToArray(state.comments).filter(
-		(comment)=>{
-				return comment.parentId === props.match.params.postID && !comment.deleted
-			}
-	)
-
 	return {
 	categories: state.categories,
 	post: state.posts[props.match.params.postID], 
-	comments: commentsForPost
   }};
 //ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
 
