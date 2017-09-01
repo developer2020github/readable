@@ -8,6 +8,8 @@ import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvote
 import UpdateComment from "./UpdateComment"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
+import { editComment } from "../actions/actions"
+import  UpdateItem  from "./UpdateItem"
 
 //This component displays comment in all views. 
 //There is no header.
@@ -40,12 +42,22 @@ class CommentView extends Component {
         this.setState({ showEditComment: true })
     }
 
+    updateComment = (values) =>{
+        this.props.dispatch(editComment(this.props.comment.id,  values.author, values.body)); 
+        this.handleCommentEditCancel(); 
+    }
+
     render() {
 
-
-       
         if (this.state.showEditComment) {
-            return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.comment.id}> </UpdateComment>;
+            //return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.comment.id}> </UpdateComment>;
+            return <UpdateItem update={this.updateComment} 
+            cancel={this.handleCommentEditCancel} 
+            itemId={this.props.comment.id} 
+            showTitle={false} 
+            showCategories={false}
+            bodyHeader="Your comment :" 
+            submitButtonName="Update comment"/>
         }
          
         return (
