@@ -157,11 +157,12 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
    let categories =  ["react", "redux", "udacity"]; 
 
    for (let i = 0; i<numberOfPosts; i++){
-       let body = " This is post # " + (i+1)  + " and some more text so it is not completely empty post; I do not know what else to write"; 
+       let postId = lib.generateUUID() 
+       let body = " This is post # " + (i+1)  + " and some more text so it is not completely empty post" + "id = " + postId; 
        let category = categories[getRandomInt(0, categories.length-1)]
        let timestamp = getRandomInt(startDate.getTime(), Date.now()); 
        let voteScore = getRandomInt(0, 250);
-       let postId = lib.generateUUID() 
+     
        let post = Object.assign({}, exampleObject, {id: postId, category, body, timestamp, voteScore})
        posts[post.id]= post; 
 

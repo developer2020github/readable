@@ -15,6 +15,8 @@ import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
 import CommentView from "./CommentView"
+import UpdateItem from "./UpdateItem"
+import { addComment } from "../actions/actions"
 
 class ListOfComments extends Component {
 	constructor(){
@@ -59,14 +61,26 @@ class ListOfComments extends Component {
 	
 	}
 
-    
+    createNewComment =(values)=>{
+        this.props.dispatch(addComment(this.props.parentPostID, values.body, values.author)); 
+        this.handleCancelNewComment(); 
+    }
+
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 
 
 		let NewCommentForm = null;
 		if (this.state.showNewCommentForm) {
-			NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={this.props.parentPostID}> </NewComment>;
+            //NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={this.props.parentPostID}> </NewComment>;
+            NewCommentForm = <UpdateItem update={this.createNewComment} 
+                                         cancel={this.handleCancelNewComment} 
+                                         itemId={null} 
+                                         showTitle={false} 
+                                         showCategories={false}
+                                         bodyHeader="Your comment :" 
+                                         submitButtonName="Create comment"
+           />
 		}
 
         let sortedComments = this.props.comments.sort(this.sortComparator);
