@@ -29,20 +29,9 @@ class PostDetails extends Component {
 
 	state = {
 		showNewCommentForm: false, 
-		showPostUpdateForm: false, 
-		showCommentUpdateForm: false, 
-		sortBy: "date_desc", 
 		postWasDeleted: false, 
 		sortBy: SortSelectItems.SORT_BY_DATE_DESC
 		
-	}
-
-    handlePostEditOn = ()=>{
-		this.setState({showPostUpdateForm: true})
-	}
-
-	handlePostEditCancel = ()=>{
-		this.setState({showPostUpdateForm: false})
 	}
 
 	handleSortSelect = (e)=>{
@@ -107,20 +96,8 @@ class PostDetails extends Component {
 			NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={post.id}> </NewComment>;
 		}
 
-
-		let PostUpdateForm = null; 
-		let Post = <PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick} handlePostEditOn={this.handlePostEditOn}/>
-
-		if (this.state.showPostUpdateForm){
-			PostUpdateForm = <UpdatePost postId ={post.id} handlePostEditCancel ={this.handlePostEditCancel}></UpdatePost>
-			Post=null; 
-		}
-
 		let comments = this.props.comments; 
-
         let sortedComments = comments.sort(this.sortComparator);
-
-
 
 		return (
 			<div className="container">
@@ -154,8 +131,7 @@ class PostDetails extends Component {
 				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
-						{Post}
-						{PostUpdateForm}
+						<PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick}/>
 						{NewCommentForm}
 					</div>
 				</div>

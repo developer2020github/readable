@@ -8,6 +8,7 @@ import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvote
 import UpdateComment from "./UpdateComment"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
+import UpdatePost from "./UpdatePost"
 
 //This component displays post  all views. 
 //Post header and body are common for all views. 
@@ -27,6 +28,17 @@ import EditDeleteButtons from "./EditDeleteButtons"
 //- button to add comments (opens comment form) 
 
 class PostViewSmall extends Component {
+    state = {
+		showPostUpdateForm: false		
+	}
+
+    handlePostEditOn = ()=>{
+		this.setState({showPostUpdateForm: true})
+	}
+
+	handlePostEditCancel = ()=>{
+		this.setState({showPostUpdateForm: false})
+	}
 
 
     postConfimedDeleteClick = ()=>{
@@ -84,6 +96,10 @@ class PostViewSmall extends Component {
 
         //2. post in detailed view 
         if (this.props.detailedView) {
+            if (this.state.showPostUpdateForm){
+                 return <UpdatePost postId ={this.props.post.id} handlePostEditCancel ={this.handlePostEditCancel}></UpdatePost>
+            }
+
             let addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>
 
             return (
@@ -95,7 +111,7 @@ class PostViewSmall extends Component {
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
                         <Vote   upvoteAction={upvotePost} downvoteAction={downvotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
-                        <EditDeleteButtons handleEditRequest={this.props.handlePostEditOn} confimedDeleteAction={this.postConfimedDeleteClick}/>
+                        <EditDeleteButtons handleEditRequest={this.handlePostEditOn} confimedDeleteAction={this.postConfimedDeleteClick}/>
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">
                         {comments}
