@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
-import NewPost from "./NewPost"
+import UpdateItem from "./UpdateItem"
 import { addPost } from "../actions/actions"
 
 function addNumberOfComments(posts, comments){
@@ -88,7 +88,7 @@ class MainView extends Component {
 		let sortedPosts = filteredPosts.sort(this.sortComparator);
 		let newPostForm = null; 
 		if (this.state.showNewPostForm) {
-			newPostForm = <NewPost update={this.createNewPost} cancel={this.setHideShowNewPostForm}/>
+			newPostForm = <UpdateItem update={this.createNewPost} cancel={this.setHideShowNewPostForm} itemId={null} showTitle={true} showCategories={true}/>
 		}
 		
 		return (
