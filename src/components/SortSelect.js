@@ -96,9 +96,14 @@ export  class SortSelect extends Component {
 
     render() {
 
+        let name = "Sort by: "
+        if (this.props.name){
+            name = this.props.name; 
+        }
+
         return(
             <div className="btn-panel">
-                     <span className="control-style">Sort by: </span>
+                     <span className="control-style">{name}</span>
                 <select className="selectpicker" onChange={this.handleSortSelect}>
                     {this.props.sortOptions.map((item) => {
                         return <option key={item} value={item}>{textByValue[item]}</option>

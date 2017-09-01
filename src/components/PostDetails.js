@@ -101,43 +101,17 @@ class PostDetails extends Component {
 
 		return (
 			<div className="container">
-				<ApplicationHeader />
+				<ApplicationHeader inludeLink={true}/>
 
-				<div className="row">
-					
-					<div className="col-md-4 col-md-offset-2">
-			
-					     <SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions}/>
-						
-					</div>
-				
-					<div className="col-md-4 text-right">
-						<Link className="btn btn-default control-style" to="/">Main page</Link>
-					</div>
-
-				</div>
-
-				<div className="row">
-					<div className="col-md-8 col-md-offset-2">
-						<hr></hr>
-					</div>
-				</div>
-
-				<div className="row">
-					<div className="col-md-8 col-md-offset-2">
-						<hr></hr>
-					</div>
-
-				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
 						<PostViewSmall post={post} detailedView={true} addCommentClickHandler={this.handleAddCommentClick}/>
-						{NewCommentForm}
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">
-					
+					    {NewCommentForm}
+						<SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions} name="Sort comments by: "/>
 						{sortedComments.map((c)=> {
 							return <CommentView key={c.id} comment={c}/>;
 						})}
