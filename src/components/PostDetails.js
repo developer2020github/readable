@@ -14,6 +14,7 @@ import UpdateComment from "./UpdateComment";
 import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
+import CommentView from "./CommentView"
 
 class PostDetails extends Component {
 	constructor(){
@@ -162,7 +163,7 @@ class PostDetails extends Component {
 					<div className="col-md-10 col-md-offset-1">
 					
 						{sortedComments.map((c)=> {
-							return <PostViewSmall commentView={true} key={c.id} post={c}/>;
+							return <CommentView key={c.id} comment={c}/>;
 						})}
 			
 				</div>
