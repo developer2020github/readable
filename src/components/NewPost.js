@@ -5,7 +5,7 @@ import './Readable.css';
 import  ApplicationHeader  from './ApplicationHeader';
 import serializeForm from "form-serialize"
 import { connect } from 'react-redux'
-import { addPost } from "../actions/actions"
+
 
 class NewPost extends Component {
     state={
@@ -49,8 +49,8 @@ class NewPost extends Component {
        
         if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage"))&
             (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
-             this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
-             this.setState({newPostAdded : true}); 
+              
+             this.props.update(values)
 
            } else{
             //if either of the checks failed - save already entered data for next iteration
@@ -81,7 +81,6 @@ class NewPost extends Component {
             nameWarningMessage: "",
             bodyClass: "",
             bodyWarningMessage: "", 
-            newPostAdded : false
         }
       )
     }
@@ -110,30 +109,9 @@ class NewPost extends Component {
 
     render() {
 
-        if (this.state.newPostAdded){
-            
-                return <Redirect to='/'/>;
-              
-        }
-
 
         return (   
-    
-
-    <div className="container">
-        <ApplicationHeader/>
-
-        <div className="row">
-            <div className="col-md-4 text-center col-md-offset-4"><Link className="btn btn-default control-style" to="/">Back to main page</Link></div>
-        </div>
-        <div className="row">
-            <div className="col-md-8 col-md-offset-2">
-                <hr></hr>
-            </div>
-        </div>
-
-        <div className="row">
-            <div className="col-md-10 col-md-offset-1">
+            <div>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="selectCategory">Select category:</label>
@@ -156,11 +134,13 @@ class NewPost extends Component {
                         <textarea className="form-control" id="postText" rows="10" name="body"></textarea>
                     </div>
                     <button type="submit" className="btn btn-default control-style">Create post</button>
+                    <button  className="btn btn-default control-style" onClick={this.props.cancel}>Cancel</button>
                 </form>
-            </div>
-        </div>
-    </div>
-    )}}
+                <div><hr></hr></div>
+                </div>
+                 )            
+                 }
+}
 
 const mapStateToProps = (state, props) => { 
         return {

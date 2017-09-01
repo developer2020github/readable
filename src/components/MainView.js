@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
+import NewPost from "./NewPost"
+import { addPost } from "../actions/actions"
 
 function addNumberOfComments(posts, comments){
 	for (let i = 0; i< posts.length; i++){
@@ -44,9 +46,22 @@ class MainView extends Component {
 
 	state={
 		 selectedCategory: "all", 
-		 sortBy: SortSelectItems.SORT_BY_DATE_DESC
+		 sortBy: SortSelectItems.SORT_BY_DATE_DESC, 
+		 showNewPostForm: false
 	}
 
+	createNewPost =(values)=>{
+		  this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
+          this.setHideShowNewPostForm(); 
+	}
+
+	setShowNewPostForm = ()=>{
+        this.setState({showNewPostForm: true})
+	}
+
+	setHideShowNewPostForm=()=>{
+		this.setState({showNewPostForm: false})
+	}
 	
 	handleCategorySelect=(e)=>{ 
 		this.setState({selectedCategory: e.target.value}); 
@@ -71,8 +86,13 @@ class MainView extends Component {
 		)
 
 		let sortedPosts = filteredPosts.sort(this.sortComparator);
-
+		let newPostForm = null; 
+		if (this.state.showNewPostForm) {
+			newPostForm = <NewPost update={this.createNewPost} cancel={this.setHideShowNewPostForm}/>
+		}
+		
 		return (
+
 			<div className="container">
 				<ApplicationHeader />
 				<div className="row">
@@ -91,13 +111,18 @@ class MainView extends Component {
 					       <SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions}/>
 					</div>
 					<div className="col-md-2 text-right">
-						<Link className="btn btn-default control-style btn-add" to="/NewPost">Add new post</Link>
+						<btn className="btn btn-default control-style btn-add" onClick={this.setShowNewPostForm}>Add new post</btn>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col-md-8 col-md-offset-2">
 						<hr></hr>
 					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-10 col-md-offset-1">
+					{newPostForm}
+                    </div> 
 				</div>
 				<div className="row">
 					<div className="col-md-10 col-md-offset-1">

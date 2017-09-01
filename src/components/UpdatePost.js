@@ -129,15 +129,10 @@ class UpdatePost extends Component {
         //       return <Redirect to={"/posts/"+this.props.post.id}/>;  
         //}
         
-        return (   
-  
-        <div>
-            
-            <h3>Edit post</h3>
-            
-    
+        return (       
             <div>
                 <form onSubmit={this.handleSubmit}>
+                    <h3>Edit post</h3>
                     <div className="form-group">
                         <label htmlFor="selectCategory">Select category:</label>
                         <select className="form-control" id="selectCategory" name="category" value={this.state.saved.category}  onChange={this.handleCategorySelect}>
@@ -161,14 +156,8 @@ class UpdatePost extends Component {
                     <button type="submit" className="btn btn-default control-style">Save changes</button>
                     <button className="btn btn-default control-style" onClick={this.props.handlePostEditCancel}>Cancel</button>
                 </form>
+                <div><hr></hr></div>
             </div>
-
-    
-            <div>
-                <hr></hr>
-            </div>
-    
-        </div>
     
     )}}
 
