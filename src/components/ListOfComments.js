@@ -4,13 +4,10 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 //import { serverApiTestMain } from '../utils/ServerApiTest';
 import DefaultPage from './DefaultPage';
-import NewComment from './NewComment.js';
 import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { exampleObject } from '../utils/ServerApiTest';
 import { connect } from 'react-redux';
-import UpdatePost from "./UpdatePost";
-import UpdateComment from "./UpdateComment"; 
 import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'

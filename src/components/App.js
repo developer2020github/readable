@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { serverApiTestMain } from '../utils/ServerApiTest'; 
 import MainView from './MainView'; 
 import PostDetails from './PostDetails';
-import UpdatePost from './UpdatePost';
-import NewPost from './NewPost';
 import DefaultPage from './DefaultPage';
 
 
@@ -17,7 +15,6 @@ class App extends Component {
     return (
         <Switch>
 
-            <Route path="/NewPost"><NewPost/></Route>
             <Route exact path="/"><MainView/></Route>
             <Route path ="/posts/:postID"component={PostDetails}/>
 

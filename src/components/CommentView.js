@@ -5,7 +5,6 @@ import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
 import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment } from "../actions/actions"
-import UpdateComment from "./UpdateComment"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import { editComment } from "../actions/actions"
