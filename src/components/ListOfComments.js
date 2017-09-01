@@ -15,9 +15,8 @@ import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
 import CommentView from "./CommentView"
-import ListOfComments from "./ListOfComments"
 
-class PostDetails extends Component {
+class ListOfComments extends Component {
 	constructor(){
 		super(); 
 		
@@ -30,13 +29,10 @@ class PostDetails extends Component {
 
 	state = {
 		showNewCommentForm: false, 
-		postWasDeleted: false, 
 		sortBy: SortSelectItems.SORT_BY_DATE_DESC
-		
 	}
 
 	handleSortSelect = (e)=>{
-		
 		this.setState({sortBy: e.target.value})
 	}
 
@@ -54,74 +50,47 @@ class PostDetails extends Component {
 		                                           //this is a better option than keeping the entire list of posts in state - there is no need for this. 
 	}
 	
-    getShowNewCommentFormOnLoad=()=>{
-		if (this.props.location.hasOwnProperty("query")) {
-			if (this.props.location.query === "addComment") {
-				return true
-			}
-		}
-
-		return false; 
-	}
 
 	componentWillMount() {
-		if (this.props.location.hasOwnProperty("query")) {
-			if (this.props.location.query === "addComment") {
+
+			if (this.props.showNewCommentForm) {
 				this.setState({ showNewCommentForm: true });
 			}
-		}
+	
 	}
 
     
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 
-		let post = this.props.post; 
-		if (!post){
-			return (<DefaultPage />); 
-		}
-
-		if (post.deleted){
-			
-						//this.setState({postWasJustDeleted: false})
-						
-						return (<div className="container">
-							    	<ApplicationHeader />
-
-									<div className="row">
-										<div className="col-md-8 col-md-offset-2">
-											<div className="post-deleted">
-												Post {post.id} was deleted.<Link to="/">Back to main page</Link>
-											</div>
-										</div>
-									</div>
-
-								</div>
-								)
-		}
-
 
 		let NewCommentForm = null;
 		if (this.state.showNewCommentForm) {
-			NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={post.id}> </NewComment>;
+			NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={this.props.parentPostID}> </NewComment>;
 		}
 
-		let comments = this.props.comments; 
-        let sortedComments = comments.sort(this.sortComparator);
-		let requestNewCommentForm = this.getShowNewCommentFormOnLoad(); 
-		
-		return (
-			<div className="container">
-				<ApplicationHeader inludeLink={true}/>
+        let sortedComments = this.props.comments.sort(this.sortComparator);
 
-				<div className="row">
-					<div className="col-md-10 col-md-offset-1">
-						<PostViewSmall post={post} detailedView={true}/>
+		return (
+				<div>
+				    <div className="row header-row">
+						<div className="col-md-4 col-md-offset-1">
+							<SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions} name="Sort comments by: "/>
+						</div>
+						<div className="col-md-6 text-right">
+							<btn className="btn btn-default control-style btn-add" onClick={this.handleAddCommentClick}>Add new comment</btn>
+						</div>
+				    </div>
+					<div className="row">
+						<div className="col-md-10 col-md-offset-1">
+							{NewCommentForm}
+							{sortedComments.map((c)=> {
+								return <CommentView key={c.id} comment={c}/>;
+							})}
+				
+					</div>
 					</div>
 				</div>
-		        <ListOfComments showNewCommentForm={requestNewCommentForm} parentPostID={post.id}/>
-
-			</div>
 		)
 	}
 }
@@ -130,15 +99,13 @@ class PostDetails extends Component {
 const mapStateToProps = (state, props) => { 
     let commentsForPost = lib.listOfObjectsToArray(state.comments).filter(
 		(comment)=>{
-				return comment.parentId === props.match.params.postID && !comment.deleted
+				return comment.parentId === props.parentPostID && !comment.deleted
 			}
 	)
 
 	return {
-	categories: state.categories,
-	post: state.posts[props.match.params.postID], 
 	comments: commentsForPost
   }};
 //ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
 
-export default connect(mapStateToProps)(PostDetails);
+export default connect(mapStateToProps)(ListOfComments);
