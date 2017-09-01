@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment } from "../actions/actions"
 import UpdateComment from "./UpdateComment"
 import Vote from "./Vote"
+import EditDeleteButtons from "./EditDeleteButtons"
 
 //This component displays post and comments in all views. 
 //Post header and body are common for all views. 
@@ -57,6 +58,14 @@ class PostViewSmall extends Component {
         showEditComment: false
     }
 
+    postConfimedDeleteClick = ()=>{
+        this.props.dispatch(deletePost(this.props.post.id));
+        this.props.dispatch(deleteAllCommentsForPost(this.props.post.id));
+    }
+
+    commentConfimedDeleteClick = ()=>{
+        this.props.dispatch(deleteComment(this.props.post.id));
+    }
     handlePostConfirmDeleteClick = () => {
         if (this.props.commentView) {
             this.props.dispatch(deleteComment(this.props.post.id));
@@ -126,9 +135,7 @@ class PostViewSmall extends Component {
                     <div className="row post-footer">
                         <div className="col-xs-6 text-left post-sub-header">
                             <Vote   upvoteAction={upvoteComment} downvoteAction={downvoteComment} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
-                            {editCommentButton}
-                            {deleteButton}
-                            {confirmDelete}
+                            <EditDeleteButtons handleEditRequest={this.handleCommentEditClick} confimedDeleteAction={this.commentConfimedDeleteClick}/>
                         </div>
                         <div className="col-xs-6 text-right post-sub-header">
                             {commentAuthor}
@@ -212,9 +219,7 @@ class PostViewSmall extends Component {
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
                         <Vote   upvoteAction={upvotePost} downvoteAction={downvotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
-                        {editPostButton}
-                        {deleteButton}
-                        {confirmDelete}
+                        <EditDeleteButtons handleEditRequest={this.props.handlePostEditOn} confimedDeleteAction={this.postConfimedDeleteClick}/>
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">
                         {comments}
