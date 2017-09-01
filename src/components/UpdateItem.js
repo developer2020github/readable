@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom'; 
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
-import  ApplicationHeader  from './ApplicationHeader';
 import serializeForm from "form-serialize"
 import { connect } from 'react-redux'
 
@@ -27,7 +25,7 @@ class UpdateItem extends Component {
     userEntryIsOk(value, nameOfClass, nameOfMessageField){
 
 
-        if (value&&value.trim()!=""){
+        if (value&&value.trim()!==""){
             this.setState({
                 [nameOfClass]: "", 
                 [nameOfMessageField]: ""

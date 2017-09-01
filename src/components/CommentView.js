@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment } from "../actions/actions"
+import { deleteComment, upvoteComment, downvoteComment } from "../actions/actions"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import { editComment } from "../actions/actions"

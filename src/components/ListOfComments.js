@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 //import { serverApiTestMain } from '../utils/ServerApiTest';
-import DefaultPage from './DefaultPage';
-import ApplicationHeader from './ApplicationHeader';
-import PostViewSmall from './PostViewSmall';
-import { exampleObject } from '../utils/ServerApiTest';
 import { connect } from 'react-redux';
 import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'

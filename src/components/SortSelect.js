@@ -2,7 +2,6 @@
 //it sets sort comparator function based on selected item to sort by. 
 //It can be used to sort both comments and posts.
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
 

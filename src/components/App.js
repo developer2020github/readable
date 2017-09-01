@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch} from 'react-router-dom'
-import { connect } from 'react-redux';
-
-import { serverApiTestMain } from '../utils/ServerApiTest'; 
-import MainView from './MainView'; 
+ import MainView from './MainView'; 
 import PostDetails from './PostDetails';
 import DefaultPage from './DefaultPage';
 

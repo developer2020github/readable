@@ -4,7 +4,7 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deletePost, deleteComment, deleteAllCommentsForPost, upvotePost, upvoteComment, downvotePost, downvoteComment , editPost} from "../actions/actions"
+import { deletePost,  deleteAllCommentsForPost, upvotePost,  downvotePost, editPost} from "../actions/actions"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import UpdateItem from "./UpdateItem"
@@ -112,8 +112,6 @@ class PostViewSmall extends Component {
 									submitButtonName="Update post"
                         />
             }
-
-            let addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>
 
             return (
                <div className="panel panel-default post-panel">
