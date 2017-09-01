@@ -34,7 +34,7 @@ class EditDeleteButtons extends Component {
     }
 
     handleConfimedDeleteClick = () => {
-        this.props.deleteItem(); 
+        this.props.confimedDeleteAction(); 
     }
 
     render() {

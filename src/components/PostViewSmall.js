@@ -43,15 +43,7 @@ import EditDeleteButtons from "./EditDeleteButtons"
 
 
 class PostViewSmall extends Component {
-    constructor() {
-        super();
 
-
-        this.subComponents = {
-            deleteButton: <span><button onClick={this.handleDeleteRequestClick} className="post-footer-button">Delete</button></span>
-        }
-
-    }
 
     state = {
         deleteConfirmRequested: false,
@@ -66,27 +58,7 @@ class PostViewSmall extends Component {
     commentConfimedDeleteClick = ()=>{
         this.props.dispatch(deleteComment(this.props.post.id));
     }
-    handlePostConfirmDeleteClick = () => {
-        if (this.props.commentView) {
-            this.props.dispatch(deleteComment(this.props.post.id));
-        } else {
-            this.props.dispatch(deletePost(this.props.post.id));
-            this.props.dispatch(deleteAllCommentsForPost(this.props.post.id));
-        }
-    }
-
-    handleDeleteRequestClick = () => {
-        this.setState({ deleteConfirmRequested: true })
-    }
-
-    handleDeleteRequesCancelClick = () => {
-        this.setState({ deleteConfirmRequested: false })
-    }
-
-    componentWillUnmount() {
-        this.setState({ deleteConfirmRequested: false })
-    }
-
+  
     handleCommentEditCancel = () => {
         this.setState({ showEditComment: false })
     }
@@ -96,35 +68,18 @@ class PostViewSmall extends Component {
     }
 
     render() {
-       
-
-        //common between post and comment 
-        
-        let deleteButton = <span><button onClick={this.handleDeleteRequestClick} className="post-footer-button">Delete</button></span>;
-
-        let confirmDelete = <span className="confirm-delete">
-            <span><button onClick={this.handlePostConfirmDeleteClick} id="confirm-delete-btn">Confirm delete</button></span>
-            <span><button onClick={this.handleDeleteRequesCancelClick} id="cancel-delete-btn">Cancel delete</button></span>
-        </span>
-
-        if (this.state.showEditComment) {
-            return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.post.id}> </UpdateComment>;
-        }
 
 
         //there are three possible scenarios to consider: 
         //1. this is a comment; 
+        
+        if (this.state.showEditComment) {
+            return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.post.id}> </UpdateComment>;
+        }
+
         if (this.props.commentView) {
             let commentAuthor = <span className="post-author"> Commented by: {this.props.post.author}</span>
             let commentTimeAndDate = <span className="comment-date-time">[{timeStampToDateAndTime(this.props.post.timestamp)}]</span>
-            let editCommentButton = <span onClick={this.handleCommentEditClick}><button className="post-footer-button">Edit</button></span>
-            if (this.state.deleteConfirmRequested) {
-                editCommentButton = null;
-                deleteButton = null;
-    
-            } else {
-                confirmDelete = null;
-            }
          
             return (
                 <div className="panel panel-default post-panel">
@@ -199,16 +154,6 @@ class PostViewSmall extends Component {
         //3. post in detailed view 
         if (this.props.detailedView) {
             let addComment = <span><button className="post-footer-button" onClick={this.props.addCommentClickHandler}>Add comment</button></span>
-            let editPostButton = <span><button className="post-footer-button" onClick={this.props.handlePostEditOn}>Edit</button></span>
-
-            if (this.state.deleteConfirmRequested) {
-                editPostButton = null;
-                addComment = null;
-                deleteButton = null;
-    
-            } else {
-                confirmDelete = null;
-            }
 
             return (
                <div className="panel panel-default post-panel">
