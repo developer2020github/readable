@@ -11,6 +11,10 @@ import UpdateItem from "./UpdateItem"
 import { addPost } from "../actions/actions"
 
 function addNumberOfComments(posts, comments){
+	if (!posts || !comments){
+		return null; 
+	}
+
 	for (let i = 0; i< posts.length; i++){
 		posts[i]["numberOfComments"] = comments.reduce(
 
@@ -43,9 +47,16 @@ class MainView extends Component {
 	state={
 		 selectedCategory: "all", 
 		 sortBy: SortSelectItems.SORT_BY_DATE_DESC, 
-		 showNewPostForm: false
+		 showNewPostForm: false, 
+		 dataAvailable: false
 	}
 
+	componentDidMount(){
+	
+		if(this.props.comments&&this.props.posts&&this.props.categories){
+			this.setState({dataAvailable: true})
+		}
+	}
 	createNewPost =(values)=>{
 		  this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
           this.setHideShowNewPostForm(); 
@@ -72,8 +83,23 @@ class MainView extends Component {
 
 	render(){
 		
+		if (!this.state.dataAvailable){
+			return (	
+				<div className="container">
+				<ApplicationHeader />
+					<div className="row">
+					<div className="col-md-8 col-md-offset-2 text-center">
+						<h1>Awaiting for server to respond....</h1>
+					</div>
+					</div>
+				</div>
+				)
+		}
+
+	
 		let comments = this.props.comments; 
 		let posts = addNumberOfComments(this.props.posts, comments);
+
 		let categories = ["all", ...this.props.categories]; 
 		let filteredPosts = posts.filter(
 			(p)=>{
@@ -144,13 +170,20 @@ class MainView extends Component {
 
 
 const mapStateToProps = (state, props) => { 
-	let listOfPosts = lib.listOfObjectsToArray(state.posts).filter(
-		(post)=>{return !post.deleted}
-	)
+	
+	let listOfPosts = null; 
+	if (state.posts){
+		listOfPosts = lib.listOfObjectsToArray(state.posts).filter(
+			(post)=>{return !post.deleted}
+		)
+   }
 
-	let listOfComments = lib.listOfObjectsToArray(state.comments).filter(
-		(comment)=>{return !comment.deleted}
-	)
+	let listOfComments = null; 
+	if (state.comments){
+		listOfComments = lib.listOfObjectsToArray(state.comments).filter(
+			(comment)=>{return !comment.deleted}
+		)
+    }
 
 	return {
 	categories: state.categories,
