@@ -9,10 +9,10 @@ import { populateStore } from './tests/populateStore'
 
 //import * as testReducers from './tests/testReducers'; 
 import { createStore, applyMiddleware, compose } from 'redux'
-import { reducer } from './reducers/reducers'
+import  store  from './store/store'
 import { Provider } from 'react-redux'
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+
 populateStore(store); 
 
 ReactDOM.render(
