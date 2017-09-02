@@ -11,6 +11,9 @@ import { combineReducers } from 'redux';
 import * as actions from '../actions/actions'; 
 
 export function categories(state=null, action){
+    console.log("categories reducer"); 
+    console.log(action)
+
     switch (action.type){
         case actions.ADD_CATEGORIES :
           return  action.categories.slice(0)
@@ -23,6 +26,8 @@ export function categories(state=null, action){
 export function posts(state=null, action){
     let currentPost = null; 
     let updatedPost = null; 
+    //console.log("posts reducer action"); 
+    //console.log(action); 
 
     switch (action.type){
        

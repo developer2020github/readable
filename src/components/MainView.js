@@ -9,6 +9,7 @@ import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
 import UpdateItem from "./UpdateItem"
 import { addPost } from "../actions/actions"
+import { asyncFetchAllPosts, asyncFetchAllCategories } from "../store/store"
 
 function addNumberOfComments(posts, comments){
 	if (!posts || !comments){
@@ -52,7 +53,10 @@ class MainView extends Component {
 	}
 
 	componentDidMount(){
-	
+		console.log("component did mount!")
+		this.props.dispatch(asyncFetchAllPosts())
+		this.props.dispatch(asyncFetchAllCategories())
+	    //asyncFetchAllPosts()
 		if(this.props.comments&&this.props.posts&&this.props.categories){
 			this.setState({dataAvailable: true})
 		}
@@ -170,6 +174,8 @@ class MainView extends Component {
 
 
 const mapStateToProps = (state, props) => { 
+	console.log("main view map state to props")
+	console.log(state)
 	
 	let listOfPosts = null; 
 	if (state.posts){

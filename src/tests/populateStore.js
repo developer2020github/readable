@@ -24,6 +24,7 @@ function addPostsAndComments(store){
 }
 
 export function populateStore(store){
+    console.log("running polulate store!")
     addCategories(store); 
     addPostsAndComments(store); 
 }
