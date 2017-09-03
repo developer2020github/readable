@@ -107,7 +107,7 @@ const mapStateToProps = (state, props) => {
 	if (state.comments.hasOwnProperty(props.parentPostID))
     commentsForPost = lib.listOfObjectsToArray(state.comments[props.parentPostID]).filter(
 		(comment)=>{
-				return comment.parentId === props.parentPostID && !comment.deleted
+				return !comment.deleted
 			}
 	)
 
