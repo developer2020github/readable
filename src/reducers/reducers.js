@@ -151,28 +151,25 @@ export function comments(state={}, action){
 
             
         case actions.DELETE_ALL_COMMENTS_FOR_POST:
-           
-            for (let commentId in state){
-                newState[commentId] = {...state[commentId]}; 
+            newState = {...state}
 
-                if (newState[commentId].parentId===action.payload.parentId){
-                    newState[commentId].deleted=true; 
-                }
+            for (let commentId in newState[action.payload.parentId]){
 
+                newState[action.payload.parentId][commentId].deleted = true 
             }
+
             return newState; 
 
         case actions.DELETE_PARENT_OF_COMMENTS:
          
-            for (let commentId in state){
-                newState[commentId] = {...state[commentId]}; 
-
-                if (newState[commentId].parentId===action.payload.parentId){
-                    newState[commentId].parentDeleted=true; 
-                }
-
+            newState = {...state}
+        
+            for (let commentId in newState[action.payload.parentId]){
+        
+                        newState[action.payload.parentId][commentId].parentDeleted = true 
             }
-            return newState;
+        
+           return newState; 
 
         default: 
             return state; 

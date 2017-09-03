@@ -4,7 +4,7 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deletePost,  deleteAllCommentsForPost, upvotePost,  downvotePost, editPost} from "../actions/actions"
+import { deletePost,  deleteAllCommentsForPost, upvotePost,  downvotePost, editPost, deleteParentOfComments} from "../actions/actions"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import UpdateItem from "./UpdateItem"
@@ -49,6 +49,7 @@ class PostViewSmall extends Component {
     postConfimedDeleteClick = ()=>{
         this.props.dispatch(deletePost(this.props.post.id));
         this.props.dispatch(deleteAllCommentsForPost(this.props.post.id));
+        this.props.dispatch(deleteParentOfComments(this.props.post.id));
     }
 
 
