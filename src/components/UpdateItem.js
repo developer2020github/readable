@@ -182,10 +182,12 @@ const mapStateToProps = (state, props) => {
         if (props.itemId) {
             if (state.posts.hasOwnProperty(props.itemId)){
             currentItem = state.posts[props.itemId]
-            }else if (state.comments.hasOwnProperty(props.itemId)){
-                currentItem = state.comments[props.itemId]
+            }else if (props.parentId && state.comments.hasOwnProperty(props.parentId)){
+                if (state.comments[props.parentId].hasOwnProperty(props.itemId)){}
+                      currentItem = state.comments[props.parentId][props.itemId]
+                }
             }
-        }
+        
     
         return {
                categories: state.categories, 

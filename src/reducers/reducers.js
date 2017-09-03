@@ -108,7 +108,7 @@ export function comments(state={}, action){
             
             
 
-            let newState = {...state,  
+            newState = {...state,  
                            [action.payload.parentId]:  
                                                     {...state[action.payload.parentId],
                                                      [action.payload.id]: deletedComment}  }
@@ -117,9 +117,17 @@ export function comments(state={}, action){
 
 
         case actions.EDIT_COMMENT:
-            currentComment = state[action.payload.id]; 
+           
+            currentComment = state[action.payload.parentId][action.payload.id]; 
+
             updatedComment = {...currentComment, ...action.payload}; 
-            return {...state, [action.payload.id]: updatedComment}; 
+    
+            newState = {...state,  
+                [action.payload.parentId]:  
+                                         {...state[action.payload.parentId],
+                                          [action.payload.id]: updatedComment}  }
+            return newState; 
+
 
         case actions.UPVOTE_COMMENT:
             currentComment = state[action.payload.id];

@@ -41,7 +41,7 @@ class CommentView extends Component {
     }
 
     updateComment = (values) =>{
-        this.props.dispatch(editComment(this.props.comment.id,  values.author, values.body)); 
+        this.props.dispatch(editComment(this.props.comment.id, this.props.comment.parentId,  values.author, values.body)); 
         this.handleCommentEditCancel(); 
     }
 
@@ -52,6 +52,7 @@ class CommentView extends Component {
             return <UpdateItem update={this.updateComment} 
             cancel={this.handleCommentEditCancel} 
             itemId={this.props.comment.id} 
+            parentId={this.props.comment.parentId}
             showTitle={false} 
             showCategories={false}
             bodyHeader="Your comment :" 

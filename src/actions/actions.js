@@ -97,8 +97,18 @@ export function editPost(id, author, body, category, title){
 }
 
 
-export function editComment(id, author, body){
-    return edit(EDIT_COMMENT, id, author, body)
+export function editComment(id, parentId,  author, body){
+    //return edit(EDIT_COMMENT, id, author, parentId, body)
+    let timestamp  = Date.now(); 
+    return {
+        type :EDIT_COMMENT, 
+        payload: {id, 
+        parentId, 
+        body,
+        author,  
+        timestamp}
+    }
+
 }
 
 //==========================================================================
