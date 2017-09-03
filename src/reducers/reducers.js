@@ -130,20 +130,28 @@ export function comments(state={}, action){
 
 
         case actions.UPVOTE_COMMENT:
-            currentComment = state[action.payload.id];
+            currentComment = state[action.payload.parentId][action.payload.id];
             updatedComment = {...currentComment, 
                 voteScore: currentComment.voteScore + 1}
-            return {...state, [action.payload.id]: updatedComment}; 
+
+            return {...state, 
+                     [action.payload.parentId]: 
+                     {...state[action.payload.parentId], 
+                        [action.payload.id] : updatedComment}}; 
 
         case actions.DOWNVOTE_COMMENT:
-            currentComment = state[action.payload.id];
+            currentComment = state[action.payload.parentId][action.payload.id];
             updatedComment = {...currentComment, 
-                voteScore: currentComment.voteScore -1 }
-            return {...state, [action.payload.id]: updatedComment}; 
+                voteScore: currentComment.voteScore + 1}
+
+            return {...state, 
+                    [action.payload.parentId]: 
+                    {...state[action.payload.parentId], 
+                        [action.payload.id] : updatedComment}}; 
 
             
         case actions.DELETE_ALL_COMMENTS_FOR_POST:
-          
+           
             for (let commentId in state){
                 newState[commentId] = {...state[commentId]}; 
 

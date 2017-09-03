@@ -66,7 +66,7 @@ class CommentView extends Component {
                     </div>
                     <div className="row post-footer">
                         <div className="col-xs-6 text-left post-sub-header">
-                            <Vote   upvoteAction={upvoteComment} downvoteAction={downvoteComment} voteScore={this.props.comment.voteScore} id={this.props.comment.id}/>
+                            <Vote   upvoteAction={upvoteComment} downvoteAction={downvoteComment} voteScore={this.props.comment.voteScore} id={this.props.comment.id} parentId={this.props.comment.parentId}/>
                             <EditDeleteButtons handleEditRequest={this.handleCommentEditClick} confimedDeleteAction={this.commentConfimedDeleteClick}/>
                         </div>
                         <div className="col-xs-6 text-right post-sub-header">

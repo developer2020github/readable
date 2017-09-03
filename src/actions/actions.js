@@ -46,27 +46,44 @@ const DEFAULT_VOTE_SCORE = 1;
 
 
 //======================================================================
-function vote(type, id){
+
+export function upvotePost(id, parentId){
     return {
-        type, 
-        payload: {id}
+        type: UPVOTE_POST, 
+        payload: {
+            id
+        }
     }
 }
 
-export function upvotePost(id){
-    return vote(UPVOTE_POST, id); 
+export function upvoteComment(id, parentId){
+    return {
+        type: UPVOTE_COMMENT, 
+        payload: {
+            id, 
+            parentId
+        }
+    }
 }
 
-export function upvoteComment(id){
-    return vote(UPVOTE_COMMENT, id)
+
+export function downvotePost(id, parentId){
+    return {
+        type: DOWNVOTE_POST, 
+        payload: {
+            id
+        }
+    }
 }
 
-export function downvotePost(id){
-    return vote(DOWNVOTE_POST, id); 
-}
-
-export function downvoteComment(id){
-    return vote(DOWNVOTE_COMMENT, id)
+export function downvoteComment(id, parentId){
+    return {
+        type: DOWNVOTE_COMMENT, 
+        payload: {
+            id, 
+            parentId
+        }
+    }
 }
 
 //=========================================================================
