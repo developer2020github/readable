@@ -28,7 +28,7 @@ class CommentView extends Component {
     }
 
     commentConfimedDeleteClick = ()=>{
-        this.props.dispatch(deleteComment(this.props.comment.id));
+        this.props.dispatch(deleteComment(this.props.comment.id, this.props.comment.parentId));
         //TODO: ensure number of comments of parent post gets updated in post detailed view
     }
   

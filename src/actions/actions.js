@@ -143,7 +143,7 @@ export function addPost(author, body, category, title, timestamp=null, voteScore
     } 
 }
 
-export function addComment(parentId, body, author,  timestamp=null, voteScore=null){
+export function addComment(parentId, body, author,  timestamp=null, voteScore=null, id=null){
     let comment = add(author, body); 
     let payload = Object.assign({},  comment, {parentId, parentDeleted: false})
 
@@ -155,6 +155,10 @@ export function addComment(parentId, body, author,  timestamp=null, voteScore=nu
     if (voteScore){
         //need this mainly for debugging purposes: if voteScore is passed - use it instead of assigning default
        payload.voteScore=voteScore; 
+    }
+
+    if (id){
+        payload.id = id; 
     }
 
 
@@ -176,8 +180,13 @@ export function deletePost(id){
     return deleteItem(DELETE_POST, id); 
 }
 
-export function deleteComment(id){
-    return deleteItem(DELETE_COMMENT, id); 
+export function deleteComment(id, parentId){
+     return {
+         type: DELETE_COMMENT, 
+         payload: {id, 
+                   parentId}
+     }
+    //return deleteItem(DELETE_COMMENT, id); 
 }
 
 export function deleteAllCommentsForPost(parentId){

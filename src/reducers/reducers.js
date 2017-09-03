@@ -66,7 +66,7 @@ export function posts(state=null, action){
 export function comments(state={}, action){
     let currentComment = null; 
     let updatedComment = null; 
-    let newState = {};  
+    let newState = null;  
 
     switch (action.type){
         case actions.ADD_NEW_COMMENT: 
@@ -78,7 +78,7 @@ export function comments(state={}, action){
             console.log(state)
             console.log(newCommentItem)*/
 
-            let newState = null; 
+            //let newState = null; 
 
             if (state.hasOwnProperty(action.payload.parentId)){
                  //console.log("already exists!")
@@ -99,9 +99,22 @@ export function comments(state={}, action){
             return newState; 
 
         case actions.DELETE_COMMENT:
-            currentComment = state[action.payload.id]; 
+           /* 
+            console.log("deleting a comment")
+            console.log(action)*/
+            currentComment = state[action.payload.parentId][action.payload.id]; 
+            //console.log(currentComment)
             let deletedComment = {...currentComment, deleted: true}; 
-            return {...state, [action.payload.id]: deletedComment}; 
+            
+            
+
+            let newState = {...state,  
+                           [action.payload.parentId]:  
+                                                    {...state[action.payload.parentId],
+                                                     [action.payload.id]: deletedComment}  }
+            //return {...state, [action.payload.id]: deletedComment}; 
+            return newState
+
 
         case actions.EDIT_COMMENT:
             currentComment = state[action.payload.id]; 

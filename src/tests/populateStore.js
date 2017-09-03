@@ -19,7 +19,7 @@ function addPostsAndComments(store){
        let comment = postsAndComments.comments[commentId];
      //  console.log("adding comment") ; 
  
-       store.dispatch(actions.addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore)); 
+       store.dispatch(actions.addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id)); 
    }
 }
 
