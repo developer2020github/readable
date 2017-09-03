@@ -10,24 +10,25 @@ import SortSelect from './SortSelect'
 import UpdateItem from "./UpdateItem"
 import { addPost } from "../actions/actions"
 import { asyncFetchAllPosts, asyncFetchAllCategories } from "../store/store"
+import * as testOptions from "../tests/testOptions"
 
 function addNumberOfComments(posts, comments){
-	if (!posts || !comments){
+	if (!posts){
 		return null; 
 	}
-
+    //console.log("counting comments!")
 	for (let i = 0; i< posts.length; i++){
-		posts[i]["numberOfComments"] = comments.reduce(
-
-			(numberOfCommments, comment)=>{ 
-
-				if (comment.parentId===posts[i].id){
-					return numberOfCommments+1; 
-				}
-				return numberOfCommments; 
-				}, 
-			0)
-	}
+		posts[i]["numberOfComments"] = 0; 
+		if (comments){
+			if (comments.hasOwnProperty(posts[i].id)){
+				let notDeletetedComments = lib.listOfObjectsToArray(comments[posts[i].id]).filter(
+																(comment)=>{return !comment.deleted})
+																
+				posts[i]["numberOfComments"]=notDeletetedComments.length
+			}
+	      }
+	    }
+		
 	return posts; 
 }
 
@@ -54,10 +55,13 @@ class MainView extends Component {
 
 	componentDidMount(){
 		console.log("component did mount!")
+
+		if (testOptions.useServerData) {
 		this.props.dispatch(asyncFetchAllPosts())
 		this.props.dispatch(asyncFetchAllCategories())
-	    //asyncFetchAllPosts()
-		if(this.props.comments&&this.props.posts&&this.props.categories){
+		}
+
+		if(this.props.posts&&this.props.categories){
 			this.setState({dataAvailable: true})
 		}
 	}
@@ -174,8 +178,6 @@ class MainView extends Component {
 
 
 const mapStateToProps = (state, props) => { 
-	console.log("main view map state to props")
-	console.log(state)
 	
 	let listOfPosts = null; 
 	if (state.posts){
@@ -184,17 +186,17 @@ const mapStateToProps = (state, props) => {
 		)
    }
 
-	let listOfComments = null; 
-	if (state.comments){
-		listOfComments = lib.listOfObjectsToArray(state.comments).filter(
-			(comment)=>{return !comment.deleted}
-		)
-    }
+	//let listOfComments = null; 
+	//if (state.comments){
+	//	listOfComments = lib.listOfObjectsToArray(state.comments).filter(
+	//		(comment)=>{return !comment.deleted}
+	//	)
+    //}
 
 	return {
 	categories: state.categories,
 	posts: listOfPosts, 
-	comments: listOfComments
+	comments: state.comments
   }};
 //ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
 

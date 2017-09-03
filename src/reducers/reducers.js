@@ -11,8 +11,6 @@ import { combineReducers } from 'redux';
 import * as actions from '../actions/actions'; 
 
 export function categories(state=null, action){
-    console.log("categories reducer"); 
-    console.log(action)
 
     switch (action.type){
         case actions.ADD_CATEGORIES :
@@ -65,14 +63,40 @@ export function posts(state=null, action){
 }
 
 
-export function comments(state=null, action){
+export function comments(state={}, action){
     let currentComment = null; 
     let updatedComment = null; 
     let newState = {};  
 
     switch (action.type){
         case actions.ADD_NEW_COMMENT: 
-            return {...state, [action.payload.id]: action.payload}
+            
+            //return {...state, [action.payload.id]: action.payload}
+            let newCommentItem = { [action.payload.id]: action.payload}; 
+            /*
+            console.log("adding comment")
+            console.log(state)
+            console.log(newCommentItem)*/
+
+            let newState = null; 
+
+            if (state.hasOwnProperty(action.payload.parentId)){
+                 //console.log("already exists!")
+
+                 let updatedExistingComments = {...state[action.payload.parentId], [action.payload.id]: action.payload}
+
+                 //console.log(updatedExistingComments)
+                 newState = {...state,  [action.payload.parentId]: updatedExistingComments}
+                 //console.log(newState)
+            }else {
+                //console.log("does not exist")
+                newState = {...state, [action.payload.parentId]: newCommentItem}
+                //console.log(newState)
+            }
+
+            //console.log(""); 
+
+            return newState; 
 
         case actions.DELETE_COMMENT:
             currentComment = state[action.payload.id]; 

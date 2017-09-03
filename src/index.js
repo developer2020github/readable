@@ -11,9 +11,10 @@ import { populateStore } from './tests/populateStore'
 import { createStore, applyMiddleware, compose } from 'redux'
 import  store  from './store/store'
 import { Provider } from 'react-redux'
+import * as testOptions from "./tests/testOptions"
 
 
-//populateStore(store); 
+populateStore(store); 
 
 ReactDOM.render(
     <Provider store={store}>
