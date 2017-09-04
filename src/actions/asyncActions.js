@@ -1,4 +1,40 @@
 import { addPost, addCategories, addComment, updateNumberOfCommentsForPost} from "./actions"; 
+import * as lib from "../utils/lib"
+
+export function asyncAddPost (author, body, category, title){
+    
+    let newPost ={
+              author, 
+              body, 
+              category, 
+              title, 
+              deleted: false, 
+              timestamp:  Date.now(), 
+              id: lib.generateUUID(), 
+              voteScore: 1 
+    }
+
+    return function(dispatch){
+
+    let postPromise = fetch('http://localhost:5001/posts', {
+        method: 'post',
+        headers: {
+            'Authorization': 'someAutorizatation',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPost)
+
+    })
+
+    return postPromise.then(function(response) {
+        return response.json();
+    }).catch(function(err) {
+        console.log("error happened!");
+    }).then(function(post) {
+        dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+    });
+    }
+}
 
 export function fetchCommentsForPost(postId){
     //GET /posts/:id/comments
@@ -72,7 +108,7 @@ export function asyncFetchAllPosts(){
                 //console.log("dispatcthing addPost"); 
                 //console.log(posts[idx]); 
                 //addPost(author, body, category, title, timestamp=null, voteScore=null, id=null)
-                dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].timestamp, posts[idx].voteScore, posts[idx].id)); 
+                dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].timestamp, posts[idx].voteScore, posts[idx].id, posts[idx].deleted)); 
                 //posts really should have number of comments on them! Since this is not done on server side and I cannot change API, just load all comments from server
                 dispatch(fetchCommentsForPost(posts[idx].id))
             }

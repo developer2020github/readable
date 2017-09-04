@@ -9,7 +9,7 @@ import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
 import UpdateItem from "./UpdateItem"
 import { addPost } from "../actions/actions"
-import { asyncFetchAllPosts, asyncFetchAllCategories } from "../actions/asyncActions"
+import { asyncFetchAllPosts, asyncFetchAllCategories, asyncAddPost } from "../actions/asyncActions"
 import * as testOptions from "../tests/testOptions"
 
 /*
@@ -63,7 +63,8 @@ class MainView extends Component {
 
 	}
 	createNewPost =(values)=>{
-		  this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
+		  //this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
+		  this.props.dispatch(asyncAddPost(values.author, values.body, values.category, values.title))
           this.setHideShowNewPostForm(); 
 	}
 

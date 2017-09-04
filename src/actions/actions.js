@@ -147,7 +147,7 @@ function add (author, body, voteScore=DEFAULT_VOTE_SCORE){
 }
 
 
-export function addPost(author, body, category, title, timestamp=null, voteScore=null, id=null){
+export function addPost(author, body, category, title, timestamp=null, voteScore=null, id=null, deleted=null){
     
     let post = add(author, body); 
     let payload =  Object.assign({},  post, {title, category})
@@ -164,6 +164,10 @@ export function addPost(author, body, category, title, timestamp=null, voteScore
 
     if (id){
         payload.id = id
+    }
+
+    if (!deleted===null){
+       payload.deleted = deleted
     }
 
     return {type: ADD_NEW_POST, 
