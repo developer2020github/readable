@@ -13,8 +13,9 @@ import  store  from './store/store'
 import { Provider } from 'react-redux'
 import * as testOptions from "./tests/testOptions"
 
-
-populateStore(store); 
+if (!testOptions.useServerData){
+    populateStore(store); 
+}
 
 ReactDOM.render(
     <Provider store={store}>

@@ -9,7 +9,7 @@ import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
 import UpdateItem from "./UpdateItem"
 import { addPost } from "../actions/actions"
-import { asyncFetchAllPosts, asyncFetchAllCategories } from "../store/store"
+import { asyncFetchAllPosts, asyncFetchAllCategories } from "../actions/asyncActions"
 import * as testOptions from "../tests/testOptions"
 
 function addNumberOfComments(posts, comments){
@@ -49,21 +49,17 @@ class MainView extends Component {
 	state={
 		 selectedCategory: "all", 
 		 sortBy: SortSelectItems.SORT_BY_DATE_DESC, 
-		 showNewPostForm: false, 
-		 dataAvailable: false
+		 showNewPostForm: false
 	}
 
 	componentDidMount(){
 		console.log("component did mount!")
 
 		if (testOptions.useServerData) {
-		this.props.dispatch(asyncFetchAllPosts())
-		this.props.dispatch(asyncFetchAllCategories())
+			this.props.dispatch(asyncFetchAllPosts())
+			this.props.dispatch(asyncFetchAllCategories())
 		}
 
-		if(this.props.posts&&this.props.categories){
-			this.setState({dataAvailable: true})
-		}
 	}
 	createNewPost =(values)=>{
 		  this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
@@ -90,8 +86,9 @@ class MainView extends Component {
 	
 
 	render(){
+		let dataAvailable = this.props.posts&&this.props.categories; 
 		
-		if (!this.state.dataAvailable){
+		if (!dataAvailable){
 			return (	
 				<div className="container">
 				<ApplicationHeader />
