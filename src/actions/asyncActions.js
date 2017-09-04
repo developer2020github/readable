@@ -31,7 +31,7 @@ export function asyncFetchAllPosts(){
                 //console.log("dispatcthing addPost"); 
                 //console.log(posts[idx]); 
                 //addPost(author, body, category, title, timestamp=null, voteScore=null, id=null)
-                dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].voteScore, posts[idx].id)); 
+                dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].timestamp, posts[idx].voteScore, posts[idx].id)); 
             }
 
         });
