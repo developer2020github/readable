@@ -9,6 +9,7 @@ import SortSelect from './SortSelect'
 import CommentView from "./CommentView"
 import UpdateItem from "./UpdateItem"
 import { addComment } from "../actions/actions"
+import { fetchCommentsForPost }  from "../actions/asyncActions"
 
 class ListOfComments extends Component {
 	constructor(){
@@ -51,6 +52,10 @@ class ListOfComments extends Component {
 				this.setState({ showNewCommentForm: true });
 			}
 	
+	}
+
+	componentDidMount(){
+		this.props.dispatch(fetchCommentsForPost(this.props.parentPostID)); 
 	}
 
     createNewComment =(values)=>{

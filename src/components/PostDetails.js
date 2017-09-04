@@ -7,6 +7,8 @@ import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { connect } from 'react-redux';
 import ListOfComments from "./ListOfComments"
+import { fetchPost, fetchCommentsForPost } from "../actions/asyncActions"
+
 
 class PostDetails extends Component {
 
@@ -23,7 +25,10 @@ class PostDetails extends Component {
 		return false; 
 	}
 
-    
+    componentDidMount(){
+		this.props.dispatch(fetchPost(this.props.match.params.postID)); 
+	}
+
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 

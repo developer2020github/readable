@@ -2,7 +2,7 @@ import { addPost, addCategories, addComment, updateNumberOfCommentsForPost} from
 import * as lib from "../utils/lib"
 
 export function asyncAddPost (author, body, category, title){
-    
+
     let newPost ={
               author, 
               body, 
@@ -75,6 +75,26 @@ export function fetchCommentsForPost(postId){
                 });
         }
 
+}
+
+export function fetchPost(postId){
+    let queryString = "http://localhost:5001/posts/" + postId
+    return function(dispatch){
+
+                let postPromise = fetch(queryString, {
+                    method: 'get',
+                    headers: { 'Authorization': 'someAutorizatation' }
+                })
+                
+                return postPromise.then(function(response) {
+                    return response.json();
+                    }
+                ).catch(function(err) {
+                    console.log("error happened!");
+                }).then(function(post) {
+                    dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+                });
+        }
 }
 
 
