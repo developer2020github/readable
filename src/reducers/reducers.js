@@ -56,6 +56,15 @@ export function posts(state=null, action){
                 voteScore: currentPost.voteScore - 1}
             return {...state, [action.payload.id]: updatedPost}; 
 
+       case actions.UPDATE_NUMBER_OF_COMMENTS_FOR_POST: 
+           
+            currentPost = state[action.payload.id];
+            updatedPost = {...currentPost, 
+                numberOfComments: action.payload.numberOfComments}
+           
+
+            return {...state, [action.payload.id]: updatedPost}; 
+
        default: 
             return state; 
 

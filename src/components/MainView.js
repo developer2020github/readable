@@ -12,6 +12,7 @@ import { addPost } from "../actions/actions"
 import { asyncFetchAllPosts, asyncFetchAllCategories } from "../actions/asyncActions"
 import * as testOptions from "../tests/testOptions"
 
+/*
 function addNumberOfComments(posts, comments){
 	if (!posts){
 		return null; 
@@ -30,7 +31,7 @@ function addNumberOfComments(posts, comments){
 	    }
 		
 	return posts; 
-}
+}*/
 
 
 class MainView extends Component {
@@ -53,7 +54,7 @@ class MainView extends Component {
 	}
 
 	componentDidMount(){
-		console.log("component did mount!")
+		//console.log("component did mount!")
 
 		if (testOptions.useServerData) {
 			this.props.dispatch(asyncFetchAllPosts())
@@ -102,9 +103,9 @@ class MainView extends Component {
 		}
 
 	
-		let comments = this.props.comments; 
-		let posts = addNumberOfComments(this.props.posts, comments);
-
+		//let comments = this.props.comments; 
+		//let posts = addNumberOfComments(this.props.posts, comments);
+        let posts = this.props.posts; 
 		let categories = ["all", ...this.props.categories]; 
 		let filteredPosts = posts.filter(
 			(p)=>{

@@ -31,6 +31,7 @@ export const DELETE_POST = Symbol("DELETE_POST");    //implemented
 export const EDIT_POST = Symbol("EDIT_POST");         //implemneted 
 export const UPVOTE_POST = Symbol("UPVOTE_POST");     //implemented 
 export const DOWNVOTE_POST = Symbol("DOWNVOTE_POST"); //implemented
+export const UPDATE_NUMBER_OF_COMMENTS_FOR_POST = Symbol("UPDATE_NUMBER_OF_COMMENTS_FOR_POST")
 
 export const ADD_NEW_COMMENT = Symbol("ADD_NEW_COMMENT");   //implemented 
 export const DELETE_COMMENT = Symbol("DELETE_COMMENT")      //implemented 
@@ -175,19 +176,17 @@ export function addComment(parentId, body, author,  timestamp=null, voteScore=nu
     let payload = Object.assign({},  comment, {parentId, parentDeleted: false})
 
     if (timestamp){
-        //need this mainly for debugging purposes: if timestamp is passed - use it instead of assigning current time 
+        //If timestamp is passed - use it instead of assigning current time (use for fetching insted of creating new comment)
        payload.timestamp=timestamp; 
     }
 
     if (voteScore){
-        //need this mainly for debugging purposes: if voteScore is passed - use it instead of assigning default
        payload.voteScore=voteScore; 
     }
 
     if (id){
         payload.id = id; 
     }
-
 
     return {type: ADD_NEW_COMMENT, 
         payload
@@ -238,5 +237,15 @@ export function addCategories(categories){
     return {
         type: ADD_CATEGORIES, 
         categories
+    }
+}
+
+export function updateNumberOfCommentsForPost(id, numberOfComments){
+    return{
+        type: UPDATE_NUMBER_OF_COMMENTS_FOR_POST, 
+        payload: 
+            { id, 
+              numberOfComments
+            }
     }
 }

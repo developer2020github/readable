@@ -43,6 +43,34 @@ const exampleComment = {
           deleted: false,
           parentDeleted: false 
         }
+
+function testGetComment(postId){
+    //let queryString = "http://localhost:5001/posts/8xf0y6ziyjabvozdd253nd/comments"//this works!
+    //console.log("fetching comments for post " + postId)
+
+    let queryString = "http://localhost:5001/posts/" + postId + "/comments"; 
+
+    console.log(queryString)
+   
+        
+                let commentsPromise = fetch(queryString, {
+                    method: 'get',
+                    headers: { 'Authorization': 'someAutorizatation' }
+                })
+                
+                commentsPromise.then(function(response) {
+                    console.log("getting comments!")
+                    return response.json();
+                    }
+                ).catch(function(err) {
+                    console.log("error happened!");
+                }).then(function(comments) {
+                    console.log("and this is comments JSON!")
+                    console.log(comments)
+        
+                });
+        
+}
     
 function testAddNewPost() {
 	//https://davidwalsh.name/fetch
@@ -121,8 +149,9 @@ function testFetchAll() {
 
 function serverApiTestMain() {
     console.log("hello world from severApiTestMain!");
-    testFetchAll();
+    //testFetchAll();
     //testAddNewPost(); 
+    testGetComment("8xf0y6ziyjabvozdd253nd")
 }
 
 function getArrayOfExampleObjects(nObjects = 5){
