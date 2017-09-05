@@ -1,5 +1,61 @@
 import { addPost, addCategories, addComment, updateNumberOfCommentsForPost} from "./actions"; 
+import  store  from '../store/store'
 import * as lib from "../utils/lib"
+
+export function asyncFetchCommentOrPost(item){
+  if(item.hasOwnProperty("parentId")){
+     //store.dispatch()// TO BE DONE 
+  }
+  else{
+     store.dispatch(fetchPost(item.id))
+  }
+}
+
+export function asyncEditPost(postId, title, body){
+ /*       
+`PUT /posts/:id`  
+**USAGE:**  
+  Edit the details of an existing post  
+
+**PARAMS:**  
+  title - String  
+  body - String  */
+
+  let updatedPost = {
+      title, 
+      body
+  }
+  console.log("asyncEditPost")
+  let queryString = "http://localhost:5001/posts"  + postId; 
+
+  return function(dispatch){
+    console.log("dispatching!")
+
+    let postPromise  = fetch(queryString, {
+                               method: 'put',
+                               headers:   {
+                                'Authorization': 'someAutorizatation',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(updatedPost)
+
+                             })
+
+      
+    return postPromise.then(function(response) {
+        console.log("server responded!")
+        return response.json();
+    }).catch(function(err) {
+        console.log("error happened!");
+    }).then(function(post) {
+        console.log("post from server"); 
+        console.log(post)
+        dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+    });
+                  
+    }
+
+}
 
 export function asyncAddPost (author, body, category, title){
 

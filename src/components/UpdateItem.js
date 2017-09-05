@@ -3,6 +3,8 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import serializeForm from "form-serialize"
 import { connect } from 'react-redux'
+import { timeStampToDateAndTime } from "../utils/lib"
+import { asyncFetchCommentOrPost } from "../actions/asyncActions"
 
 //generic component to handle creation and update of posts and comments
 
@@ -22,8 +24,10 @@ class UpdateItem extends Component {
 
     }
     
-    userEntryIsOk(value, nameOfClass, nameOfMessageField){
-
+    userEntryIsOk(value, nameOfClass, nameOfMessageField, checkIsActive=true){
+        if (!checkIsActive){
+            return true; 
+        }
 
         if (value&&value.trim()!==""){
             this.setState({
@@ -44,13 +48,15 @@ class UpdateItem extends Component {
     handleSubmit = (e)=>{
         e.preventDefault();     
         const values = serializeForm(e.target, {hash : true}); 
-       
-        if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage"))&
+        console.log("handle submit")
+
+        if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage", this.props.showAuthorEntryField))&
             (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
               
              this.props.update(values)
 
            } else{
+               console.log("some check failed!")
             //if either of the checks failed - save already entered data for next iteration
               this.setState({
                   saved: {
@@ -115,6 +121,12 @@ class UpdateItem extends Component {
        this.resetState(); 
     }
 
+    componentDidMount(){
+        if (this.props.item){
+            asyncFetchCommentOrPost(this.props.item)
+        }
+    }
+
     componentWillReceiveProps(nextProps){
         this.setState({
             saved: {
@@ -134,9 +146,11 @@ class UpdateItem extends Component {
 	}
 
     render() {
-        let categories = null; 
-        if (this.props.showCategories){
-            categories = <div className="form-group">
+
+
+        let categoriesSelect = null; 
+        if (this.props.showCategoriesSelect){
+            categoriesSelect = <div className="form-group">
                             <label htmlFor="selectCategory">Select category:</label>
                             <select className="form-control" id="selectCategory" name="category" value={this.state.saved.category}  onChange={this.handleCategorySelect}>
                                 {this.props.categories.map((category)=>{
@@ -146,23 +160,47 @@ class UpdateItem extends Component {
                             </div>
         }
 
-        let title = null; 
-        if (this.props.showTitle){
-          title =   <div className="form-group">
+        let authorEntryField = null; 
+        if (this.props.showAuthorEntryField){
+            authorEntryField =   <div className="form-group">
+                        <label htmlFor="AuthorName" className={this.state.authorClass}>Your name: {this.state.authorWarningMessage}</label>
+                        <input type="text" className="form-control" id="AuthorName" placeholder="User name" name="author" defaultValue={this.state.saved.author}></input>
+                        </div>
+            }
+
+        let titleEntryField = null; 
+        if (this.props.showTitleEntryField){
+            titleEntryField =   <div className="form-group">
                         <label htmlFor="PostTitle">Title:</label>
                         <input type="text" className="form-control" id="PostTitle" placeholder="Title of the post" name="title" defaultValue={this.state.saved.title}></input>
                     </div>
         }
+        
+      
+
+        let infoHeader = null; 
+        if (this.props.showInfoHeader){
+           infoHeader=<div className="update-item-info-header">
+                                    <span>
+                                        <span id="update-item-header-1">{this.props.item.title} </span>
+                                        <span id="update-item-header-2">By: {this.props.item.author} </span>
+                                    </span>
+                                    <span>
+                                        <span id="update-item-header-3">Category: {this.props.item.category} </span>
+                                        <span id="update-item-header-4">[{timeStampToDateAndTime(this.props.item.timestamp)}]</span>
+                                    </span>
+                      </div>
+        }
+
+
 
         return (   
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {categories}
-                    <div className="form-group">
-                        <label htmlFor="AuthorName" className={this.state.authorClass}>Your name: {this.state.authorWarningMessage}</label>
-                        <input type="text" className="form-control" id="AuthorName" placeholder="User name" name="author" defaultValue={this.state.saved.author}></input>
-                    </div>
-                    {title}
+                    {infoHeader}
+                    {categoriesSelect}
+                    {authorEntryField}
+                    {titleEntryField}
                     <div className="form-group">
                         <label htmlFor="postText" className={this.state.bodyClass}>{this.props.bodyHeader} {this.state.bodyWarningMessage}</label>
                         <textarea className="form-control" id="postText" rows="10" name="body" defaultValue={this.state.saved.body}></textarea>

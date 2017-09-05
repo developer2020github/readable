@@ -7,7 +7,7 @@ import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { connect } from 'react-redux';
 import ListOfComments from "./ListOfComments"
-import { fetchPost, fetchCommentsForPost } from "../actions/asyncActions"
+import { fetchPost, fetchCommentsForPost, asyncFetchAllCategories } from "../actions/asyncActions"
 
 
 class PostDetails extends Component {
@@ -27,6 +27,7 @@ class PostDetails extends Component {
 
     componentDidMount(){
 		this.props.dispatch(fetchPost(this.props.match.params.postID)); 
+		this.props.dispatch(asyncFetchAllCategories());
 	}
 
 	render() {
@@ -71,9 +72,15 @@ class PostDetails extends Component {
 
 //export default PostDetails; 
 const mapStateToProps = (state, props) => { 
+	
+	let currentPost = null; 
+
+	if (state.posts && state.posts.hasOwnProperty(props.match.params.postID)){
+		currentPost = state.posts[props.match.params.postID]; 
+	}
 	return {
 	categories: state.categories,
-	post: state.posts[props.match.params.postID], 
+	post: currentPost
   }};
 //ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
 

@@ -88,13 +88,12 @@ export function downvoteComment(id, parentId){
 }
 
 //=========================================================================
-function edit (type, id, author, body, category=null, title=null){
+function edit (type, id, body, category=null, title=null){
     let timestamp  = Date.now(); 
     let updatedItem = {
         type, 
         payload: {id, 
         body,
-        author,  
         timestamp}
     }
 
@@ -110,8 +109,8 @@ function edit (type, id, author, body, category=null, title=null){
 
 
 //values.author, values.body, values.category, values.title
-export function editPost(id, author, body, category, title){
-    return edit(EDIT_POST, id, author, body, category, title)
+export function editPost(id, body,  title, category=null){
+    return edit(EDIT_POST, id, body, category, title)
 }
 
 

@@ -46,7 +46,7 @@ body, .app-background {
   margin-bottom: 15px;
 }
 
-.post-header, .post-footer, .vote-button, .post-footer-button, #confirm-delete-btn, #cancel-delete-btn{
+.post-header, .post-footer, .vote-button, .post-footer-button, #confirm-delete-btn, #cancel-delete-btn, .update-item-info-header{
   background-color: #626262; 
 }
 .post-header, .post-footer {
@@ -159,3 +159,31 @@ body, .app-background {
 .header-row{
   margin-bottom: 10px;
 }
+
+.update-item-info-header{
+  color: white; 
+  font-size: 14px; 
+  display: flex;
+  justify-content: space-between;
+}
+
+#update-item-header-1{
+  font-weight: bold; 
+ 
+}
+
+#update-item-header-2{
+  font-style: italic; 
+  margin-left: 10px; 
+}
+
+#update-item-header-3{
+  text-align: right; 
+  margin-right: 10px;
+}
+
+#update-item-header-4{
+  text-align: right;
+  font-style: italic; 
+}
+

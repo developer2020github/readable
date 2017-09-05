@@ -8,6 +8,7 @@ import { deletePost,  deleteAllCommentsForPost, upvotePost,  downvotePost, editP
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import UpdateItem from "./UpdateItem"
+import { asyncEditPost } from "../actions/asyncActions"
 
 //This component displays post  all views. 
 //Post header and body are common for all views. 
@@ -37,7 +38,8 @@ class PostViewSmall extends Component {
     
     updatePost=(values)=>{
 
-        this.props.dispatch(editPost(this.props.post.id, values.author, values.body, values.category, values.title)); 
+       // this.props.dispatch(editPost(this.props.post.id, values.author, values.body, values.category, values.title)); 
+        this.props.dispatch(asyncEditPost(this.props.post.id, values.title, values.body))
         this.handlePostEditCancel(); 
     }
 
@@ -108,7 +110,8 @@ class PostViewSmall extends Component {
                  return <UpdateItem update={this.updatePost} 
                                     cancel={this.handlePostEditCancel} 
                                     itemId={this.props.post.id} 
-                                    showTitle={true} showCategories={true}
+                                    showTitleEntryField={true} showCategoriesSelect={false} showAuthorEntryField={false}
+                                    showInfoHeader={false}
                                     bodyHeader="Post :" 
 									submitButtonName="Update post"
                         />
