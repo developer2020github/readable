@@ -22,14 +22,15 @@ export function asyncEditPost(postId, title, body){
   body - String  */
 
   let updatedPost = {
+    
       title, 
       body
   }
-  console.log("asyncEditPost")
-  let queryString = "http://localhost:5001/posts"  + postId; 
+
+  let queryString = "http://localhost:5001/posts/"  + postId; 
 
   return function(dispatch){
-    console.log("dispatching!")
+   
 
     let postPromise  = fetch(queryString, {
                                method: 'put',
@@ -43,13 +44,12 @@ export function asyncEditPost(postId, title, body){
 
       
     return postPromise.then(function(response) {
-        console.log("server responded!")
+       
         return response.json();
     }).catch(function(err) {
-        console.log("error happened!");
+        console.log("put error happened!");
     }).then(function(post) {
-        console.log("post from server"); 
-        console.log(post)
+       
         dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
     });
                   
