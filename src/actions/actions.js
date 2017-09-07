@@ -164,8 +164,8 @@ export function addPost(author, body, category, title, timestamp=null, voteScore
     if (id){
         payload.id = id
     }
-
-    if (!deleted===null){
+    
+    if (deleted!==null){
        payload.deleted = deleted
     }
 

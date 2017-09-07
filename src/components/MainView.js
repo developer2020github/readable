@@ -180,7 +180,10 @@ const mapStateToProps = (state, props) => {
 	
 	let listOfPosts = null; 
 	if (state.posts){
+		//console.log("state.posts"); 
+		//console.log(state.posts); 
 		listOfPosts = lib.listOfObjectsToArray(state.posts).filter(
+			
 			(post)=>{return !post.deleted}
 		)
    }

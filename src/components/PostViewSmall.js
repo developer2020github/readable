@@ -5,12 +5,13 @@ import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
 import { deletePost,  deleteAllCommentsForPost, upvotePost,  downvotePost, editPost, deleteParentOfComments} from "../actions/actions"
+
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import UpdateItem from "./UpdateItem"
-import { asyncEditPost } from "../actions/asyncActions"
+import { asyncEditPost, asyncDeletePost} from "../actions/asyncActions"
 
-//This component displays post  all views. 
+//This component displays post in all views. 
 //Post header and body are common for all views. 
 //Post footer can display different links and information depending 
 //on a particular view. 
@@ -49,9 +50,10 @@ class PostViewSmall extends Component {
 
 
     postConfimedDeleteClick = ()=>{
-        this.props.dispatch(deletePost(this.props.post.id));
+        this.props.dispatch(asyncDeletePost(this.props.post.id)); 
+        /*this.props.dispatch(deletePost(this.props.post.id));
         this.props.dispatch(deleteAllCommentsForPost(this.props.post.id));
-        this.props.dispatch(deleteParentOfComments(this.props.post.id));
+        this.props.dispatch(deleteParentOfComments(this.props.post.id));*/
     }
 
 

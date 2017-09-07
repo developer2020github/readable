@@ -1,6 +1,39 @@
-import { addPost, addCategories, addComment, updateNumberOfCommentsForPost} from "./actions"; 
+import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost} from "./actions"; 
 import  store  from '../store/store'
 import * as lib from "../utils/lib"
+
+
+export function asyncDeletePost(postId){
+    /*`DELETE /posts/:id`  
+    **USAGE:**  
+      Sets the deleted flag for a post to 'true'.   
+      Sets the parentDeleted flag for all child comments to 'true'.  */
+      let queryString = "http://localhost:5001/posts/"  + postId;
+      let updatedPost = {
+          id: postId
+      }
+      return function(dispatch){        
+         let postPromise  = fetch(queryString, {
+                                    method: 'delete',
+                                    headers:   {
+                                     'Authorization': 'someAutorizatation'}
+     
+                                  })
+     
+           
+        return postPromise.then(function(response) {    
+             if (response.status==200){
+                 dispatch(deletePost(postId));
+             }
+             //return response.json();
+         }).catch(function(err) {
+             console.log("post delete error happened!");
+             console.log(err);
+         })        
+         }
+      
+
+}
 
 export function asyncFetchCommentOrPost(item){
   if(item.hasOwnProperty("parentId")){
@@ -51,6 +84,7 @@ export function asyncEditPost(postId, title, body){
     }).then(function(post) {
        
         dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+        
     });
                   
     }
