@@ -1,6 +1,37 @@
-import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost} from "./actions"; 
+import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost, deleteComment, clearListOfCommentsForPost} from "./actions"; 
 import  store  from '../store/store'
 import * as lib from "../utils/lib"
+
+export function asyncDeleteComment(commentId, parentId){
+
+/*`DELETE /comments/:id`  
+**USAGE:**  
+  Sets a comment's deleted flag to 'true' */
+  let queryString = "http://localhost:5001/comments/"  + commentId;
+
+  return function(dispatch){        
+        let commentPromise  = fetch(queryString, {
+                                      method: 'delete',
+                                      headers:   {
+                                       'Authorization': 'someAutorizatation'}     
+                                    })
+       
+             
+          return commentPromise.then(function(response) {    
+               if (response.status==200){
+                   
+                   dispatch(fetchPost(parentId)); //this will update all comments as well
+               
+               }
+               //return response.json();
+           }).catch(function(err) {
+               console.log("comment delete error happened!");
+               console.log(err);
+           })        
+           }
+        
+  
+}
 
 export  function asyncEditComment(commentiId, body){
     /*`PUT /comments/:id`  
@@ -283,13 +314,14 @@ export function fetchCommentsForPost(postId){
                     console.log("error happened!");
                 }).then(function(comments) {
                     let numberOfCommentsForPost = 0; 
+                    dispatch(clearListOfCommentsForPost(postId))
                     for (let idx in comments){
                         //dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].timestamp, posts[idx].voteScore, posts[idx].id)); 
                         //addComment(parentId, body, author,  timestamp=null, voteScore=null, id=null)
                         if (!comments[idx].deleted){
                             numberOfCommentsForPost++; 
                         }
-                        dispatch(addComment(comments[idx].parentId, comments[idx].body, comments[idx].author, comments[idx].timestamp, comments[idx].voteScore, comments[idx].id))
+                        dispatch(addComment(comments[idx].parentId, comments[idx].body, comments[idx].author, comments[idx].timestamp, comments[idx].voteScore, comments[idx].id, comments[idx].deleted))
                     }
                 
                     dispatch(updateNumberOfCommentsForPost(postId, numberOfCommentsForPost))
@@ -315,6 +347,7 @@ export function fetchPost(postId){
                     console.log("error happened!");
                 }).then(function(post) {
                     dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+                    dispatch(fetchCommentsForPost(postId)); 
                 });
         }
 }

@@ -40,12 +40,22 @@ export const UPVOTE_COMMENT = Symbol("UPVOTE_COMMENT");     //implemented
 export const DOWNVOTE_COMMENT = Symbol("DOWNVOTE_COMMENT"); //implemented
 export const DELETE_ALL_COMMENTS_FOR_POST = Symbol("DELETE_ALL_COMMENTS_FOR_POST");  //implemented
 export const DELETE_PARENT_OF_COMMENTS = Symbol("DELETE_PARENT_OF_COMMENTS");        //implemented
+export const CLEAR_LIST_OF_COMMENTS_FOR_POST = Symbol("CLEAR_LIST_OF_COMMENTS_FOR_POST")
 
 export const ADD_CATEGORIES = Symbol("ADD_CATEGORIES"); 
 
 const DEFAULT_VOTE_SCORE = 1; 
 
-
+export function clearListOfCommentsForPost(parentId){
+    return {
+        
+            type: CLEAR_LIST_OF_COMMENTS_FOR_POST, 
+            payload: {
+                parentId
+            }
+        }
+    
+}
 //======================================================================
 
 export function upvotePost(id, parentId){
@@ -174,7 +184,7 @@ export function addPost(author, body, category, title, timestamp=null, voteScore
     } 
 }
 
-export function addComment(parentId, body, author,  timestamp=null, voteScore=null, id=null){
+export function addComment(parentId, body, author,  timestamp=null, voteScore=null, id=null,  deleted=null){
     let comment = add(author, body); 
     let payload = Object.assign({},  comment, {parentId, parentDeleted: false})
 
@@ -189,6 +199,10 @@ export function addComment(parentId, body, author,  timestamp=null, voteScore=nu
 
     if (id){
         payload.id = id; 
+    }
+
+    if(deleted!==null){
+        payload.deleted=deleted; 
     }
 
     return {type: ADD_NEW_COMMENT, 

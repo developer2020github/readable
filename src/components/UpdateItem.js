@@ -25,6 +25,7 @@ class UpdateItem extends Component {
     }
     
     userEntryIsOk(value, nameOfClass, nameOfMessageField, checkIsActive=true){
+        
         if (!checkIsActive){
             return true; 
         }

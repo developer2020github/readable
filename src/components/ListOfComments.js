@@ -110,14 +110,18 @@ class ListOfComments extends Component {
 
 //export default PostDetails; 
 const mapStateToProps = (state, props) => { 
+	console.log("list of comments map state to props")
+	console.log(state); 
 	let commentsForPost = []; 
+
 	if (state.comments.hasOwnProperty(props.parentPostID))
     commentsForPost = lib.listOfObjectsToArray(state.comments[props.parentPostID]).filter(
 		(comment)=>{
 				return !comment.deleted
 			}
 	)
-
+	console.log(commentsForPost); 
+	
 	return {
 	comments: commentsForPost
   }};

@@ -177,8 +177,14 @@ export function comments(state={}, action){
         
                         newState[action.payload.parentId][commentId].parentDeleted = true 
             }
-        
-           return newState; 
+            return newState; 
+        case actions.CLEAR_LIST_OF_COMMENTS_FOR_POST:
+            newState = {...state}
+            if (newState.hasOwnProperty(action.payload.parentId)){
+               delete newState[action.payload.parentId]
+            }
+    
+            return newState; 
 
         default: 
             return state; 

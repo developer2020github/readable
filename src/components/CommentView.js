@@ -8,7 +8,7 @@ import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import { editComment } from "../actions/actions"
 import  UpdateItem  from "./UpdateItem"
-import { asyncEditComment} from "../actions/asyncActions"
+import { asyncEditComment, asyncDeleteComment} from "../actions/asyncActions"
 
 //This component displays comment in all views. 
 //There is no header.
@@ -29,8 +29,7 @@ class CommentView extends Component {
     }
 
     commentConfimedDeleteClick = ()=>{
-        this.props.dispatch(deleteComment(this.props.comment.id, this.props.comment.parentId));
-        //TODO: ensure number of comments of parent post gets updated in post detailed view
+        this.props.dispatch(asyncDeleteComment(this.props.comment.id, this.props.comment.parentId));
     }
   
     handleCommentEditCancel = () => {
@@ -42,8 +41,7 @@ class CommentView extends Component {
     }
 
     updateComment = (values) =>{
-        //this.props.dispatch(editComment(this.props.comment.id, this.props.comment.parentId,  values.author, values.body)); 
-        console.log("updateComment"); 
+
         this.props.dispatch(asyncEditComment(this.props.comment.id, values.body))
         this.handleCommentEditCancel(); 
     }
