@@ -120,8 +120,9 @@ class MainView extends Component {
 			newPostForm = <UpdateItem update={this.createNewPost} 
 			 						  cancel={this.setHideShowNewPostForm} 
 									  itemId={null} 
-									  showTitle={true} 
+									  showTitleEntryField={true} 
 									  showCategories={true}
+									  showAuthorEntryField={true}
 									  bodyHeader="Post :" 
 									  submitButtonName="Create post"
 									  />
