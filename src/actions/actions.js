@@ -32,6 +32,7 @@ export const EDIT_POST = Symbol("EDIT_POST");         //implemneted
 export const UPVOTE_POST = Symbol("UPVOTE_POST");     //implemented 
 export const DOWNVOTE_POST = Symbol("DOWNVOTE_POST"); //implemented
 export const UPDATE_NUMBER_OF_COMMENTS_FOR_POST = Symbol("UPDATE_NUMBER_OF_COMMENTS_FOR_POST")
+export const CLEAR_ALL_POSTS = Symbol("CLEAR_ALL_POSTS")
 
 export const ADD_NEW_COMMENT = Symbol("ADD_NEW_COMMENT");   //implemented 
 export const DELETE_COMMENT = Symbol("DELETE_COMMENT")      //implemented 
@@ -45,6 +46,11 @@ export const CLEAR_LIST_OF_COMMENTS_FOR_POST = Symbol("CLEAR_LIST_OF_COMMENTS_FO
 export const ADD_CATEGORIES = Symbol("ADD_CATEGORIES"); 
 
 const DEFAULT_VOTE_SCORE = 1; 
+
+
+export function clearAllPosts(){
+    return {type: CLEAR_ALL_POSTS}
+}
 
 export function clearListOfCommentsForPost(parentId){
     return {

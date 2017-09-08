@@ -24,8 +24,6 @@ export function categories(state=null, action){
 export function posts(state=null, action){
     let currentPost = null; 
     let updatedPost = null; 
-    //console.log("posts reducer action"); 
-    //console.log(action); 
 
     switch (action.type){
        
@@ -62,9 +60,11 @@ export function posts(state=null, action){
             updatedPost = {...currentPost, 
                 numberOfComments: action.payload.numberOfComments}
            
-
             return {...state, [action.payload.id]: updatedPost}; 
 
+        case actions.CLEAR_ALL_POSTS: 
+            //delete all local posts 
+            return null;
        default: 
             return state; 
 

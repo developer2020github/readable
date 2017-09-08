@@ -1,489 +1,392 @@
-import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost, deleteComment, clearListOfCommentsForPost} from "./actions"; 
-import  store  from '../store/store'
+//========================================================
+//Readale: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//This module defines asynchronous actions, applied via Thunk middleware
+//function names are self-explanatory.
+//========================================================================================
+
+import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost, deleteComment, clearListOfCommentsForPost, clearAllPosts } from "./actions";
+import store from '../store/store'
 import * as lib from "../utils/lib"
 
-//=============================================================
-export function asyncUpVoteComment(id){
-    /*`POST /comments/:id`  
-    **USAGE:**  
-      Used for voting on a comment. */
-      let action = asyncVoteOnComment(id, "upVote"); 
-      return action; 
+const ROOT_URL = "http://localhost:5001/"
+const AUTHORIZATION_STRING = "Authorization"
+
+//===================================================================
+/* vote on comment */
+export function asyncUpVoteComment(id) {
+    let action = asyncVoteOnComment(id, "upVote");
+    return action;
 }
 
-export function asyncDownVoteComment(id){
-    let action = asyncVoteOnComment(id, "downVote"); 
-    return action; 
+
+export function asyncDownVoteComment(id) {
+    let action = asyncVoteOnComment(id, "downVote");
+    return action;
 }
 
-function asyncVoteOnComment(commentId, option){
-    
-  let updatedComment = {
-      option
-  }
 
-  let queryString = "http://localhost:5001/comments/"  + commentId; 
+function asyncVoteOnComment(commentId, option) {
 
-  return function(dispatch){
-   
+    let updatedComment = { option };
+    let queryString = ROOT_URL + "comments/" + commentId;
 
-    let postPromise  = fetch(queryString, {
-                               method: 'post',
-                               headers:   {
-                                'Authorization': 'someAutorizatation',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(updatedComment)
-
-                             })
-
-      
-    return postPromise.then(function(response) {
-        console.log("voted ok on a comment")
-        return response.json();
-    }).catch(function(err) {
-        console.log("voting on post error:");
-    }).then(function(comment) {
-        dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))
-    });
-                  
-    }
-
-  
-}
-//=================================================
-
-export function asyncDeleteComment(commentId, parentId){
-
-/*`DELETE /comments/:id`  
-**USAGE:**  
-  Sets a comment's deleted flag to 'true' */
-  let queryString = "http://localhost:5001/comments/"  + commentId;
-
-  return function(dispatch){        
-        let commentPromise  = fetch(queryString, {
-                                      method: 'delete',
-                                      headers:   {
-                                       'Authorization': 'someAutorizatation'}     
-                                    })
-       
-             
-          return commentPromise.then(function(response) {    
-               if (response.status==200){
-                   
-                   dispatch(fetchPost(parentId)); //this will update all comments as well
-               
-               }
-               //return response.json();
-           }).catch(function(err) {
-               console.log("comment delete error happened!");
-               console.log(err);
-           })        
-           }
-        
-  
-}
-
-export  function asyncEditComment(commentiId, body){
-    /*`PUT /comments/:id`  
-    **USAGE:**  
-      Edit the details of an existing comment  
-    
-    **PARAMS:**  
-      timestamp: timestamp. Get this however you want.  
-      body: String  */
-    
-
-  let updatedComment = {
-      body, 
-      timestamp:  Date.now()
-  }
-
-  let queryString = "http://localhost:5001/comments/"  + commentiId; 
-
-  return function(dispatch){
-   
-
-    let commentPromise  = fetch(queryString, {
-                               method: 'put',
-                               headers:   {
-                                'Authorization': 'someAutorizatation',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(updatedComment)
-
-                             })
-
-      
-    return commentPromise.then(function(response) {
-        return response.json();
-    }).catch(function(err) {
-        console.log("comment put error happened!");
-        console.log(err); 
-    }).then(function(comment) {
-        dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))
-    });
-                  
-    }
-}
-
-export function asyncAddComment (parentId, body, author){
-        
-        let newComment ={
-                  author, 
-                  body, 
-                  parentId, 
-                  deleted: false, 
-                  timestamp:  Date.now(), 
-                  id: lib.generateUUID(), 
-                  voteScore: 1 
-        }
-    
-        return function(dispatch){
-    
-        let commentPromise = fetch('http://localhost:5001/comments', {
+    return function (dispatch) {
+        let postPromise = fetch(queryString, {
             method: 'post',
-            headers: {
-                'Authorization': 'someAutorizatation',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newComment)
-    
+            headers: { 'Authorization': AUTHORIZATION_STRING, 'Content-Type': 'application/json' },
+            body: JSON.stringify(updatedComment)
         })
-    
-        return commentPromise.then(function(response) {
+        return postPromise.then(function (response) {
             return response.json();
-        }).catch(function(err) {
-            console.log("comment add error happened!");
-            console.log(err); 
-
-        }).then(function(comment) {
-            dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))            
+        }).catch(function (err) {
+            console.log("voting on comment error:");
+            console.log(err)
+        }).then(function (comment) {
+            dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))
         });
+    }
+}
+
+
+//===================================================================
+export function asyncDeleteComment(commentId, parentId) {
+
+    let queryString = ROOT_URL + "comments/" + commentId;
+
+    return function (dispatch) {
+        let commentPromise = fetch(queryString, {
+            method: 'delete',
+            headers: { 'Authorization': AUTHORIZATION_STRING}
+        })
+
+        return commentPromise.then(function (response) {
+            if (response.status == 200) {
+                dispatch(fetchPost(parentId)); //this will update all comments as well
+            }
+        }).catch(function (err) {
+            console.log("comment delete error:");
+            console.log(err);
+        })
+    }
+}
+
+
+export function asyncEditComment(commentiId, body) {
+    
+    let updatedComment = {
+        body,
+        timestamp: Date.now()
+    }
+
+    let queryString = ROOT_URL + "comments/" + commentiId;
+
+    return function (dispatch) {
+
+        let commentPromise = fetch(queryString, {
+            method: 'put',
+            headers: { 'Authorization': AUTHORIZATION_STRING, 'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedComment)
+        })
+
+        return commentPromise.then(function (response) {
+            return response.json();
+        }).catch(function (err) {
+            console.log("comment put error happened!");
+            console.log(err);
+        }).then(function (comment) {
+            dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))
+        });
+
+    }
+}
+
+
+export function asyncAddComment(parentId, body, author) {
+    let newComment = {
+        author,
+        body,
+        parentId,
+        deleted: false,
+        timestamp: Date.now(),
+        id: lib.generateUUID(),
+        voteScore: 1
+    }
+    let queryString = ROOT_URL + "comments";
+
+    return function (dispatch) {
+        let commentPromise = fetch(queryString, {
+            method: 'post',
+            headers: { 'Authorization': AUTHORIZATION_STRING, 'Content-Type': 'application/json' },
+            body: JSON.stringify(newComment)
+        })
+
+        return commentPromise.then(function (response) {
+            return response.json();
+        }).catch(function (err) {
+            console.log("comment add error:");
+            console.log(err);
+        }).then(function (comment) {
+            dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id)); 
+            dispatch(fetchPost(parentId));//need this to update number of comments and to see if there are any other changes to comments
+        });
+    }
+}
+
+
+//===================================================================
+//vote on post 
+export function asyncUpVotePost(id) {
+    let action = asyncVoteOnPost(id, "upVote");
+    return action;
+}
+
+
+export function asyncDownVotePost(id) {
+    let action = asyncVoteOnPost(id, "downVote");
+    return action;
+}
+
+function asyncVoteOnPost(postId, option) {
+
+    let updatedPost = { option }
+    let queryString = ROOT_URL + "posts/" + postId;
+
+    return function (dispatch) {
+        let postPromise = fetch(queryString, {
+            method: 'post',
+            headers: { 'Authorization': AUTHORIZATION_STRING, 'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedPost)
+        })
+
+        return postPromise.then(function (response) {
+            return response.json();
+        }).catch(function (err) {
+            console.log("voting on post error:");
+            console.log(err); 
+        }).then(function (post) {
+            dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+        });
+    }
+}
+
+
+export function asyncDeletePost(postId) {
+
+    let queryString = ROOT_URL + "posts/" + postId;
+
+    return function (dispatch) {
+        let postPromise = fetch(queryString, {
+            method: 'delete',
+            headers: {'Authorization': AUTHORIZATION_STRING}
+        })
+
+        return postPromise.then(function (response) {
+            if (response.status == 200) {
+                dispatch(deletePost(postId));
+            }
+        }).catch(function (err) {
+            console.log("post delete error");
+            console.log(err); 
+        })
+    }
+}
+
+
+export function asyncFetchCommentOrPost(item) {
+    if (item.hasOwnProperty("parentId")) {
+        store.dispatch(fetchComment())
+    }
+    else {
+        store.dispatch(fetchPost(item.id))
+    }
+}
+
+
+export function asyncEditPost(postId, title, body) {
+    let updatedPost = {
+        title,
+        body
+    }
+
+    let queryString = ROOT_URL + "posts/" + postId;
+
+    return function (dispatch) {
+
+    let postPromise = fetch(queryString, {
+            method: 'put',
+            headers: {'Authorization': AUTHORIZATION_STRING, 'Content-Type': 'application/json'},
+            body: JSON.stringify(updatedPost)
+        })
+
+        return postPromise.then(function (response) {
+            return response.json();
+        }).catch(function (err) {
+            console.log("edit post  error");
+            console.log(err);
+        }).then(function (post) {
+            dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+        });
+    }
+}
+
+
+export function asyncAddPost(author, body, category, title) {
+
+    let newPost = {
+        author,
+        body,
+        category,
+        title,
+        deleted: false,
+        timestamp: Date.now(),
+        id: lib.generateUUID(),
+        voteScore: 1
+    }
+    
+    let queryString = ROOT_URL + "posts"; 
+
+    return function (dispatch) {
+
+        let postPromise = fetch(queryString, {
+            method: 'post',
+            headers: { 'Authorization': AUTHORIZATION_STRING, 'Content-Type': 'application/json'},
+            body: JSON.stringify(newPost)
+        })
+
+        return postPromise.then(function (response) {
+            return response.json();
+        }).catch(function (err) {
+            console.log("error happened!");
+        }).then(function (post) {
+            dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+        });
+    }
+}
+
+
+export function fetchCommentsForPost(postId) {
+    let queryString = ROOT_URL + "posts/" + postId + "/comments"
+    return function (dispatch) {
+        let commentsPromise = fetch(queryString, {
+            method: 'get',
+            headers: { 'Authorization': AUTHORIZATION_STRING }
+        })
+
+        return commentsPromise.then(function (response) {
+            return response.json();
         }
-}
-
-
-
-export function asyncUpVotePost(id){
-    /*`POST /posts/:id`  
-    **USAGE:**  
-      Used for voting on a post  
-  
-    **PARAMS:**  
-      option - String: Either "upVote" or "downVote"  */
-      let action = asyncVoteOnPost(id, "upVote"); 
-      return action; 
-}
-
-export function asyncDownVotePost(id){
-    let action = asyncVoteOnPost(id, "downVote"); 
-    return action; 
-}
-
-function asyncVoteOnPost(postId, option){
-    
-  let updatedPost = {
-      option
-  }
-
-  let queryString = "http://localhost:5001/posts/"  + postId; 
-
-  return function(dispatch){
-   
-
-    let postPromise  = fetch(queryString, {
-                               method: 'post',
-                               headers:   {
-                                'Authorization': 'someAutorizatation',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(updatedPost)
-
-                             })
-
-      
-    return postPromise.then(function(response) {
-        console.log("voted ok")
-        return response.json();
-    }).catch(function(err) {
-        console.log("voting on post error:");
-    }).then(function(post) {
-        //console.log("voted post"); 
-        //console.log(post); 
-        dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
-    });
-                  
+        ).catch(function (err) {
+            console.log("fetch comments for post error:");
+            console.log(err); 
+        }).then(function (comments) {
+            let numberOfCommentsForPost = 0;
+            dispatch(clearListOfCommentsForPost(postId))
+            for (let idx in comments) {
+                if (!comments[idx].deleted) {
+                    numberOfCommentsForPost++;
+                }
+                dispatch(addComment(comments[idx].parentId, comments[idx].body, comments[idx].author, comments[idx].timestamp, comments[idx].voteScore, comments[idx].id, comments[idx].deleted))
+            }
+            dispatch(updateNumberOfCommentsForPost(postId, numberOfCommentsForPost))
+        });
     }
-
-  
 }
 
-export function asyncDeletePost(postId){
-    /*`DELETE /posts/:id`  
-    **USAGE:**  
-      Sets the deleted flag for a post to 'true'.   
-      Sets the parentDeleted flag for all child comments to 'true'.  */
-      let queryString = "http://localhost:5001/posts/"  + postId;
 
-      return function(dispatch){        
-         let postPromise  = fetch(queryString, {
-                                    method: 'delete',
-                                    headers:   {
-                                     'Authorization': 'someAutorizatation'}
-     
-                                  })
-     
-           
-        return postPromise.then(function(response) {    
-             if (response.status==200){
-                 dispatch(deletePost(postId));
-             }
-             //return response.json();
-         }).catch(function(err) {
-             console.log("post delete error happened!");
-             console.log(err);
-         })        
-         }
-      
+export function fetchComment(commentId) {
+    let queryString = ROOT_URL + "comments/" + commentId; 
+    return function (dispatch) {
 
-}
-
-export function asyncFetchCommentOrPost(item){
-  if(item.hasOwnProperty("parentId")){
-     //store.dispatch()// TO BE DONE 
-  }
-  else{
-     store.dispatch(fetchPost(item.id))
-  }
-}
-
-export function asyncEditPost(postId, title, body){
- /*       
-`PUT /posts/:id`  
-**USAGE:**  
-  Edit the details of an existing post  
-
-**PARAMS:**  
-  title - String  
-  body - String  */
-
-  let updatedPost = {
-    
-      title, 
-      body
-  }
-
-  let queryString = "http://localhost:5001/posts/"  + postId; 
-
-  return function(dispatch){
-   
-
-    let postPromise  = fetch(queryString, {
-                               method: 'put',
-                               headers:   {
-                                'Authorization': 'someAutorizatation',
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(updatedPost)
-
-                             })
-
-      
-    return postPromise.then(function(response) {
-       
-        return response.json();
-    }).catch(function(err) {
-        console.log("put error happened!");
-    }).then(function(post) {
-       
-        dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
-        
-    });
-                  
-    }
-
-}
-
-export function asyncAddPost (author, body, category, title){
-
-    let newPost ={
-              author, 
-              body, 
-              category, 
-              title, 
-              deleted: false, 
-              timestamp:  Date.now(), 
-              id: lib.generateUUID(), 
-              voteScore: 1 
-    }
-
-    return function(dispatch){
-
-    let postPromise = fetch('http://localhost:5001/posts', {
-        method: 'post',
-        headers: {
-            'Authorization': 'someAutorizatation',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newPost)
-
+    let commentPromise = fetch(queryString, {
+            method: 'get',
+            headers: { 'Authorization': AUTHORIZATION_STRING }
     })
 
-    return postPromise.then(function(response) {
-        return response.json();
-    }).catch(function(err) {
-        console.log("error happened!");
-    }).then(function(post) {
-        dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
-    });
-    }
-}
-
-export function fetchCommentsForPost(postId){
-    //GET /posts/:id/comments
-    //let queryString = "http://localhost:5001/posts/8xf0y6ziyjabvozdd253nd/comments"
-    //console.log("fetching comments for post " + postId)
-    //console.log(queryString)
-    let queryString = "http://localhost:5001/posts/" + postId + "/comments"
-    return function(dispatch){
-
-               // console.log("fetchCommentsForPost"); 
-               // console.log("queryString"); 
-               // console.log(queryString); 
-
-                let commentsPromise = fetch(queryString, {
-                    method: 'get',
-                    headers: { 'Authorization': 'someAutorizatation' }
-                })
-                
-                return commentsPromise.then(function(response) {
-                 //   console.log("getting comments!")
-                    return response.json();
-                    }
-                ).catch(function(err) {
-                    console.log("error happened!");
-                }).then(function(comments) {
-                    let numberOfCommentsForPost = 0; 
-                    dispatch(clearListOfCommentsForPost(postId))
-                    for (let idx in comments){
-                        //dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].timestamp, posts[idx].voteScore, posts[idx].id)); 
-                        //addComment(parentId, body, author,  timestamp=null, voteScore=null, id=null)
-                        if (!comments[idx].deleted){
-                            numberOfCommentsForPost++; 
-                        }
-                        dispatch(addComment(comments[idx].parentId, comments[idx].body, comments[idx].author, comments[idx].timestamp, comments[idx].voteScore, comments[idx].id, comments[idx].deleted))
-                    }
-                
-                    dispatch(updateNumberOfCommentsForPost(postId, numberOfCommentsForPost))
-        
-                });
-        }
-
-}
-
-export function fetchPost(postId){
-    let queryString = "http://localhost:5001/posts/" + postId
-    return function(dispatch){
-
-                let postPromise = fetch(queryString, {
-                    method: 'get',
-                    headers: { 'Authorization': 'someAutorizatation' }
-                })
-                
-                return postPromise.then(function(response) {
-                    return response.json();
-                    }
-                ).catch(function(err) {
-                    console.log("error happened!");
-                }).then(function(post) {
-                    dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
-                    dispatch(fetchCommentsForPost(postId)); 
-                });
-        }
-}
-
-
-export function asyncFetchAllPosts(){
-    //tested and worked 
-
-    return function(dispatch){
-
-        let postsPromise = fetch('http://localhost:5001/posts', {
-            method: 'get',
-            headers: { 'Authorization': 'someAutorizatation' }
-        })
-        //console.log("postsPromise")
-        //console.log(postsPromise)
-
-        return postsPromise.then(function(response) {
-            //console.log("server responded with:");
-            //console.log(response);
-            //console.log("response converted to json");
+    return commentPromise.then(function (response) {
             return response.json();
-            }
-        ).catch(function(err) {
-            console.log("error happened!");
-        }).then(function(posts) {
-            // `data` is the parsed version of the JSON returned from the above endpoint.
-            //console.log("parsed data")
-            //console.log(posts)
-            //console.log(data); // { "userId": 1, "id": 1, "title": "...", "body": "..." }
-            //author, body, category, title, timestamp=null, voteScore=null, id=null
-            for (let idx in posts){
-                //console.log("dispatcthing addPost"); 
-                //console.log(posts[idx]); 
-                //addPost(author, body, category, title, timestamp=null, voteScore=null, id=null)
-                dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].timestamp, posts[idx].voteScore, posts[idx].id, posts[idx].deleted)); 
-                //posts really should have number of comments on them! Since this is not done on server side and I cannot change API, just load all comments from server
-                dispatch(fetchCommentsForPost(posts[idx].id))
-            }
-
+    }
+    ).catch(function (err) {
+            console.log("fetch comment error");
+            console.log(err); 
+        }).then(function (comment) {
+            dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id, comment.deleted))
         });
     }
 }
 
-export function asyncFetchAllCategories(){
-    
-    return function(dispatch){
-        
-                let postsPromise = fetch('http://localhost:5001/categories', {
-                    method: 'get',
-                    headers: { 'Authorization': 'someAutorizatation' }
-                })
-                //console.log("postsPromise")
-                //console.log(postsPromise)
-        
-                return postsPromise.then(function(response) {
-                    //console.log("server responded with:");
-                    //console.log(response);
-                    //console.log("response converted to json");
-                    return response.json();
-                    }
-                ).catch(function(err) {
-                    console.log("error happened!");
-                }).then(function(categories) {
-                    // `data` is the parsed version of the JSON returned from the above endpoint.
-                    //console.log("parsed data")
-                    //console.log(posts)
-                    //console.log(data); // { "userId": 1, "id": 1, "title": "...", "body": "..." }
-                    //author, body, category, title, timestamp=null, voteScore=null, id=null
-                    //for (let idx in posts){
-                        //console.log("dispatcthing addPost"); 
-                        //console.log(posts[idx]); 
-                        //addPost(author, body, category, title, timestamp=null, voteScore=null, id=null)
-                      //  dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].voteScore, posts[idx].id)); 
-                    //}
-                    console.log("categories")
-                    console.log(categories)
-                
-                    let categoriesArray = categories.categories
-                    
 
-                    dispatch(addCategories(categoriesArray.map(function(c){return c.name})))
-        
-                });
+export function fetchPost(postId) {
+    let queryString = ROOT_URL + "posts/" + postId
+    return function (dispatch) {
+        let postPromise = fetch(queryString, {
+            method: 'get',
+            headers: { 'Authorization': AUTHORIZATION_STRING }
+        })
+
+        return postPromise.then(function (response) {
+            return response.json();
+        }
+        ).catch(function (err) {
+            console.log("fetch post error");
+            console.log(err);
+        }).then(function (post) {
+            dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+            dispatch(fetchCommentsForPost(postId));
+        });
+    }
+}
+
+export function asyncFetchAllPosts() {
+    let queryString = ROOT_URL + "posts"; 
+    return function (dispatch) {
+
+        let postsPromise = fetch(queryString, {
+            method: 'get',
+            headers: { 'Authorization': AUTHORIZATION_STRING }
+        })
+
+        return postsPromise.then(function (response) {
+            return response.json();
+        }
+        ).catch(function (err) {
+            console.log("fetch all posts error");
+            console.log(err)
+        }).then(function (posts) {
+            dispatch(clearAllPosts())
+            for (let idx in posts) {
+                dispatch(addPost(posts[idx].author, posts[idx].body, posts[idx].category, posts[idx].title, posts[idx].timestamp, posts[idx].voteScore, posts[idx].id, posts[idx].deleted));
+                dispatch(fetchCommentsForPost(posts[idx].id))
             }
+        });
+    }
+}
+
+export function asyncFetchAllCategories() {
+    let queryString = ROOT_URL + "categories"; 
+    return function (dispatch) {
+
+        let postsPromise = fetch(queryString, {
+            method: 'get',
+            headers: { 'Authorization': AUTHORIZATION_STRING }
+        })
+
+        return postsPromise.then(function (response) {
+            return response.json();
+        }
+        ).catch(function (err) {
+            console.log("fetch all categories error");
+            console.log(err);
+        }).then(function (categories) {
+            let categoriesArray = categories.categories
+            dispatch(addCategories(categoriesArray.map(function (c) { return c.name })))
+        });
+    }
 
 }
 
