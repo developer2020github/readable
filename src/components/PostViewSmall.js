@@ -9,7 +9,7 @@ import { deletePost,  deleteAllCommentsForPost, upvotePost,  downvotePost, editP
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import UpdateItem from "./UpdateItem"
-import { asyncEditPost, asyncDeletePost} from "../actions/asyncActions"
+import { asyncEditPost, asyncDeletePost, asyncDownVotePost, asyncUpVotePost} from "../actions/asyncActions"
 
 //This component displays post in all views. 
 //Post header and body are common for all views. 
@@ -90,7 +90,7 @@ class PostViewSmall extends Component {
                 </div>
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
-                        <Vote   upvoteAction={upvotePost} downvoteAction={downvotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
+                        <Vote   upvoteAction={asyncUpVotePost} downvoteAction={asyncDownVotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
                         {linkToPostDetailedView}
                        
                     </div>
@@ -127,7 +127,7 @@ class PostViewSmall extends Component {
                 </div>
                 <div className="row post-footer">
                     <div className="col-xs-6 text-left post-sub-header">
-                        <Vote   upvoteAction={upvotePost} downvoteAction={downvotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
+                        <Vote   upvoteAction={asyncUpVotePost} downvoteAction={asyncDownVotePost} voteScore={this.props.post.voteScore} id={this.props.post.id}/>
                         <EditDeleteButtons handleEditRequest={this.handlePostEditOn} confimedDeleteAction={this.postConfimedDeleteClick}/>
                     </div>
                     <div className="col-xs-6 text-right post-sub-header">

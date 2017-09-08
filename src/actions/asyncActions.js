@@ -2,6 +2,59 @@ import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, dele
 import  store  from '../store/store'
 import * as lib from "../utils/lib"
 
+export function asyncUpVotePost(id, parentId){
+    /*`POST /posts/:id`  
+    **USAGE:**  
+      Used for voting on a post  
+  
+    **PARAMS:**  
+      option - String: Either "upVote" or "downVote"  */
+      let action = asyncVoteOnPost(id, "upVote"); 
+      return action; 
+}
+
+export function asyncDownVotePost(id, parentId){
+    let action = asyncVoteOnPost(id, "downVote"); 
+    return action; 
+}
+
+function asyncVoteOnPost(postId, option){
+    
+  let updatedPost = {
+      option
+  }
+
+  let queryString = "http://localhost:5001/posts/"  + postId; 
+
+  return function(dispatch){
+   
+
+    let postPromise  = fetch(queryString, {
+                               method: 'post',
+                               headers:   {
+                                'Authorization': 'someAutorizatation',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(updatedPost)
+
+                             })
+
+      
+    return postPromise.then(function(response) {
+        console.log("voted ok")
+        return response.json();
+    }).catch(function(err) {
+        console.log("voting on post error:");
+    }).then(function(post) {
+        //console.log("voted post"); 
+        //console.log(post); 
+        dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+    });
+                  
+    }
+
+  
+}
 
 export function asyncDeletePost(postId){
     /*`DELETE /posts/:id`  
