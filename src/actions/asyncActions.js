@@ -2,6 +2,45 @@ import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, dele
 import  store  from '../store/store'
 import * as lib from "../utils/lib"
 
+
+export function asyncAddComment (parentId, body, author){
+        
+        let newComment ={
+                  author, 
+                  body, 
+                  parentId, 
+                  deleted: false, 
+                  timestamp:  Date.now(), 
+                  id: lib.generateUUID(), 
+                  voteScore: 1 
+        }
+    
+        return function(dispatch){
+    
+        let commentPromise = fetch('http://localhost:5001/comments', {
+            method: 'post',
+            headers: {
+                'Authorization': 'someAutorizatation',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newComment)
+    
+        })
+    
+        return commentPromise.then(function(response) {
+            return response.json();
+        }).catch(function(err) {
+            console.log("comment add error happened!");
+            console.log(err); 
+
+        }).then(function(comment) {
+            dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))            
+        });
+        }
+}
+
+
+
 export function asyncUpVotePost(id, parentId){
     /*`POST /posts/:id`  
     **USAGE:**  

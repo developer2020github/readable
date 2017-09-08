@@ -9,7 +9,7 @@ import SortSelect from './SortSelect'
 import CommentView from "./CommentView"
 import UpdateItem from "./UpdateItem"
 import { addComment } from "../actions/actions"
-import { fetchCommentsForPost }  from "../actions/asyncActions"
+import { fetchCommentsForPost, asyncAddComment }  from "../actions/asyncActions"
 
 class ListOfComments extends Component {
 	constructor(){
@@ -59,7 +59,8 @@ class ListOfComments extends Component {
 	}
 
     createNewComment =(values)=>{
-        this.props.dispatch(addComment(this.props.parentPostID, values.body, values.author)); 
+		console.log("createNewComment")
+        this.props.dispatch(asyncAddComment(this.props.parentPostID, values.body, values.author)); 
         this.handleCancelNewComment(); 
     }
 
@@ -73,8 +74,9 @@ class ListOfComments extends Component {
             NewCommentForm = <UpdateItem update={this.createNewComment} 
                                          cancel={this.handleCancelNewComment} 
                                          itemId={null} 
-                                         showTitle={false} 
+                                         showTitleEntryField={false} 
                                          showCategories={false}
+										 showAuthorEntryField={true}
                                          bodyHeader="Your comment :" 
                                          submitButtonName="Create comment"
            />

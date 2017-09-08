@@ -49,10 +49,11 @@ class UpdateItem extends Component {
         e.preventDefault();     
         const values = serializeForm(e.target, {hash : true}); 
         console.log("handle submit")
+        console.log(values)
 
         if ((this.userEntryIsOk(values.author, "authorClass", "authorWarningMessage", this.props.showAuthorEntryField))&
             (this.userEntryIsOk(values.body, "bodyClass", "bodyWarningMessage"))){
-              
+             console.log("calling update!")
              this.props.update(values)
 
            } else{

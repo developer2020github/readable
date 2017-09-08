@@ -58,8 +58,8 @@ class CommentView extends Component {
             bodyHeader="Your comment :" 
             submitButtonName="Update comment"/>
         }
-        console.log("comment")
-        console.log(this.props.comment)
+        //console.log("comment")
+        //console.log(this.props.comment)
         return (
                 <div className="panel panel-default post-panel">
                     <div>
