@@ -124,6 +124,7 @@ class UpdateItem extends Component {
     }
 
     componentDidMount(){
+        console.log("asyncFetchCommentOrPost")
         if (this.props.item){
             asyncFetchCommentOrPost(this.props.item)
         }

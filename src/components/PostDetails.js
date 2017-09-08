@@ -32,12 +32,18 @@ class PostDetails extends Component {
 
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
-
+      
 		let post = this.props.post; 
+		console.log("rendering post details!")
+		console.log(post)
+		console.log(!post)
+        
 		if (!post){
+			console.log("default page!")
 			return (<DefaultPage />); 
 		}
-
+		
+		console.log("WTF?")
 		if (post.deleted){
 
 						return (<div className="container">

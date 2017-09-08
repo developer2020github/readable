@@ -110,8 +110,7 @@ class ListOfComments extends Component {
 
 //export default PostDetails; 
 const mapStateToProps = (state, props) => { 
-	console.log("list of comments map state to props")
-	console.log(state); 
+
 	let commentsForPost = []; 
 
 	if (state.comments.hasOwnProperty(props.parentPostID))
@@ -120,7 +119,7 @@ const mapStateToProps = (state, props) => {
 				return !comment.deleted
 			}
 	)
-	console.log(commentsForPost); 
+	
 	
 	return {
 	comments: commentsForPost

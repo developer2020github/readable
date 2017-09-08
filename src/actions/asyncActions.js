@@ -200,7 +200,7 @@ export function asyncDeletePost(postId) {
 
 export function asyncFetchCommentOrPost(item) {
     if (item.hasOwnProperty("parentId")) {
-        store.dispatch(fetchComment())
+        store.dispatch(fetchComment(item.id))
     }
     else {
         store.dispatch(fetchPost(item.id))
@@ -315,7 +315,9 @@ export function fetchComment(commentId) {
             console.log("fetch comment error");
             console.log(err); 
         }).then(function (comment) {
-            dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id, comment.deleted))
+            if (comment.hasOwnProperty("id")){
+               dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id, comment.deleted))
+            }
         });
     }
 }
@@ -336,8 +338,12 @@ export function fetchPost(postId) {
             console.log("fetch post error");
             console.log(err);
         }).then(function (post) {
-            dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
-            dispatch(fetchCommentsForPost(postId));
+    
+            if (post.hasOwnProperty("id")){//if we are trying to fetch a deleted post, and empty object will be returned; 
+                                           //so check if what we are getting is a valid post 
+                dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+                dispatch(fetchCommentsForPost(postId));
+            }
         });
     }
 }

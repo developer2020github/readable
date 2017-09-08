@@ -31,9 +31,13 @@ export function posts(state=null, action){
              return {...state, [action.payload.id]: action.payload}
 
        case actions.DELETE_POST:
+            if (state.hasOwnProperty(action.payload.id)){
             currentPost = state[action.payload.id]; 
             let deletedPost = {...currentPost, deleted: true}; 
             return {...state, [action.payload.id]: deletedPost}
+            }
+            
+            return state; 
 
 
        case actions.EDIT_POST:
