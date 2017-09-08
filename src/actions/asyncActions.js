@@ -2,6 +2,48 @@ import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, dele
 import  store  from '../store/store'
 import * as lib from "../utils/lib"
 
+export  function asyncEditComment(commentiId, body){
+    /*`PUT /comments/:id`  
+    **USAGE:**  
+      Edit the details of an existing comment  
+    
+    **PARAMS:**  
+      timestamp: timestamp. Get this however you want.  
+      body: String  */
+    
+
+  let updatedComment = {
+      body, 
+      timestamp:  Date.now()
+  }
+
+  let queryString = "http://localhost:5001/comments/"  + commentiId; 
+
+  return function(dispatch){
+   
+
+    let commentPromise  = fetch(queryString, {
+                               method: 'put',
+                               headers:   {
+                                'Authorization': 'someAutorizatation',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(updatedComment)
+
+                             })
+
+      
+    return commentPromise.then(function(response) {
+        return response.json();
+    }).catch(function(err) {
+        console.log("comment put error happened!");
+        console.log(err); 
+    }).then(function(comment) {
+        dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))
+    });
+                  
+    }
+}
 
 export function asyncAddComment (parentId, body, author){
         
@@ -101,9 +143,7 @@ export function asyncDeletePost(postId){
       Sets the deleted flag for a post to 'true'.   
       Sets the parentDeleted flag for all child comments to 'true'.  */
       let queryString = "http://localhost:5001/posts/"  + postId;
-      let updatedPost = {
-          id: postId
-      }
+
       return function(dispatch){        
          let postPromise  = fetch(queryString, {
                                     method: 'delete',

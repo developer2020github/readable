@@ -8,6 +8,7 @@ import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import { editComment } from "../actions/actions"
 import  UpdateItem  from "./UpdateItem"
+import { asyncEditComment} from "../actions/asyncActions"
 
 //This component displays comment in all views. 
 //There is no header.
@@ -41,7 +42,9 @@ class CommentView extends Component {
     }
 
     updateComment = (values) =>{
-        this.props.dispatch(editComment(this.props.comment.id, this.props.comment.parentId,  values.author, values.body)); 
+        //this.props.dispatch(editComment(this.props.comment.id, this.props.comment.parentId,  values.author, values.body)); 
+        console.log("updateComment"); 
+        this.props.dispatch(asyncEditComment(this.props.comment.id, values.body))
         this.handleCommentEditCancel(); 
     }
 
@@ -54,6 +57,7 @@ class CommentView extends Component {
             itemId={this.props.comment.id} 
             parentId={this.props.comment.parentId}
             showTitleEntryField={false} 
+            showAuthorEntryField={false}
             showCategories={false}
             bodyHeader="Your comment :" 
             submitButtonName="Update comment"/>
