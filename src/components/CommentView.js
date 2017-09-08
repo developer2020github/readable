@@ -53,12 +53,13 @@ class CommentView extends Component {
             cancel={this.handleCommentEditCancel} 
             itemId={this.props.comment.id} 
             parentId={this.props.comment.parentId}
-            showTitle={false} 
+            showTitleEntryField={false} 
             showCategories={false}
             bodyHeader="Your comment :" 
             submitButtonName="Update comment"/>
         }
-         
+        console.log("comment")
+        console.log(this.props.comment)
         return (
                 <div className="panel panel-default post-panel">
                     <div>

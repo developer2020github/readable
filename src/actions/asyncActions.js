@@ -210,7 +210,7 @@ export function fetchCommentsForPost(postId){
                         if (!comments[idx].deleted){
                             numberOfCommentsForPost++; 
                         }
-                        dispatch(addComment(comments[idx].parentId, comments[idx].body, comments[idx].authour, comments[idx].timestamp, comments[idx].voteScore, comments[idx].id))
+                        dispatch(addComment(comments[idx].parentId, comments[idx].body, comments[idx].author, comments[idx].timestamp, comments[idx].voteScore, comments[idx].id))
                     }
                 
                     dispatch(updateNumberOfCommentsForPost(postId, numberOfCommentsForPost))
