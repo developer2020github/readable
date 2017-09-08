@@ -2,6 +2,57 @@ import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, dele
 import  store  from '../store/store'
 import * as lib from "../utils/lib"
 
+//=============================================================
+export function asyncUpVoteComment(id){
+    /*`POST /comments/:id`  
+    **USAGE:**  
+      Used for voting on a comment. */
+      let action = asyncVoteOnComment(id, "upVote"); 
+      return action; 
+}
+
+export function asyncDownVoteComment(id){
+    let action = asyncVoteOnComment(id, "downVote"); 
+    return action; 
+}
+
+function asyncVoteOnComment(commentId, option){
+    
+  let updatedComment = {
+      option
+  }
+
+  let queryString = "http://localhost:5001/comments/"  + commentId; 
+
+  return function(dispatch){
+   
+
+    let postPromise  = fetch(queryString, {
+                               method: 'post',
+                               headers:   {
+                                'Authorization': 'someAutorizatation',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(updatedComment)
+
+                             })
+
+      
+    return postPromise.then(function(response) {
+        console.log("voted ok on a comment")
+        return response.json();
+    }).catch(function(err) {
+        console.log("voting on post error:");
+    }).then(function(comment) {
+        dispatch(addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id))
+    });
+                  
+    }
+
+  
+}
+//=================================================
+
 export function asyncDeleteComment(commentId, parentId){
 
 /*`DELETE /comments/:id`  
@@ -114,7 +165,7 @@ export function asyncAddComment (parentId, body, author){
 
 
 
-export function asyncUpVotePost(id, parentId){
+export function asyncUpVotePost(id){
     /*`POST /posts/:id`  
     **USAGE:**  
       Used for voting on a post  
@@ -125,7 +176,7 @@ export function asyncUpVotePost(id, parentId){
       return action; 
 }
 
-export function asyncDownVotePost(id, parentId){
+export function asyncDownVotePost(id){
     let action = asyncVoteOnPost(id, "downVote"); 
     return action; 
 }
