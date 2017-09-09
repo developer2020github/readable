@@ -1,6 +1,19 @@
+
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//Testing module; unit tests for reducers
+//. Not used in release mode.
+//========================================================================================
+
 import * as reducers from "../reducers/reducers";
 import * as actions from "../actions/actions";
-import * as ServerApiTest from "../utils/ServerApiTest"; 
+import * as ServerApiTest from "./ServerApiTest"; 
 
 let sampleStore = getSampleStore(); 
 

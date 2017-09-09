@@ -12,7 +12,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import  store  from './store/store'
 import { Provider } from 'react-redux'
 import * as testOptions from "./tests/testOptions"
-import {serverApiTestMain} from "./utils/ServerApiTest"
+import {serverApiTestMain} from "./tests/ServerApiTest"
 
 if (testOptions.testServerAPI){
 

@@ -1,5 +1,17 @@
+
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//Testing module; used to populate store for local testing
+//(without server). Not used in release mode.
+//========================================================================================
 import * as actions from "../actions/actions"
-import { getCommentstAndPosts } from "../utils/ServerApiTest"
+import { getCommentstAndPosts } from "./ServerApiTest"
 function addCategories(store){
   let myCategories =  ["react", "redux", "udacity"]; 
   store.dispatch(actions.addCategories(myCategories))

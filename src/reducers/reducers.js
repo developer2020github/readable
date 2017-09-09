@@ -1,11 +1,21 @@
-/*
-the store is going to have following structure: 
-{
-    categories - an array of available catagories; will be set only once. Immutable. 
-    posts -  a dictionary of posts by ID 
-    comments - a dictionaty of comments by ID 
-}
-*/
+
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//Redux store reducers.
+//The store has following structure: 
+//{
+//    categories - an array of available catagories; will be set only once. Immutable. 
+//    posts -  a dictionary of posts by ID 
+//    comments - {a dictionaty of objects by parent post ID} ; each object contains 
+//               a dictinary of comments by comment id
+//}
+
 import { combineReducers } from 'redux'; 
 
 import * as actions from '../actions/actions'; 
@@ -84,39 +94,25 @@ export function comments(state={}, action){
     switch (action.type){
         case actions.ADD_NEW_COMMENT: 
             
-            //return {...state, [action.payload.id]: action.payload}
-            let newCommentItem = { [action.payload.id]: action.payload}; 
-            /*
-            console.log("adding comment")
-            console.log(state)
-            console.log(newCommentItem)*/
 
-            //let newState = null; 
+            let newCommentItem = { [action.payload.id]: action.payload}; 
+
 
             if (state.hasOwnProperty(action.payload.parentId)){
-                 //console.log("already exists!")
 
                  let updatedExistingComments = {...state[action.payload.parentId], [action.payload.id]: action.payload}
-
-                 //console.log(updatedExistingComments)
                  newState = {...state,  [action.payload.parentId]: updatedExistingComments}
-                 //console.log(newState)
+                
             }else {
-                //console.log("does not exist")
                 newState = {...state, [action.payload.parentId]: newCommentItem}
-                //console.log(newState)
             }
 
-            //console.log(""); 
 
             return newState; 
 
         case actions.DELETE_COMMENT:
-           /* 
-            console.log("deleting a comment")
-            console.log(action)*/
             currentComment = state[action.payload.parentId][action.payload.id]; 
-            //console.log(currentComment)
+
             let deletedComment = {...currentComment, deleted: true}; 
             
             
@@ -125,7 +121,6 @@ export function comments(state={}, action){
                            [action.payload.parentId]:  
                                                     {...state[action.payload.parentId],
                                                      [action.payload.id]: deletedComment}  }
-            //return {...state, [action.payload.id]: deletedComment}; 
             return newState
 
 
@@ -195,7 +190,6 @@ export function comments(state={}, action){
 
     }
 }
-
 
 export const reducer = combineReducers({
     categories, 

@@ -1,5 +1,14 @@
 
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
 
+//========================================================================================
+//Creation of Redux store
+//========================================================================================
 import { createStore, applyMiddleware, compose } from 'redux'
 import { reducer } from '../reducers/reducers'
 import thunk from 'redux-thunk';

@@ -6,7 +6,7 @@
 //========================================================
 
 //========================================================================================
-//This module was created for exploration of server API.
+//This module was created for exploration of server API and for testing. Not used in release. 
 //========================================================================================
 import * as lib from '../utils/lib'; 
 //an example of object returned 
