@@ -26,7 +26,7 @@ implemented by developer2020. Simple testing server was provided by Udacity.
 running command 
 `npm install` 
 5. Start the development server.
-5. Run command 
+6. Run command 
 `npm start` 
 
 
