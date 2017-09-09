@@ -69,7 +69,6 @@ class ListOfComments extends Component {
 	}
 
     createNewComment =(values)=>{
-		console.log("createNewComment")
         this.props.dispatch(asyncAddComment(this.props.parentPostID, values.body, values.author)); 
         this.handleCancelNewComment(); 
     }
@@ -90,13 +89,17 @@ class ListOfComments extends Component {
            />
 		}
 
-        let sortedComments = this.props.comments.sort(this.sortComparator);
-
+		let sortedComments = this.props.comments.sort(this.sortComparator);
+		let sortSelect = null;
+		if (this.props.comments && this.props.comments.length>0){
+			sortSelect=<SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions} name="Sort comments by: "/>
+		}
+			
 		return (
 				<div>
 				    <div className="row header-row">
 						<div className="col-md-4 col-md-offset-1">
-							<SortSelect setSortComparator={this.setSortComparator} sortOptions={this.sortOptions} name="Sort comments by: "/>
+								{sortSelect}
 						</div>
 						<div className="col-md-6 text-right">
 							<btn className="btn btn-default control-style btn-add" onClick={this.handleAddCommentClick}>Add new comment</btn>

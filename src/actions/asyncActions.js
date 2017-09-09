@@ -171,6 +171,7 @@ function asyncVoteOnPost(postId, option) {
             console.log(err); 
         }).then(function (post) {
             dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+            dispatch(fetchCommentsForPost(post.id))//need this to keep number of comments up to date
         });
     }
 }
@@ -264,7 +265,9 @@ export function asyncAddPost(author, body, category, title) {
         }).catch(function (err) {
             console.log("error happened!");
         }).then(function (post) {
+        
             dispatch(addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id, post.deleted));
+            dispatch(updateNumberOfCommentsForPost(post.id, 0))
         });
     }
 }

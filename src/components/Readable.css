@@ -29,7 +29,7 @@ body, .app-background {
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  border-color: #BBB9B9;
+  border-color: #bbb9b9;
 }
 
 .margin1 {
@@ -84,11 +84,11 @@ body, .app-background {
 }
 
 .post-footer-button, .post-footer-link, .readables-arrow-button {
-  color: #C6E8F6;
+  color: #c6e8f6;
 }
 
 .post-footer-button:hover, .post-footer-link:hover, .readables-arrow-button:hover{
-  color: #F6D55B
+  color: #f6d55b
 }
 
 .vote-button.active.focus, .vote-button.active:focus, .vote-button.focus, .vote-button:active.focus, .vote-button:active:focus, .vote-button:focus {
@@ -124,7 +124,7 @@ body, .app-background {
 }
 
 .form-item-warning{
-  color: #FF5400; 
+  color: #ff5400; 
 }
 
 
@@ -139,18 +139,19 @@ body, .app-background {
 }
 
 #confirm-delete-btn{
-  
-  color: #FB8972; 
+  outline: 0;
+  color: #fb8972; 
  
 }
 
 #cancel-delete-btn{
-  color: #CEFF06; 
+  color: #ceff06; 
   margin-left: 5px; 
+  outline: 0;
 }
 
 .btn-add{
-  background-color: #80BAED; 
+  background-color: #80baed; 
 }
 .btn-add:hover{
   background-color: white; 
@@ -187,3 +188,10 @@ body, .app-background {
   font-style: italic; 
 }
 
+#cancel-delete-btn.active.focus, #cancel-delete-btn.active:focus, #cancel-delete-btn.focus, #cancel-delete-btn:active.focus, #cancel-delete-btn:active:focus {
+  outline: 0;
+}
+
+#confirm-delete-btn.active.focus, #confirm-delete-btn.active:focus, #confirm-delete-btn.focus, #confirm-delete-btn:active.focus, #confirm-delete-btn:active:focus{
+  outline: 0;
+}
