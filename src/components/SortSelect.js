@@ -1,6 +1,16 @@
-//this is a generic sorting component.
-//it sets sort comparator function based on selected item to sort by. 
-//It can be used to sort both comments and posts.
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//This is a generic sorting component.
+//It sets sort comparator function based on selected item to sort by. 
+//It is used to sort both comments and posts; exact sort options are chosen by the parent component.
+//========================================================================================
+
 import React, { Component } from 'react';
 import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
@@ -11,10 +21,6 @@ export const SORT_BY_SCORE_DESC = "score_desc"
 export const SORT_BY_SCORE_ASC = "score_asc"
 export const SORT_BY_COMMENTS_DESC = "comments_desc"
 export const SORT_BY_COMMENTS_ASC = "comments_asc"
-
-//these functions do not really need to be part of the component class (they are generic and do not need this); at the same time 
-//functionality definitely belings to this module, so keep it in. 
-
 
 const textByValue = 
 {[SORT_BY_DATE_DESC] : "Latest first", 

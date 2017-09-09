@@ -1,7 +1,19 @@
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//This component displays list of comments with sorting control and, if 
+//requested, returns a form to addnew comment.
+//Comments are sorted in user-selected sort order. 
+//========================================================================================
+
 import React, { Component } from 'react';
 import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
-//import { serverApiTestMain } from '../utils/ServerApiTest';
 import { connect } from 'react-redux';
 import * as lib from '../utils/lib'
 import * as SortSelectItems from './SortSelect'
@@ -44,7 +56,6 @@ class ListOfComments extends Component {
 		this.setState({sortBy: activeSortOption}); //need this to force rendering after sort comparator was updated
 		                                           //this is a better option than keeping the entire list of posts in state - there is no need for this. 
 	}
-	
 
 	componentWillMount() {
 
@@ -67,10 +78,8 @@ class ListOfComments extends Component {
 	render() {
 		//ref https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
 
-
 		let NewCommentForm = null;
 		if (this.state.showNewCommentForm) {
-            //NewCommentForm = <NewComment handleCancelNewComment={this.handleCancelNewComment} parentPostId={this.props.parentPostID}> </NewComment>;
             NewCommentForm = <UpdateItem update={this.createNewComment} 
                                          cancel={this.handleCancelNewComment} 
                                          itemId={null} 
@@ -108,7 +117,7 @@ class ListOfComments extends Component {
 	}
 }
 
-//export default PostDetails; 
+
 const mapStateToProps = (state, props) => { 
 
 	let commentsForPost = []; 
@@ -119,11 +128,10 @@ const mapStateToProps = (state, props) => {
 				return !comment.deleted
 			}
 	)
-	
-	
+		
 	return {
 	comments: commentsForPost
   }};
-//ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
+
 
 export default connect(mapStateToProps)(ListOfComments);

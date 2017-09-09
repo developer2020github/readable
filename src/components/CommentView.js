@@ -1,3 +1,23 @@
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//This component displays comment in all views. 
+//There is no header.
+//Footer shows
+// - voting score
+// - button to edit comment 
+// - button to delete comment 
+// - author 
+// - date and time 
+// If comment edit view is active, component returns item update view, passing comment data 
+// to be displayed as paremers.
+//========================================================================================
+
 import React, { Component } from 'react';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
@@ -9,18 +29,6 @@ import EditDeleteButtons from "./EditDeleteButtons"
 import { editComment } from "../actions/actions"
 import  UpdateItem  from "./UpdateItem"
 import { asyncEditComment, asyncDeleteComment, asyncUpVoteComment,  asyncDownVoteComment} from "../actions/asyncActions"
-
-//This component displays comment in all views. 
-//There is no header.
-
-//Footer shows
-// - voting score
-// - button to edit comment 
-// - button to delete comment 
-//- author 
-//- date and time 
-
-//If comment edit view is active, component returns comment edit view. 
 
 class CommentView extends Component {
 
@@ -49,7 +57,6 @@ class CommentView extends Component {
     render() {
 
         if (this.state.showEditComment) {
-            //return <UpdateComment handleCancelCommentEdit={this.handleCommentEditCancel} commentId={this.props.comment.id}> </UpdateComment>;
             return <UpdateItem update={this.updateComment} 
             cancel={this.handleCommentEditCancel} 
             itemId={this.props.comment.id} 
@@ -60,8 +67,7 @@ class CommentView extends Component {
             bodyHeader="Your comment :" 
             submitButtonName="Update comment"/>
         }
-        //console.log("comment")
-        //console.log(this.props.comment)
+        
         return (
                 <div className="panel panel-default post-panel">
                     <div>

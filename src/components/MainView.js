@@ -1,3 +1,14 @@
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//Main view component; shows list of posts. List can be sorted and filtered.
+//Also shows new post form if user requests to add a new post. 
+//========================================================================================
 import React, { Component } from 'react';
 import '../libs/bootstrap/dist/css/bootstrap.min.css'
 import './Readable.css';
@@ -11,28 +22,6 @@ import UpdateItem from "./UpdateItem"
 import { addPost } from "../actions/actions"
 import { asyncFetchAllPosts, asyncFetchAllCategories, asyncAddPost } from "../actions/asyncActions"
 import * as testOptions from "../tests/testOptions"
-
-/*
-function addNumberOfComments(posts, comments){
-	if (!posts){
-		return null; 
-	}
-    //console.log("counting comments!")
-	for (let i = 0; i< posts.length; i++){
-		posts[i]["numberOfComments"] = 0; 
-		if (comments){
-			if (comments.hasOwnProperty(posts[i].id)){
-				let notDeletetedComments = lib.listOfObjectsToArray(comments[posts[i].id]).filter(
-																(comment)=>{return !comment.deleted})
-																
-				posts[i]["numberOfComments"]=notDeletetedComments.length
-			}
-	      }
-	    }
-		
-	return posts; 
-}*/
-
 
 class MainView extends Component {
 	constructor(){
@@ -54,16 +43,12 @@ class MainView extends Component {
 	}
 
 	componentDidMount(){
-		//console.log("component did mount!")
-
-		if (testOptions.useServerData) {
 			this.props.dispatch(asyncFetchAllPosts())
 			this.props.dispatch(asyncFetchAllCategories())
-		}
-
 	}
+
 	createNewPost =(values)=>{
-		  //this.props.dispatch(addPost(values.author, values.body, values.category, values.title)); 
+
 		  this.props.dispatch(asyncAddPost(values.author, values.body, values.category, values.title))
           this.setHideShowNewPostForm(); 
 	}
@@ -104,8 +89,6 @@ class MainView extends Component {
 		}
 
 	
-		//let comments = this.props.comments; 
-		//let posts = addNumberOfComments(this.props.posts, comments);
         let posts = this.props.posts; 
 		let categories = ["all", ...this.props.categories]; 
 		let filteredPosts = posts.filter(
@@ -180,28 +163,16 @@ class MainView extends Component {
 const mapStateToProps = (state, props) => { 
 	
 	let listOfPosts = null; 
-	if (state.posts){
-		//console.log("state.posts"); 
-		//console.log(state.posts); 
+	if (state.posts){ 
 		listOfPosts = lib.listOfObjectsToArray(state.posts).filter(
-			
 			(post)=>{return !post.deleted}
 		)
    }
-
-	//let listOfComments = null; 
-	//if (state.comments){
-	//	listOfComments = lib.listOfObjectsToArray(state.comments).filter(
-	//		(comment)=>{return !comment.deleted}
-	//	)
-    //}
 
 	return {
 	categories: state.categories,
 	posts: listOfPosts, 
 	comments: state.comments
   }};
-//ref https://classroom.udacity.com/nanodegrees/nd019/parts/7b1b9b53-cd0c-49c9-ae6d-7d03d020d672/modules/c278315d-f6bd-4108-a4a6-139991a50314/lessons/c7a8f8a7-3922-473d-abc0-52870f9fac67/concepts/ee2b83a1-6f39-4392-be7f-acaaa0719f64export {MainView};
 
 export default connect(mapStateToProps)(MainView);
-//export {MainView}

@@ -1,3 +1,14 @@
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//Generic component to handle voting GUI (upvote and downvote buttons)
+//========================================================================================
+
 import React, { Component } from 'react';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';

@@ -1,3 +1,28 @@
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//This component displays post in all views. 
+//Post header and body are common for all views. 
+//Post footer can display different links and information depending 
+//on a particular view. 
+//In default view post footer should show 
+// - voding score with voting buttons 
+// - link to post detailed view 
+// - number of comments 
+//-  button to add comments (links to detailed view and opens comment form)
+
+//In detailed post view post footer should show: 
+// - voting score with voting buttons
+// - button to edit post 
+// - button to delete post 
+// - number of comments 
+// - button to add comments (opens comment form) . 
+//========================================================================================
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
@@ -11,22 +36,6 @@ import EditDeleteButtons from "./EditDeleteButtons"
 import UpdateItem from "./UpdateItem"
 import { asyncEditPost, asyncDeletePost, asyncDownVotePost, asyncUpVotePost} from "../actions/asyncActions"
 
-//This component displays post in all views. 
-//Post header and body are common for all views. 
-//Post footer can display different links and information depending 
-//on a particular view. 
-//In default view post footer should show 
-//- voding score with voting buttons 
-//- link to post detailed view 
-//- number of comments 
-//- button to add comments (links to detailed view and opens comment form)
-
-//In detailed post view post footer should show: 
-//- voting score with voting buttons
-//- button to edit post 
-//- button to delete post 
-//- number of comments 
-//- button to add comments (opens comment form) 
 
 class PostViewSmall extends Component {
     state = {
@@ -38,8 +47,6 @@ class PostViewSmall extends Component {
     }
     
     updatePost=(values)=>{
-
-       // this.props.dispatch(editPost(this.props.post.id, values.author, values.body, values.category, values.title)); 
         this.props.dispatch(asyncEditPost(this.props.post.id, values.title, values.body))
         this.handlePostEditCancel(); 
     }
@@ -51,15 +58,11 @@ class PostViewSmall extends Component {
 
     postConfimedDeleteClick = ()=>{
         this.props.dispatch(asyncDeletePost(this.props.post.id)); 
-        /*this.props.dispatch(deletePost(this.props.post.id));
-        this.props.dispatch(deleteAllCommentsForPost(this.props.post.id));
-        this.props.dispatch(deleteParentOfComments(this.props.post.id));*/
     }
 
 
     render() {
 
-       
         let comments = <span className="number-of-comments">Comments: {this.props.post.numberOfComments}</span>
       
         let postHeader = <div className="row post-header">
@@ -107,7 +110,6 @@ class PostViewSmall extends Component {
         //2. post in detailed view 
         if (this.props.detailedView) {
             if (this.state.showPostUpdateForm){
-                 //return <UpdatePost postId ={this.props.post.id} handlePostEditCancel ={this.handlePostEditCancel}></UpdatePost>
 
                  return <UpdateItem update={this.updatePost} 
                                     cancel={this.handlePostEditCancel} 
@@ -142,5 +144,4 @@ class PostViewSmall extends Component {
     }
 }
 
-//export default PostViewSmall;
 export default connect()(PostViewSmall);

@@ -1,3 +1,15 @@
+//========================================================
+//Readable: React content and comments application
+//2017
+//Author:  developer2020 
+//e-mail:  dev276236@gmail.com
+//========================================================
+
+//========================================================================================
+//Generic component, handling edit and delete GUI buttons.
+//There is a confirmation of delete; actual actions to perform are passed with 
+//props from parenf component. 
+//========================================================================================
 import React, { Component } from 'react';
 import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
