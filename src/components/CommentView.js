@@ -23,10 +23,8 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deleteComment, upvoteComment, downvoteComment } from "../actions/actions"
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
-import { editComment } from "../actions/actions"
 import  UpdateItem  from "./UpdateItem"
 import { asyncEditComment, asyncDeleteComment, asyncUpVoteComment,  asyncDownVoteComment} from "../actions/asyncActions"
 

@@ -29,8 +29,6 @@ import '../libs/bootstrap/dist/css/bootstrap.min.css';
 import './Readable.css';
 import { timeStampToDateAndTime } from '../utils/lib'
 import { connect } from 'react-redux';
-import { deletePost,  deleteAllCommentsForPost, upvotePost,  downvotePost, editPost, deleteParentOfComments} from "../actions/actions"
-
 import Vote from "./Vote"
 import EditDeleteButtons from "./EditDeleteButtons"
 import UpdateItem from "./UpdateItem"

@@ -10,7 +10,7 @@
 //function names are self-explanatory.
 //========================================================================================
 
-import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost, deleteComment, clearListOfCommentsForPost, clearAllPosts } from "./actions";
+import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost, clearListOfCommentsForPost, clearAllPosts } from "./actions";
 import store from '../store/store'
 import * as lib from "../utils/lib"
 
@@ -66,7 +66,7 @@ export function asyncDeleteComment(commentId, parentId) {
         })
 
         return commentPromise.then(function (response) {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 dispatch(fetchPost(parentId)); //this will update all comments as well
             }
         }).catch(function (err) {
@@ -187,7 +187,7 @@ export function asyncDeletePost(postId) {
         })
 
         return postPromise.then(function (response) {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 dispatch(deletePost(postId));
             }
         }).catch(function (err) {

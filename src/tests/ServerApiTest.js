@@ -148,9 +148,9 @@ function testFetchAll() {
 }
 
 function serverApiTestMain() {
-    console.log("hello world from severApiTestMain!");
-    //testFetchAll();
-    //testAddNewPost(); 
+    console.log("severApiTestMain!");
+    testFetchAll();
+    testAddNewPost(); 
     testGetComment("8xf0y6ziyjabvozdd253nd")
 }
 
@@ -187,7 +187,7 @@ function getCommentstAndPosts(numberOfPosts=25, minNumberOfComments=3, maxNumber
 
    for (let i = 0; i<numberOfPosts; i++){
        let postId = lib.generateUUID() 
-       let body = " This is post # " + (i+1)  + " and some more text so it is not completely empty post" + "id = " + postId; 
+       let body = " This is post # " + (i+1)  + " and some more text so it is not completely empty post id = " + postId; 
        let category = categories[getRandomInt(0, categories.length-1)]
        let timestamp = getRandomInt(startDate.getTime(), Date.now()); 
        let voteScore = getRandomInt(0, 250);

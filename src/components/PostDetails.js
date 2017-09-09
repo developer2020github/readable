@@ -18,7 +18,7 @@ import ApplicationHeader from './ApplicationHeader';
 import PostViewSmall from './PostViewSmall';
 import { connect } from 'react-redux';
 import ListOfComments from "./ListOfComments"
-import { fetchPost, fetchCommentsForPost, asyncFetchAllCategories } from "../actions/asyncActions"
+import { fetchPost,  asyncFetchAllCategories } from "../actions/asyncActions"
 
 
 class PostDetails extends Component {

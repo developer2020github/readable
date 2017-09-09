@@ -20,7 +20,6 @@ import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
 import CommentView from "./CommentView"
 import UpdateItem from "./UpdateItem"
-import { addComment } from "../actions/actions"
 import { fetchCommentsForPost, asyncAddComment }  from "../actions/asyncActions"
 
 class ListOfComments extends Component {
