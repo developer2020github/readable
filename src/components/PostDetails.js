@@ -86,7 +86,11 @@ const mapStateToProps = (state, props) => {
 	let currentPost = null;
 
 	if (state.posts && state.posts.hasOwnProperty(props.match.params.postID)) {
+	
 		currentPost = state.posts[props.match.params.postID];
+		if ((!props.match.params.category)||(currentPost.category!==props.match.params.category)){
+			currentPost=null; 
+		}
 	}
 	return {
 		categories: state.categories,

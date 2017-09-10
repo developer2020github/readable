@@ -77,9 +77,9 @@ class PostViewSmall extends Component {
 
         //1. post in the main view 
         if (this.props.mainView) {
-            let linkToPostDetailedView = <Link className="post-footer-link" to={"/posts/" + this.props.post.id}>details</Link>;
+            let linkToPostDetailedView = <Link className="post-footer-link" to={"/posts/" + this.props.post.category + "/" + this.props.post.id}>details</Link>;
             let linkToAddComment = <Link className="post-footer-link" to={{
-                pathname: "/posts/" + this.props.post.id,
+                pathname: "/posts/" + this.props.post.category + "/" + this.props.post.id,
                 query: "addComment"
             }}>New comment</Link>;
 
