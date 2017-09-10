@@ -20,6 +20,7 @@ import * as SortSelectItems from './SortSelect'
 import SortSelect from './SortSelect'
 import UpdateItem from "./UpdateItem"
 import { asyncFetchAllPosts, asyncFetchAllCategories, asyncAddPost } from "../actions/asyncActions"
+import  DefaultPage  from "./DefaultPage"
 
 class MainView extends Component {
 	constructor(){
@@ -41,9 +42,13 @@ class MainView extends Component {
 	}
 
 	componentDidMount(){
+		
 			this.props.dispatch(asyncFetchAllPosts())
 			this.props.dispatch(asyncFetchAllCategories())
+	
 	}
+
+	
 
 	createNewPost =(values)=>{
 
@@ -69,8 +74,12 @@ class MainView extends Component {
 		                                           //this is a better option than keeping the entire list of posts in state - there is no need for this. 
 	}
 	
+	componentWillReceiveProps(newProps){
+		this.setState({selectedCategory: newProps.selectedCategory})
+	}
 
 	render(){
+	
 		let dataAvailable = this.props.posts&&this.props.categories; 
 		
 		if (!dataAvailable){
@@ -85,10 +94,20 @@ class MainView extends Component {
 				</div>
 				)
 		}
-
+	
 	
         let posts = this.props.posts; 
 		let categories = ["all", ...this.props.categories]; 
+		if (!(categories.includes(this.state.selectedCategory))){
+			return <DefaultPage/>
+		}
+        let includeLinkToHomePage = false; 
+		if (this.props.selectedCategory===this.state.selectedCategory&&this.props.selectedCategory!=="all"){
+			//disable selectetion if user is in a specific category page
+			categories = [this.state.selectedCategory]; 
+			includeLinkToHomePage=true; 
+		}
+	    	
 		let filteredPosts = posts.filter(
 			(p)=>{
 					return (p.category===this.state.selectedCategory||this.state.selectedCategory==="all")
@@ -112,7 +131,7 @@ class MainView extends Component {
 		return (
 
 			<div className="container">
-				<ApplicationHeader />
+				<ApplicationHeader includeLink={includeLinkToHomePage} />
 				<div className="row">
 
 					<div className="col-md-2 col-md-offset-2">
@@ -161,6 +180,15 @@ class MainView extends Component {
 const mapStateToProps = (state, props) => { 
 	
 	let listOfPosts = null; 
+	let selectedCategory = "all"
+	let categories = []; 
+	if (state.categories){
+		categories = state.categories; 
+		if (props.match&&props.match.params&&props.match.params.category){
+			selectedCategory=props.match.params.category; 
+		}
+	}
+    
 	if (state.posts){ 
 		listOfPosts = lib.listOfObjectsToArray(state.posts).filter(
 			(post)=>{return !post.deleted}
@@ -168,9 +196,10 @@ const mapStateToProps = (state, props) => {
    }
 
 	return {
-	categories: state.categories,
+	categories,
 	posts: listOfPosts, 
-	comments: state.comments
+	comments: state.comments, 
+	selectedCategory
   }};
 
 export default connect(mapStateToProps)(MainView);

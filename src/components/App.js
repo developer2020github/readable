@@ -23,6 +23,7 @@ class App extends Component {
         <Switch>
 
             <Route exact path="/"><MainView/></Route>
+            <Route path="/:category" component={MainView}/>
             <Route path ="/posts/:postID"component={PostDetails}/>
             <Route component={DefaultPage}/>
 
