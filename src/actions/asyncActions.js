@@ -10,7 +10,11 @@
 //function names are self-explanatory.
 //========================================================================================
 
-import { addPost, addCategories, addComment, updateNumberOfCommentsForPost, deletePost, clearListOfCommentsForPost, clearAllPosts } from "./actions";
+import { addPost, updateNumberOfCommentsForPost, deletePost, clearAllPosts } from "./posts";
+import { addComment, clearListOfCommentsForPost  } from "./comments";
+import { addCategories} from "./actions";
+
+
 import store from '../store/store'
 import * as lib from "../utils/lib"
 

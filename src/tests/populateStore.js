@@ -10,6 +10,8 @@
 //Testing module; used to populate store for local testing
 //(without server). Not used in release mode.
 //========================================================================================
+import * as postActions from "../actions/posts"
+import * as commentActions from "../actions/comments"
 import * as actions from "../actions/actions"
 import { getCommentstAndPosts } from "./ServerApiTest"
 function addCategories(store){
@@ -24,14 +26,14 @@ function addPostsAndComments(store){
 
    for (let postId in postsAndComments.posts){
         let post = postsAndComments.posts[postId];     
-        store.dispatch(actions.addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id)); 
+        store.dispatch(postActions.addPost(post.author, post.body, post.category, post.title, post.timestamp, post.voteScore, post.id)); 
    }
 
    for (let commentId in postsAndComments.comments){
        let comment = postsAndComments.comments[commentId];
      //  console.log("adding comment") ; 
  
-       store.dispatch(actions.addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id)); 
+       store.dispatch(commentActions.addComment(comment.parentId, comment.body, comment.author, comment.timestamp, comment.voteScore, comment.id)); 
    }
 }
 
