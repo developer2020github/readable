@@ -9,8 +9,7 @@
 //This module defines normal Redux actions for posts used to update local Redux store
 //========================================================================================
 
-import * as lib from '../utils/lib'; 
-import { DEFAULT_VOTE_SCORE, add }  from "./common"
+import { add }  from "./common"
 
 //=========================================================================
 //Action type defintions 

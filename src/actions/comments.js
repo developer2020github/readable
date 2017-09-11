@@ -9,8 +9,7 @@
 //This module defines normal Redux actions used to update local Redux store for comments
 //========================================================================================
 
-import * as lib from '../utils/lib'; 
-import { DEFAULT_VOTE_SCORE, add }  from "./common"
+import { add }  from "./common"
 //=========================================================================
 //Action type defintions 
 export const ADD_NEW_COMMENT = Symbol("ADD_NEW_COMMENT");   
