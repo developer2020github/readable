@@ -121,7 +121,7 @@ class MainView extends Component {
 			 						  cancel={this.setHideShowNewPostForm} 
 									  itemId={null} 
 									  showTitleEntryField={true} 
-									  showCategories={true}
+									  showCategoriesSelect={true}
 									  showAuthorEntryField={true}
 									  bodyHeader="Post :" 
 									  submitButtonName="Create post"
